@@ -31,7 +31,7 @@ public interface VOCitaMedica
 	
 	public long getIdCita();
 	
-	public boolean getLlego();
+	public int getLlego();
 	
 	public int getSesiones();
 	
@@ -39,7 +39,7 @@ public interface VOCitaMedica
 	
 	public long getIdServicio();
 	
-	public long getIdOrden();
+	//public long getIdOrden();
 
 	/** 
 	 * @return Una cadena con la información básica

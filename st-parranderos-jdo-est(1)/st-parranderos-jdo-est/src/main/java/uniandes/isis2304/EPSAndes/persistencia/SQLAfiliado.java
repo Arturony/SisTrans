@@ -1,17 +1,4 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
+
 
 package uniandes.isis2304.EPSAndes.persistencia;
 
@@ -24,10 +11,7 @@ import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto BEBIDA de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
- * @author Germán Bravo
+ * @author 
  */
 class SQLAfiliado 
 {
@@ -59,7 +43,18 @@ class SQLAfiliado
 	{
 		this.pp = pp;
 	}
-	
+	public long adicionarOrden(PersistenceManager pm, long idAfiliado, long idServicioSalud, long idOrden)
+	{
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaOrdenes() + "(ordenesID, afiliadoID, servicioID) values (?, ?, ?)");
+        q.setParameters(idOrden,idAfiliado,  idServicioSalud );
+        return (long) q.executeUnique();
+	}
+	public long adicionarCitaMedica(PersistenceManager pm, long idAfiliado, long idCitaMedica, int sesiones, String horario, int llego, long serviciosSaludId)
+	{
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCitas() + "(horario, llego, sesiones,citaMedicaID,afiliadoID,servicioSaludID) values (?, ?, ?, ?, ?,?)");
+        q.setParameters(horario,llego,sesiones,idCitaMedica,  idAfiliado, serviciosSaludId );
+        return (long) q.executeUnique();
+	}
 	
 
 }

@@ -34,7 +34,7 @@ public class CitaMedica implements VOCitaMedica
 	
 	private long idCita;
 	
-	private boolean llego;
+	private int llego;
 	
 	private int sesiones;
 	
@@ -42,7 +42,8 @@ public class CitaMedica implements VOCitaMedica
 	
 	private long idServicio;
 	
-	private long idOrden;
+	
+	//private long idOrden;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -56,20 +57,20 @@ public class CitaMedica implements VOCitaMedica
 		this.horario = "";
 		this.idCita = 0;
 		this.sesiones = 0;
-		this.llego = false;
-		this.idOrden = 0;
+		this.llego = 0;
+		//this.idOrden = 0;
 	}
 
 	
-	public CitaMedica (long idServicio, long idAfiliado, String horario, long idCita, int sesiones, boolean llego, long idOrden) 
+	public CitaMedica (long idServicio, long idAfiliado, String horario, long idCita, int sesiones, int llego, long idOrden) 
 	{
 		this.idServicio = idServicio;
 		this.idAfiliado = idAfiliado;
 		this.horario = horario;
 		this.idCita = idCita;
 		this.sesiones = sesiones;
-		this.llego = llego;
-		this.idOrden = idOrden;
+		this.llego =llego;
+		//this.idOrden = idOrden;
 	}
 	
 	
@@ -94,12 +95,12 @@ public class CitaMedica implements VOCitaMedica
 	}
 
 
-	public boolean getLlego() {
+	public int getLlego() {
 		return llego;
 	}
 
 
-	public void setLlego(boolean llego) {
+	public void setLlego(int llego) {
 		this.llego = llego;
 	}
 
@@ -132,7 +133,7 @@ public class CitaMedica implements VOCitaMedica
 	public void setIdServicio(long idServicio) {
 		this.idServicio = idServicio;
 	}
-	
+	/*
 	public long getIdOrden() {
 		return idOrden;
 	}
@@ -141,7 +142,7 @@ public class CitaMedica implements VOCitaMedica
 	public void setIdOrden(long idOrden) {
 		this.idOrden = idOrden;
 	}
-
+*/
 
 	/** 
 	 * @return Una cadena con la información básica
@@ -150,6 +151,6 @@ public class CitaMedica implements VOCitaMedica
 	public String toString() 
 	{
 		return "Cita Medica [idCita=" + idCita + ", horario=" + horario +", sesiones="+ sesiones + ", idAfiliado="
-	+ idAfiliado + ", idOrden=" + idOrden + ", idServicio= " +idServicio + ", llego=" +llego+ "]";
+	+ idAfiliado  + ", idServicio= " +idServicio + ", llego=" +llego+ "]";
 	}
 }
