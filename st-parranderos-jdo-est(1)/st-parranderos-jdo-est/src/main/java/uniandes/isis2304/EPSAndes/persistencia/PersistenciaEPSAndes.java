@@ -286,6 +286,16 @@ public class PersistenciaEPSAndes
 		return tablas.get (7);
 	}
 	
+	public String darTablaCitas ()
+	{
+		return tablas.get (8);
+	}
+	
+	public String darTablaOrdenes ()
+	{
+		return tablas.get (7);
+	}
+	
 	/**
 	 * Transacción para el generador de secuencia de Parranderos
 	 * Adiciona entradas al log de la aplicación
