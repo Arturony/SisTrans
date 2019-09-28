@@ -16,35 +16,31 @@
 package uniandes.isis2304.parranderos.negocio;
 
 /**
- * Clase para modelar la relación SIRVEN del negocio de los Parranderos:
+ * 
  * Cada objeto de esta clase representa el hecho que un bar sirve una bebida y viceversa.
  * Se modela mediante los identificadores del bar y de la bebida respectivamente
  * Debe existir un bar con el identificador dado
  * Debe existir una bebida con el identificador dado 
  * Adicionalmente contiene el horario (DIURNO, NOCTURNO, TODOS) en el cual el bar sirve la bebida
  * 
- * @author Germán Bravo
+ * @author
  */
 public class CitaMedica implements VOCitaMedica
 {
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	/**
-	 * El identificador del bar que sirve la bebida
-	 */
-	private long idBar;
-	
-	/**
-	 * El identificador de la bebida que es servida en el bar
-	 */
-	private long idBebida;
-	
-	/**
-	 * El horario en que sirve la bebida en el bar (DIURNO, NOCTURNO, TODOS)
-	 */
 	private String horario;
-
+	
+	private long idCita;
+	
+	private boolean llego;
+	
+	private int sesiones;
+	
+	private long idAfiliado;
+	
+	private long idServicio;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -53,71 +49,86 @@ public class CitaMedica implements VOCitaMedica
 	 */
 	public CitaMedica () 
 	{
-		this.idBar = 0;
-		this.idBebida = 0;
+		this.idServicio = 0;
+		this.idAfiliado = 0;
 		this.horario = "";
+		this.idCita = 0;
+		this.sesiones = 0;
+		this.llego = false;
 	}
 
-	/**
-	 * Constructor con valores
-	 * @param idBar - El identificador del bar. Debe exixtir un bar con dicho identificador
-	 * @param idBebida - El identificador de la bebida. Debe existir una bebida con dicho identificador
-	 * @param horario - El horario en el que el bar sirve la bebida (DIURNO, NOCTURNO, TODOS)
-	 */
-	public CitaMedica (long idBar, long idBebida, String horario) 
+	
+	public CitaMedica (long idServicio, long idAfiliado, String horario, long idCita, int sesiones, boolean llego) 
 	{
-		this.idBar = idBar;
-		this.idBebida = idBebida;
+		this.idServicio = idServicio;
+		this.idAfiliado = idAfiliado;
 		this.horario = horario;
+		this.idCita = idCita;
+		this.sesiones = sesiones;
+		this.llego = llego;
 	}
+	
+	
 
-	/**
-	 * @return El idBar
-	 */
-	public long getIdBar() 
-	{
-		return idBar;
-	}
-
-	/**
-	 * @param idBar - El nuevo identificador de bar. Debe existir un bar con dicho identificador
-	 */
-	public void setIdBar(long idBar) 
-	{
-		this.idBar = idBar;
-	}
-
-	/**
-	 * @return El idBebida
-	 */
-	public long getIdBebida() 
-	{
-		return idBebida;
-	}
-
-	/**
-	 * @param idBebida - El nuevo identificador de bebida. Debe existir una bebida con dicho identificador
-	 */
-	public void setIdBebida(long idBebida) 
-	{
-		this.idBebida = idBebida;
-	}
-
-	/**
-	 * @return El horario en que el bar sirve la bebida
-	 */
-	public String getHorario() 
-	{
+	public String getHorario() {
 		return horario;
 	}
 
-	/**
-	 * @param horario - El nuevo horario en que el bar sirve la bebida (DIURNO, NOCTURNO, TODOS)
-	 */
-	public void setHorario(String horario) 
-	{
+
+	public void setHorario(String horario) {
 		this.horario = horario;
 	}
+
+
+	public long getIdCita() {
+		return idCita;
+	}
+
+
+	public void setIdCita(long idCita) {
+		this.idCita = idCita;
+	}
+
+
+	public boolean getLlego() {
+		return llego;
+	}
+
+
+	public void setLlego(boolean llego) {
+		this.llego = llego;
+	}
+
+
+	public int getSesiones() {
+		return sesiones;
+	}
+
+
+	public void setSesiones(int sesiones) {
+		this.sesiones = sesiones;
+	}
+
+
+	public long getIdAfiliado() {
+		return idAfiliado;
+	}
+
+
+	public void setIdAfiliado(long idAfiliado) {
+		this.idAfiliado = idAfiliado;
+	}
+
+
+	public long getIdServicio() {
+		return idServicio;
+	}
+
+
+	public void setIdServicio(long idServicio) {
+		this.idServicio = idServicio;
+	}
+
 
 	/** 
 	 * @return Una cadena con la información básica
@@ -125,6 +136,6 @@ public class CitaMedica implements VOCitaMedica
 	@Override
 	public String toString() 
 	{
-		return "Sirven [idBar=" + idBar + ", idBebida=" + idBebida + ", horario=" + horario + "]";
+		return "Sirven [idBar=" + ", horario=" + horario + "]";
 	}
 }

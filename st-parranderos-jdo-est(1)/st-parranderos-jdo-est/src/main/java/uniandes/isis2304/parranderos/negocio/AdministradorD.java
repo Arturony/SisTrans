@@ -30,7 +30,7 @@ public class AdministradorD implements VOAdministradorD
 	
 	private String correo;
 	
-	private String documento;
+	private long idAdmin;
 	
 	private String nombre;
 	
@@ -47,16 +47,16 @@ public class AdministradorD implements VOAdministradorD
 		this.contrasenia = "Default";
 		this.nombre = "Default";
 		this.correo = "Default";
-		this.documento = "10000";
+		this.idAdmin = 10000;
 		this.idEps = 0;
 	}
 
-	public AdministradorD(String nombre, String correo, String contrasenia, String documento, long idEps) 
+	public AdministradorD(String nombre, String correo, String contrasenia, long documento, long idEps) 
 	{
 		this.contrasenia = contrasenia;
 		this.nombre = nombre;
 		this.correo = correo;
-		this.documento = documento;
+		this.idAdmin = documento;
 		this.idEps = 0;
 	}
 
@@ -78,12 +78,12 @@ public class AdministradorD implements VOAdministradorD
 		this.correo = correo;
 	}
 
-	public String getDocumento() {
-		return documento;
+	public long getIdAdmin() {
+		return idAdmin;
 	}
 
-	public void setDocumento(String documento) {
-		this.documento = documento;
+	public void setIdAdmin(long documento) {
+		this.idAdmin = documento;
 	}
 
 	public String getNombre() {

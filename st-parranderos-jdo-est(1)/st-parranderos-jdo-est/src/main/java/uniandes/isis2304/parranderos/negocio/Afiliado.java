@@ -36,7 +36,7 @@ public class Afiliado implements VOAfiliado
 	
 	private long idEps;
 	
-	private long idTipo;
+	private String tipo;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -49,17 +49,17 @@ public class Afiliado implements VOAfiliado
 		this.nombre = "Default";
 		this.correo = "Default";
 		this.documento = "10000";
-		this.idTipo = 0;
+		this.tipo = "Default";
 		this.idEps = 0;
 	}
 
-	public Afiliado(long idDocumento, String nombre, String correo, String contrasenia, String documento, long idEps) 
+	public Afiliado(String tipo, String nombre, String correo, String contrasenia, String documento, long idEps) 
 	{
 		this.contrasenia = contrasenia;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.documento = documento;
-		this.idTipo = idDocumento;
+		this.tipo = tipo;
 		this.idEps = idEps;
 	}
 
@@ -95,12 +95,12 @@ public class Afiliado implements VOAfiliado
 		this.nombre = nombre;
 	}
 
-	public long getIdTipo() {
-		return idTipo;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setIdTipo(long idTipo) {
-		this.idTipo = idTipo;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 	public long getIdEps() {
@@ -117,7 +117,7 @@ public class Afiliado implements VOAfiliado
 	@Override
 	public String toString() 
 	{
-		return "Bebida [id=" + idTipo + ", nombre=" + nombre + ", idTipoBebida=" + documento + ", gradoAlcohol=" + correo + "]";
+		return "Bebida [id=" + ", nombre=" + nombre + ", idTipoBebida=" + documento + ", gradoAlcohol=" + correo + "]";
 	}
 
 }

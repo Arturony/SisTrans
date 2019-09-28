@@ -16,30 +16,28 @@
 package uniandes.isis2304.parranderos.negocio;
 
 /**
- * Interfaz para los métodos get de SIRVEN.
+ * Interfaz para los métodos get.
  * Sirve para proteger la información del negocio de posibles manipulaciones desde la interfaz 
  * 
- * @author Germán Bravo
+ * @author
  */
 public interface VOCitaMedica 
 {
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
-	/**
-	 * @return El idBar
-	 */
-	public long getIdBar();
-
-	/**
-	 * @return El idBebida
-	 */
-	public long getIdBebida();
-
-	/**
-	 * @return El horario en que el bar sirve la bebida
-	 */
+	
 	public String getHorario();
+	
+	public long getIdCita();
+	
+	public boolean getLlego();
+	
+	public int getSesiones();
+	
+	public long getIdAfiliado();
+	
+	public long getIdServicio();
 
 	/** 
 	 * @return Una cadena con la información básica

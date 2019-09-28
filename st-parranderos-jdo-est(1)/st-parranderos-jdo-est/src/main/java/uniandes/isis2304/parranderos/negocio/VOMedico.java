@@ -27,7 +27,7 @@ public interface VOMedico
 	 * 			Métodos
 	 *****************************************************************/
 
-	public long getId();
+	public long getIdMedico();
 	
 	public int getNumeroRegistro();
 	

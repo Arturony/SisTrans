@@ -33,7 +33,7 @@ public interface VOAfiliado
 	
 	public String getDocumento();
 	
-	public long getIdTipo();
+	public String getTipo();
 
 	/**
 	 * @return Una cadena con la información básica de la bebida

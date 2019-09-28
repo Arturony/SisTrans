@@ -35,7 +35,7 @@ public interface VOAdministradorD
 	
 	public String getCorreo();
 	
-	public String getDocumento();
+	public long getIdAdmin();
 
 	/**
 	 * @return Una cadena de caracteres con la información del tipo

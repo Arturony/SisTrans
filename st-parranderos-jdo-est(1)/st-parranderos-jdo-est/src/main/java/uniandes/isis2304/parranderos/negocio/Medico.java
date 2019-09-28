@@ -31,7 +31,7 @@ public class Medico implements VOMedico
 	 *****************************************************************/
 	private long idTipo;
 	
-	private long id;
+	private long idMedico;
 	
 	private String nombre;
 	
@@ -45,7 +45,7 @@ public class Medico implements VOMedico
 	public Medico() 
 	{
 		this.idTipo = 0;
-		this.id = 0;
+		this.idMedico = 0;
 		this.nombre = "Default";
 		this.numeroRegistro = 0;
 	}
@@ -58,7 +58,7 @@ public class Medico implements VOMedico
 	public Medico(long idTipo, long id, String nombre, int numeroRegistro) 
 	{
 		this.idTipo = idTipo;
-		this.id = id;
+		this.idMedico = id;
 		this.nombre = nombre;
 		this.numeroRegistro = numeroRegistro;
 	}
@@ -73,12 +73,12 @@ public class Medico implements VOMedico
 		this.idTipo = idTipo;
 	}
 
-	public long getId() {
-		return id;
+	public long getIdMedico() {
+		return idMedico;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setIdMedico(long id) {
+		this.idMedico = id;
 	}
 
 	public String getNombre() {
