@@ -1,68 +1,45 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 
 package uniandes.isis2304.parranderos.negocio;
 
-import java.sql.Timestamp;
-import java.util.LinkedList;
-import java.util.List;
+
+
 
 /**
- * Clase para modelar el concepto BEBEDOR del negocio de los Parranderos
- *
- * @author Germán Bravo
+ * @author 
  */
 public class IPS implements VOIPS
 {
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO del bebedor
-	 */
-	private long id;	
 	
-	/**
-	 * El nombre del bebedor
-	 */
+	private long idIPS;	
+	
+	
 	private String nombre;
 	
-	/**
-	 * La ciudad del bebedor
-	 */
-	private String ciudad;
 	
-	/**
-	 * El presupuesto del bebedor (ALTO, MEDIO, BAJO)
-	 */
+	private String localizacion;
+	
+	
 	private String presupuesto;
+	
+	private long idEps;
 	
 	/**
 	 * Las visitas realizadas por el bebedor. 
 	 * Cada visita es una tripleta de objetos [Bar, Timestamp, String], que representan el bar, la fecha 
 	 * y el horario en que el bebedor realizó la visita
-	 */
+	 
 	private List<Object []> visitasRealizadas;
 
 	/**
 	 * Las bebidas que le gustan el bebedor. 
 	 * Cada visita es una pareja de objetos [Bebida, String], que representan la bebida y el nombre del 
 	 * tipo de bebida que le gustan al bebedor 
-	 */
-	private List<Object []> bebidasQueLeGustan;
 	
+	private List<Object []> bebidasQueLeGustan;
+	*/
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -71,12 +48,12 @@ public class IPS implements VOIPS
 	 */
 	public IPS() 
 	{
-		this.id = 0;
+		this.idIPS = 0;
 		this.nombre = "";
-		this.ciudad = "";
-		this.presupuesto = "";
-		visitasRealizadas = new LinkedList<Object []> ();
-		bebidasQueLeGustan = new LinkedList<Object []> ();
+		this.localizacion = "";
+		this.idEps = 0;
+
+
 	}
 
 	/**
@@ -86,113 +63,65 @@ public class IPS implements VOIPS
 	 * @param ciudad - La ciudad del bebedor
 	 * @param presupuesto - El presupuesto del bebedor (ALTO, MEDIO, BAJO)
 	 */
-	public IPS(long id, String nombre, String ciudad, String presupuesto) 
+	public IPS(long id, String nombre, String ciudad, long ideps) 
 	{
-		this.id = id;
+		this.idIPS = id;
 		this.nombre = nombre;
-		this.ciudad = ciudad;
-		this.presupuesto = presupuesto;
+		this.localizacion = ciudad;
+		this.idEps = ideps;
 		
 		// Estos valores no se conocen en el momento de la construcción del bebedor
-		visitasRealizadas = new LinkedList<Object []> ();
-		bebidasQueLeGustan = new LinkedList<Object []> ();
+	//	visitasRealizadas = new LinkedList<Object []> ();
+		//bebidasQueLeGustan = new LinkedList<Object []> ();
 	}
 
-	/**
-	 * @return El id del bebedor
-	 */
-	public long getId() 
+	
+	public long getIdIps() 
 	{
-		return id;
+		return idIPS;
 	}
 
-	/**
-	 * @param id - El nuevo id del bebedor
-	 */
-	public void setId(long id) 
+	public void setIdIps(long id) 
 	{
-		this.id = id;
+		this.idIPS = id;
+	}
+	
+	public long getIdEps() 
+	{
+		return idEps;
 	}
 
-	/**
-	 * @return El nombre del bebedor
-	 */
+	public void setIdEps(long id) 
+	{
+		this.idEps = id;
+	}
+
+
+
 	public String getNombre() 
 	{
 		return nombre;
 	}
 
-	/**
-	 * @param nombre - El nuevo nombre del bebedor
-	 */
+
 	public void setNombre(String nombre) 
 	{
 		this.nombre = nombre;
 	}
 
-	/**
-	 * @return La ciudad del bebedor
-	 */
-	public String getCiudad() 
+
+	public String getLocalizacion() 
 	{
-		return ciudad;
+		return localizacion;
 	}
 
-	/**
-	 * @param ciudad - La nueva ciudad del bebedor
-	 */
-	public void setCiudad(String ciudad) 
+
+	public void setCiudad(String loca) 
 	{
-		this.ciudad = ciudad;
+		this.localizacion = loca;
 	}
 
-	/**
-	 * @return El presupuesto del bebedor
-	 */
-	public String getPresupuesto() 
-	{
-		return presupuesto;
-	}
 
-	/**
-	 * @param presupuesto - El nuevo presupuesto del bebedor
-	 */
-	public void setPresupuesto(String presupuesto) 
-	{
-		this.presupuesto = presupuesto;
-	}
-
-	/**
-	 * @return La lista de visitasRealizadas por el bebedor 
-	 */
-	public List<Object []> getVisitasRealizadas() 
-	{
-		return visitasRealizadas;
-	}
-
-	/**
-	 * @param visitasRealizadas - La nueva lista de visitas del bebedor
-	 */
-	public void setVisitasRealizadas (List<Object []> visitasRealizadas) 
-	{
-		this.visitasRealizadas = visitasRealizadas;
-	}
-
-	/**
-	 * @return Las bebidasQueLeGustan al bebedor
-	 */
-	public List<Object[]> getBebidasQueLeGustan() 
-	{
-		return bebidasQueLeGustan;
-	}
-
-	/**
-	 * @param bebidasQueLeGustan - La nueva lista de bebidas que le gustan al bebedor
-	 */
-	public void setBebidasQueLeGustan(List<Object[]> bebidasQueLeGustan) 
-	{
-		this.bebidasQueLeGustan = bebidasQueLeGustan;
-	}
 
 	/**
 	 * @return Una cadena de caracteres con la información básica del bebedor
@@ -200,15 +129,14 @@ public class IPS implements VOIPS
 	@Override
 	public String toString() 
 	{
-		return "Bebedor [id=" + id + ", nombre=" + nombre + ", ciudad=" + ciudad + ", presupuesto=" + presupuesto + "]";
+		return "Bebedor con" + idIPS + ", nombre=" + nombre + ", localizacion=" + localizacion + ", idEps=" + presupuesto;
 	}
 
 	/**
 	 * @return Una cadena de caracteres con la información COMPLEtA del bebedor.
 	 * Además de la información básica, contiene las visitas realizadas (una por línea) y 
 	 * las bebidas que le gustan al bebedor (una por línea)
-	 */
-	public String toStringCompleto () 
+	 	public String toStringCompleto () 
 	{
 		String resp =  this.toString();
 		resp += "\n --- Visitas realizadas\n";
@@ -230,5 +158,6 @@ public class IPS implements VOIPS
 		}
 		return resp;
 	}
+*/
 
 }

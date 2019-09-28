@@ -1,56 +1,28 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
+
 
 package uniandes.isis2304.parranderos.negocio;
 
-import java.sql.Timestamp;
 
 /**
- * Clase para modelar la relación VISITAN del negocio de los Parranderos:
- * Cada objeto de esta clase representa el hecho que un bebedor visitó un bar y viceversa.
- * Se modela mediante los identificadores del bebedor y del bar respectivamente
- * Debe existir un bebedor con el identificador dado
- * Debe existir un bar con el identificador dado 
- * Adicionalmente contiene la fecha y el horario (DIURNO, NOCTURNO, TODOS) en el cual el bebedor visitó el bar
- * 
- * @author Germán Bravo
+ * @author
  */
 public class Gerente implements VOGerente
 {
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	/**
-	 * El identificador del bebedor que realiza la visita
-	 */
-	private long idBebedor;
 	
-	/**
-	 * El identificador del bar visitado
-	 */
-	private long idBar;
+	private long idGerente;
 	
-	/**
-	 * La fecha de la visita
-	 */
-	private Timestamp fechaVisita;
 	
-	/**
-	 * El horario en que se realizó la visita (DIURNO, NOCTURNO, TODOS)
-	 */
-	private String horario;
+	private String nombre;
+	
+	
+	private String correo;
+	
+	/*el documento puede ser C.C o Pasaporte
+	*/
+	private String tipoDocumento;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -60,89 +32,66 @@ public class Gerente implements VOGerente
 	 */
 	public Gerente() 
 	{
-		this.idBebedor = 0;
-		this.idBar = 0;
-		this.horario = "";
-		this.fechaVisita = new Timestamp (0);
+		this.idGerente = 0;
+		this.nombre="";
+		this.tipoDocumento = "";
+		this.correo = "";
 	}
 
-	/**
-	 * Constructor con valores
-	 * @param idBebedor - El identificador del b ebedor. Debe existir un bebedor con dicho identificador
-	 * @param idBar - El identificador del bar. Debe exixtir un bar con dicho identificador
-	 * @param fechaVisita - La fecha en la cual se realiza la visita
-	 * @param horario - El horario en el que el bebedor vista el bar (DIURNO, NOCTURNO, TODOS)
-	 */
-	public Gerente(long idBebedor, long idBar, Timestamp fechaVisita, String horario) 
+
+	public Gerente(long idBebedor, String nomr, String correoe, String horario) 
 	{
-		this.idBebedor = idBebedor;
-		this.idBar = idBar;
-		this.fechaVisita = fechaVisita;
-		this.horario = horario;
+		this.idGerente = idBebedor;
+		this.correo = correoe;
+		this.nombre = nomr;
+		this.tipoDocumento = horario;
 	}
 
-	/**
-	 * @return El idBebedor
-	 */
-	public long getIdBebedor() 
+
+	public long getIdGerente() 
 	{
-		return idBebedor;
+		return idGerente;
 	}
 
-	/**
-	 * @param idBebedor - El nuevo idBebedor. Debe existir un bebedor con dicho identificador
-	 */
 	public void setIdBebedor(long idBebedor) 
 	{
-		this.idBebedor = idBebedor;
+		this.idGerente = idBebedor;
+	}
+
+	
+	public String getNombre() 
+	{
+		return nombre;
+	}
+
+	public void setNombre(String nombree) 
+	{
+		this.nombre = nombree;
+	}
+
+
+	public String getCorreo() 
+	{
+		return correo;
+	}
+
+	
+	public void setFechaVisita(String correeo) 
+	{
+		this.correo = correeo;
+	}
+
+	public String getTipoDocumento() 
+	{
+		return tipoDocumento;
 	}
 
 	/**
-	 * @return El idBar
+	 * @param Documento - El nuevo TipoGerente se genero (PASAPORTE, C.C)
 	 */
-	public long getIdBar() 
+	public void setDocumento(String tipo) 
 	{
-		return idBar;
-	}
-
-	/**
-	 * @param idBar - El nuevo idBar. Debe exixtir un bar con dicho identificador
-	 */
-	public void setIdBar(long idBar) 
-	{
-		this.idBar = idBar;
-	}
-
-	/**
-	 * @return La fechaVisita
-	 */
-	public Timestamp getFechaVisita() 
-	{
-		return fechaVisita;
-	}
-
-	/**
-	 * @param fechaVisita - La nueva fecha de visita al bar por el bebedor
-	 */
-	public void setFechaVisita(Timestamp fechaVisita) 
-	{
-		this.fechaVisita = fechaVisita;
-	}
-
-	/**
-	 * @return El horario
-	 */
-	public String getHorario() 
-	{
-		return horario;
-	}
-
-	/**
-	 * @param horario - El nuevo horario en que se realizó la visita (DIURNO, NOCTURNO, TODOS)
-	 */
-	public void setHorario(String horario) 
-	{
-		this.horario = horario;
+		this.tipoDocumento = tipo;
 	}
 
 	/** 
@@ -151,7 +100,7 @@ public class Gerente implements VOGerente
 	@Override
 	public String toString() 
 	{
-		return "Visitan [idBebedor=" + idBebedor + ", idBar=" + idBar + ", fechaVisita=" + fechaVisita + ", horario="
-				+ horario + "]";
+		return "El gerente " + idGerente + ", correo=" + correo + ", nombre" + nombre + ", con tipo documento"
+				+ tipoDocumento;
 	}
 }
