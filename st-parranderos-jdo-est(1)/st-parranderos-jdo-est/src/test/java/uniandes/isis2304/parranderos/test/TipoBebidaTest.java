@@ -28,8 +28,9 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
-import uniandes.isis2304.parranderos.negocio.EPSAndes;
-import uniandes.isis2304.parranderos.negocio.VOAdministradorD;
+
+import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
+import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
 
 /**
  * Clase con los métdos de prueba de funcionalidad sobre TIPOBEBIDA
