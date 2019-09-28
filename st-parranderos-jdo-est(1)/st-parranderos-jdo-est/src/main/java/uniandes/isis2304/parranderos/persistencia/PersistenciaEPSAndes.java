@@ -1,17 +1,3 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 
 package uniandes.isis2304.parranderos.persistencia;
 
@@ -40,14 +26,8 @@ import uniandes.isis2304.parranderos.negocio.AdministradorD;
 import uniandes.isis2304.parranderos.negocio.Gerente;
 
 /**
- * Clase para el manejador de persistencia del proyecto Parranderos
- * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
- * Sigue un patrón SINGLETON (Sólo puede haber UN objeto de esta clase) para comunicarse de manera correcta
- * con la base de datos
- * Se apoya en las clases SQLBar, SQLBebedor, SQLBebida, SQLGustan, SQLSirven, SQLTipoBebida y SQLVisitan, que son 
- * las que realizan el acceso a la base de datos
  * 
- * @author Germán Bravo
+ * @author 
  */
 public class PersistenciaEPSAndes 
 {
@@ -91,37 +71,45 @@ public class PersistenciaEPSAndes
 	/**
 	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
 	 */
-	private SQLMedico sqlTipoBebida;
+	private SQLMedico sqlMedico;
 	
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
 	 */
-	private SQLAfiliado sqlBebida;
+	private SQLAfiliado sqlAfiliado;
 	
 	/**
 	 * Atributo para el acceso a la tabla BAR de la base de datos
 	 */
-	private SQLEPS sqlBar;
+	private SQLEPS sqlEPS;
 	
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
 	 */
-	private SQLIPS sqlBebedor;
+	private SQLIPS sqlIPS;
 	
 	/**
 	 * Atributo para el acceso a la tabla GUSTAN de la base de datos
 	 */
-	private SQLAdministradorD sqlGustan;
+	private SQLAdministradorD sqlAdministradorD;
 	
 	/**
 	 * Atributo para el acceso a la tabla SIRVEN de la base de datos
 	 */
-	private SQLGerente sqlSirven;
+	private SQLGerente sqlGerente;
+	
+	private SQLOrdenes sqlOrdenes;
+	
+	private SQLCitaMedica sqlCitasMedicas;
+	
+	private SQLPrestaciones sqlPrestaciones;
+	
+	private SQLTrabajan sqlTrabajan;
 	
 	/**
 	 * Atributo para el acceso a la tabla VISITAN de la base de datos
 	 */
-	private SQLRecepcionista sqlVisitan;
+	private SQLRecepcionista sqlRecepcionista;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -219,14 +207,18 @@ public class PersistenciaEPSAndes
 	 */
 	private void crearClasesSQL ()
 	{
-		sqlTipoBebida = new SQLMedico(this);
-		sqlBebida = new SQLAfiliado(this);
-		sqlBar = new SQLEPS(this);
-		sqlBebedor = new SQLIPS(this);
-		sqlGustan = new SQLAdministradorD(this);
-		sqlSirven = new SQLGerente (this);
-		sqlVisitan = new SQLRecepcionista(this);		
+		sqlMedico = new SQLMedico(this);
+		sqlAfiliado = new SQLAfiliado(this);
+		sqlEPS = new SQLEPS(this);
+		sqlIPS = new SQLIPS(this);
+		sqlAdministradorD = new SQLAdministradorD(this);
+		sqlGerente = new SQLGerente (this);
+		sqlRecepcionista = new SQLRecepcionista(this);		
 		sqlUtil = new SQLUtil(this);
+		sqlOrdenes = new SQLOrdenes(this);
+		sqlCitasMedicas = new SQLCitaMedica(this);
+		sqlPrestaciones = new SQLPrestaciones(this);
+		sqlTrabajan = new SQLTrabajan(this);
 	}
 
 	/**
@@ -240,7 +232,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
 	 */
-	public String darTablaTipoBebida ()
+	public String darTablaRecepcionista ()
 	{
 		return tablas.get (1);
 	}
@@ -248,7 +240,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de parranderos
 	 */
-	public String darTablaBebida ()
+	public String darTablaMedico ()
 	{
 		return tablas.get (2);
 	}
@@ -256,7 +248,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
 	 */
-	public String darTablaBar ()
+	public String darTablaGerente ()
 	{
 		return tablas.get (3);
 	}
@@ -264,7 +256,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
 	 */
-	public String darTablaBebedor ()
+	public String darTablaAfiliado ()
 	{
 		return tablas.get (4);
 	}
@@ -272,7 +264,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
 	 */
-	public String darTablaGustan ()
+	public String darTablaAdmin ()
 	{
 		return tablas.get (5);
 	}
@@ -280,7 +272,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
 	 */
-	public String darTablaSirven ()
+	public String darTablaServicio ()
 	{
 		return tablas.get (6);
 	}
@@ -288,7 +280,7 @@ public class PersistenciaEPSAndes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
-	public String darTablaVisitan ()
+	public String darTablaIPS ()
 	{
 		return tablas.get (7);
 	}
@@ -339,7 +331,7 @@ public class PersistenciaEPSAndes
         {
             tx.begin();
             long idTipoBebida = nextval ();
-            long tuplasInsertadas = sqlTipoBebida.adicionarTipoBebida(pm, idTipoBebida, nombre);
+            long tuplasInsertadas = sqlMedico.adicionarTipoBebida(pm, idTipoBebida, nombre);
             tx.commit();
             
             log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -375,7 +367,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlTipoBebida.eliminarTipoBebidaPorNombre(pm, nombre);
+            long resp = sqlMedico.eliminarTipoBebidaPorNombre(pm, nombre);
             tx.commit();
             return resp;
         }
@@ -408,7 +400,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlTipoBebida.eliminarTipoBebidaPorId(pm, idTipoBebida);
+            long resp = sqlMedico.eliminarTipoBebidaPorId(pm, idTipoBebida);
             tx.commit();
             return resp;
         }
@@ -434,7 +426,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<AdministradorD> darTiposBebida ()
 	{
-		return sqlTipoBebida.darTiposBebida (pmf.getPersistenceManager());
+		return sqlMedico.darTiposBebida (pmf.getPersistenceManager());
 	}
  
 	/**
@@ -444,7 +436,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<AdministradorD> darTipoBebidaPorNombre (String nombre)
 	{
-		return sqlTipoBebida.darTiposBebidaPorNombre (pmf.getPersistenceManager(), nombre);
+		return sqlMedico.darTiposBebidaPorNombre (pmf.getPersistenceManager(), nombre);
 	}
  
 	/**
@@ -454,7 +446,7 @@ public class PersistenciaEPSAndes
 	 */
 	public AdministradorD darTipoBebidaPorId (long idTipoBebida)
 	{
-		return sqlTipoBebida.darTipoBebidaPorId (pmf.getPersistenceManager(), idTipoBebida);
+		return sqlMedico.darTipoBebidaPorId (pmf.getPersistenceManager(), idTipoBebida);
 	}
  
 	/* ****************************************************************
@@ -477,7 +469,7 @@ public class PersistenciaEPSAndes
         {
             tx.begin();            
             long idBebida = nextval ();
-            long tuplasInsertadas = sqlBebida.adicionarBebida(pm, idBebida, nombre, idTipoBebida, gradoAlcohol);
+            long tuplasInsertadas = sqlAfiliado.adicionarBebida(pm, idBebida, nombre, idTipoBebida, gradoAlcohol);
             tx.commit();
             
             log.trace ("Inserción bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -512,7 +504,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBebida.eliminarBebidaPorNombre(pm, nombreBebida);
+            long resp = sqlAfiliado.eliminarBebidaPorNombre(pm, nombreBebida);
             tx.commit();
 
             return resp;
@@ -546,7 +538,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBebida.eliminarBebidaPorId (pm, idBebida);
+            long resp = sqlAfiliado.eliminarBebidaPorId (pm, idBebida);
             tx.commit();
 
             return resp;
@@ -574,7 +566,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<Afiliado> darBebidasPorNombre (String nombreBebida)
 	{
-		return sqlBebida.darBebidasPorNombre (pmf.getPersistenceManager(), nombreBebida);
+		return sqlAfiliado.darBebidasPorNombre (pmf.getPersistenceManager(), nombreBebida);
 	}
  
 	/**
@@ -583,7 +575,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<Afiliado> darBebidas ()
 	{
-		return sqlBebida.darBebidas (pmf.getPersistenceManager());
+		return sqlAfiliado.darBebidas (pmf.getPersistenceManager());
 	}
  
 	/**
@@ -597,7 +589,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBebida.eliminarBebidasNoServidas(pm);
+            long resp = sqlAfiliado.eliminarBebidasNoServidas(pm);
             tx.commit();
             return resp;
         }
@@ -637,7 +629,7 @@ public class PersistenciaEPSAndes
         {
             tx.begin();
             long idBebedor = nextval ();
-            long tuplasInsertadas = sqlBebedor.adicionarBebedor(pmf.getPersistenceManager(), idBebedor, nombre, ciudad, presupuesto);
+            long tuplasInsertadas = sqlIPS.adicionarBebedor(pmf.getPersistenceManager(), idBebedor, nombre, ciudad, presupuesto);
             tx.commit();
 
             log.trace ("Inserción de bebedor: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -673,7 +665,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBebedor.eliminarBebedorPorNombre (pm, nombre);
+            long resp = sqlIPS.eliminarBebedorPorNombre (pm, nombre);
             tx.commit();
             return resp;
         }
@@ -706,7 +698,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBebedor.eliminarBebedorPorId (pm, idBebedor);
+            long resp = sqlIPS.eliminarBebedorPorId (pm, idBebedor);
             tx.commit();
             return resp;
         }
@@ -733,7 +725,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<IPS> darBebedoresPorNombre (String nombreBebedor) 
 	{
-		return sqlBebedor.darBebedoresPorNombre (pmf.getPersistenceManager(), nombreBebedor);
+		return sqlIPS.darBebedoresPorNombre (pmf.getPersistenceManager(), nombreBebedor);
 	}
 
 	/**
@@ -743,7 +735,7 @@ public class PersistenciaEPSAndes
 	 */
 	public IPS darBebedorPorId (long idBebedor) 
 	{
-		return (IPS) sqlBebedor.darBebedorPorId (pmf.getPersistenceManager(), idBebedor);
+		return (IPS) sqlIPS.darBebedorPorId (pmf.getPersistenceManager(), idBebedor);
 	}
 
 	/**
@@ -756,9 +748,9 @@ public class PersistenciaEPSAndes
 	public IPS darBebedorCompleto (long idBebedor) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
-		IPS bebedor = (IPS) sqlBebedor.darBebedorPorId (pm, idBebedor);
-		bebedor.setVisitasRealizadas(armarVisitasBebedor (sqlBebedor.darVisitasRealizadas (pm, idBebedor)));
-		bebedor.setBebidasQueLeGustan(armarGustanBebedor (sqlBebedor.darBebidasQueLeGustan (pm, idBebedor)));
+		IPS bebedor = (IPS) sqlIPS.darBebedorPorId (pm, idBebedor);
+		bebedor.setVisitasRealizadas(armarVisitasBebedor (sqlIPS.darVisitasRealizadas (pm, idBebedor)));
+		bebedor.setBebidasQueLeGustan(armarGustanBebedor (sqlIPS.darBebidasQueLeGustan (pm, idBebedor)));
 		return bebedor;
 	}
 
@@ -768,7 +760,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<IPS> darBebedores ()
 	{
-		return sqlBebedor.darBebedores (pmf.getPersistenceManager());
+		return sqlIPS.darBebedores (pmf.getPersistenceManager());
 	}
  
 	/**
@@ -780,7 +772,7 @@ public class PersistenciaEPSAndes
 	public List<Object []> darBebedoresYNumVisitasRealizadas ()
 	{
 		List<Object []> respuesta = new LinkedList <Object []> ();
-		List<Object> tuplas = sqlBebedor.darBebedoresYNumVisitasRealizadas (pmf.getPersistenceManager());
+		List<Object> tuplas = sqlIPS.darBebedoresYNumVisitasRealizadas (pmf.getPersistenceManager());
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;
@@ -807,7 +799,7 @@ public class PersistenciaEPSAndes
 	 */
 	public long darCantidadBebedoresCiudadVisitanBares (String ciudad)
 	{
-		return sqlBebedor.darCantidadBebedoresCiudadVisitanBares (pmf.getPersistenceManager(), ciudad);
+		return sqlIPS.darCantidadBebedoresCiudadVisitanBares (pmf.getPersistenceManager(), ciudad);
 	}
 	
 	/**
@@ -823,7 +815,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBebedor.cambiarCiudadBebedor (pm, idBebedor, ciudad);
+            long resp = sqlIPS.cambiarCiudadBebedor (pm, idBebedor, ciudad);
             tx.commit();
             return resp;
         }
@@ -857,7 +849,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long [] resp = sqlBebedor.eliminarBebedorYVisitas_v1 (pm, idBebedor);
+            long [] resp = sqlIPS.eliminarBebedorYVisitas_v1 (pm, idBebedor);
             tx.commit();
             return resp;
         }
@@ -990,7 +982,7 @@ public class PersistenciaEPSAndes
         {
             tx.begin();
             long idBar = nextval ();
-            long tuplasInsertadas = sqlBar.adicionarBar(pm, idBar, nombre, ciudad, presupuesto, sedes);
+            long tuplasInsertadas = sqlEPS.adicionarBar(pm, idBar, nombre, ciudad, presupuesto, sedes);
             tx.commit();
 
             log.trace ("Inserción de Bar: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -1026,7 +1018,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBar.eliminarBaresPorNombre(pm, nombreBar);
+            long resp = sqlEPS.eliminarBaresPorNombre(pm, nombreBar);
             tx.commit();
 
             return resp;
@@ -1060,7 +1052,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBar.eliminarBarPorId (pm, idBar);
+            long resp = sqlEPS.eliminarBarPorId (pm, idBar);
             tx.commit();
 
             return resp;
@@ -1087,7 +1079,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<EPS> darBares ()
 	{
-		return sqlBar.darBares (pmf.getPersistenceManager());
+		return sqlEPS.darBares (pmf.getPersistenceManager());
 	}
  
 	/**
@@ -1097,7 +1089,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<EPS> darBaresPorNombre (String nombreBar)
 	{
-		return sqlBar.darBaresPorNombre (pmf.getPersistenceManager(), nombreBar);
+		return sqlEPS.darBaresPorNombre (pmf.getPersistenceManager(), nombreBar);
 	}
  
 	/**
@@ -1107,7 +1099,7 @@ public class PersistenciaEPSAndes
 	 */
 	public EPS darBarPorId (long idBar)
 	{
-		return sqlBar.darBarPorId (pmf.getPersistenceManager(), idBar);
+		return sqlEPS.darBarPorId (pmf.getPersistenceManager(), idBar);
 	}
  
 	/**
@@ -1122,7 +1114,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlBar.aumentarSedesBaresCiudad(pm, ciudad);
+            long resp = sqlEPS.aumentarSedesBaresCiudad(pm, ciudad);
             tx.commit();
 
             return resp;
@@ -1161,7 +1153,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlGustan.adicionarGustan (pm, idBebedor, idBebida);
+            long tuplasInsertadas = sqlAdministradorD.adicionarAdministrador (pm, idBebedor, idBebida);
             tx.commit();
 
             log.trace ("Inserción de gustan: [" + idBebedor + ", " + idBebida + "]. " + tuplasInsertadas + " tuplas insertadas");
@@ -1197,7 +1189,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlGustan.eliminarGustan(pm, idBebedor, idBebida);           
+            long resp = sqlAdministradorD.adicionarAfiliado(pm, idBebedor, idBebida);           
             tx.commit();
 
             return resp;
@@ -1224,7 +1216,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<Medico> darGustan ()
 	{
-		return sqlGustan.darGustan (pmf.getPersistenceManager());
+		return sqlAdministradorD.darGustan (pmf.getPersistenceManager());
 	}
  
  
@@ -1247,7 +1239,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlSirven.adicionarSirven (pmf.getPersistenceManager(), idBar, idBebida, horario);
+            long tuplasInsertadas = sqlGerente.adicionarSirven (pmf.getPersistenceManager(), idBar, idBebida, horario);
     		tx.commit();
 
             log.trace ("Inserción de gustan: [" + idBar + ", " + idBebida + "]. " + tuplasInsertadas + " tuplas insertadas");
@@ -1283,7 +1275,7 @@ public class PersistenciaEPSAndes
 	        try
 	        {
 	            tx.begin();
-	            long resp = sqlSirven.eliminarSirven (pm, idBar, idBebida);	            
+	            long resp = sqlGerente.eliminarSirven (pm, idBar, idBebida);	            
 	            tx.commit();
 
 	            return resp;
@@ -1310,7 +1302,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<Recepcionista> darSirven ()
 	{
-		return sqlSirven.darSirven (pmf.getPersistenceManager());
+		return sqlGerente.darSirven (pmf.getPersistenceManager());
 	}
  
 	/**
@@ -1321,7 +1313,7 @@ public class PersistenciaEPSAndes
 	public List<long []> darBaresYCantidadBebidasSirven ()
 	{
 		List<long []> resp = new LinkedList<long []> ();
-		List<Object []> tuplas =  sqlSirven.darBaresYCantidadBebidasSirven (pmf.getPersistenceManager());
+		List<Object []> tuplas =  sqlGerente.darBaresYCantidadBebidasSirven (pmf.getPersistenceManager());
         for ( Object [] tupla : tuplas)
         {
 			long [] datosResp = new long [2];
@@ -1353,7 +1345,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlVisitan.adicionarVisitan(pm, idBebedor, idBar, fecha, horario);
+            long tuplasInsertadas = sqlRecepcionista.adicionarVisitan(pm, idBebedor, idBar, fecha, horario);
             tx.commit();
 
             log.trace ("Inserción de gustan: [" + idBebedor + ", " + idBar + "]. " + tuplasInsertadas + " tuplas insertadas");
@@ -1390,7 +1382,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long resp = sqlVisitan.eliminarVisitan(pm, idBebedor, idBar);
+            long resp = sqlRecepcionista.eliminarVisitan(pm, idBebedor, idBar);
             tx.commit();
 
             return resp;
@@ -1423,7 +1415,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long visitasEliminadas = sqlVisitan.eliminarVisitanPorIdBebedor (pm, idBebedor);
+            long visitasEliminadas = sqlRecepcionista.eliminarVisitanPorIdBebedor (pm, idBebedor);
             tx.commit();
 
             return visitasEliminadas;
@@ -1457,7 +1449,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long visitasEliminadas = sqlVisitan.eliminarVisitanPorIdBar (pm, idBar);
+            long visitasEliminadas = sqlRecepcionista.eliminarVisitanPorIdBar (pm, idBar);
             tx.commit();
 
             return visitasEliminadas;
@@ -1484,7 +1476,7 @@ public class PersistenciaEPSAndes
 	 */
 	public List<Gerente> darVisitan ()
 	{
-		return sqlVisitan.darVisitan (pmf.getPersistenceManager());
+		return sqlRecepcionista.darVisitan (pmf.getPersistenceManager());
 	}	
 
 	/**
@@ -1521,6 +1513,45 @@ public class PersistenciaEPSAndes
         }
 		
 	}
-	
 
+	public SQLMedico getSqlMedico() {
+		return sqlMedico;
+	}
+	
+	public SQLAfiliado getSqlAfiliado() {
+		return sqlAfiliado;
+	}
+
+	public SQLEPS getSqlEPS() {
+		return sqlEPS;
+	}
+
+	public SQLIPS getSqlIPS() {
+		return sqlIPS;
+	}
+
+	public SQLGerente getSqlGerente() {
+		return sqlGerente;
+	}
+
+	public SQLRecepcionista getSqlRecepcionista() {
+		return sqlRecepcionista;
+	}
+
+	public SQLOrdenes getSqlOrdenes() {
+		return sqlOrdenes;
+	}
+
+	public SQLCitaMedica getSqlCitasMedicas() {
+		return sqlCitasMedicas;
+	}
+
+	public SQLPrestaciones getSqlPrestaciones() {
+		return sqlPrestaciones;
+	}
+
+	public SQLTrabajan getSqlTrabajan() {
+		return sqlTrabajan;
+	}
+	
  }

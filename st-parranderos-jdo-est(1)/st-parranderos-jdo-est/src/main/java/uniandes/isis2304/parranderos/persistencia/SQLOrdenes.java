@@ -68,7 +68,7 @@ class SQLOrdenes
 	 */
 	public long adicionarGustan(PersistenceManager pm, long idBebedor, long idBebida) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaGustan () + "(idbebedor, idbebida) values (?, ?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAdmin () + "(idbebedor, idbebida) values (?, ?)");
         q.setParameters(idBebedor, idBebida);
         return (long) q.executeUnique();
 	}
@@ -82,7 +82,7 @@ class SQLOrdenes
 	 */
 	public long eliminarGustan (PersistenceManager pm, long idBebedor, long idBebida)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan () + " WHERE idbebedor = ? AND idbebida = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAdmin () + " WHERE idbebedor = ? AND idbebida = ?");
         q.setParameters(idBebedor, idBebida);
         return (long) q.executeUnique();
 	}
@@ -95,7 +95,7 @@ class SQLOrdenes
 	 */
 	public List<Medico> darGustan (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaGustan ());
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAdmin ());
 		q.setResultClass(Medico.class);
 		List<Medico> resp = (List<Medico>) q.execute();
 		return resp;

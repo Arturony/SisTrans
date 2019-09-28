@@ -1,15 +1,20 @@
 {
 	"title": "Nombres de las tablas de Parranderos Uniandes para la aplicación A",
-	"unidadPersistencia": "Parranderos",
+	"unidadPersistencia": "EPSUNIANDES",
 	"tablas":
 	[
-		"Parranderos_sequence",
-		"A_TIPOBEBIDA",
-		"A_BEBIDA",
-		"A_BAR",
-		"A_BEBEDOR",
-		"A_GUSTAN",
-		"A_SIRVEN",
-		"A_VISITAN"
+		"EPSUNIANDES_sequence",
+		"A_Administrador",
+		"A_Afiliado",
+		"A_CitaMedica",
+		"A_Eps",
+		"A_Gerente",
+		"A_IPS",
+		"A_Medicos",
+		"A_Ordenes",
+		"A_Prestaciones",
+		"A_Recepcionista",
+		"A_ServicioSalud",
+		"A_Trabajan"
 	]
 }

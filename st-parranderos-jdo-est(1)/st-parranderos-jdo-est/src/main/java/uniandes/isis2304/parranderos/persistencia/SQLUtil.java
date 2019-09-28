@@ -77,7 +77,7 @@ class SQLUtil
 	 */
 	public long [] limpiarEPSAndes (PersistenceManager pm)
 	{
-        Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan ());          
+        Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAdmin ());          
         Query qSirven = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven ());
         Query qVisitan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVisitan ());
         Query qBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida ());
