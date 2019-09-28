@@ -44,7 +44,7 @@ class SQLUtil
 	 */
 	public long nextval (PersistenceManager pm)
 	{
-        Query q = pm.newQuery(SQL, "SELECT "+ pp.darSeqParranderos () + ".nextval FROM DUAL");
+        Query q = pm.newQuery(SQL, "SELECT "+ pp.darSeqEPSAndes () + ".nextval FROM DUAL");
         q.setResultClass(Long.class);
         long resp = (long) q.executeUnique();
         return resp;
@@ -58,6 +58,7 @@ class SQLUtil
 	 */
 	public long [] limpiarEPSAndes (PersistenceManager pm)
 	{
+		/*
         Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAdmin ());          
         Query qSirven = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven ());
         Query qVisitan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVisitan ());
@@ -75,6 +76,8 @@ class SQLUtil
         long baresEliminados = (long) qBar.executeUnique ();
         return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
         		tiposBebidaEliminados, bebedoresEliminados, baresEliminados};
+	*/
+		return null ;
 	}
 
 }

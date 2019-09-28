@@ -45,45 +45,20 @@ class SQLAdministradorD
 		this.pp = pp;
 	}
 	
-	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar un GUSTAN a la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idAdmin - El identificador del bebedor
-	 * @param contrasenia - El identificador de la bebida
-	 * @return EL número de tuplas insertadas
-	 */
 	public long adicionarAdministrador(PersistenceManager pm, long idAdmin, String contrasenia, String correo,String nombre, String tipoDocumento, long epsID) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAdmin() + "(contraseña, correo, nombre, tipoDocumento, administradorID, epsID) values (?, ?, ?, ?, ?, ?)");
-        q.setParameters(contrasenia, correo, nombre, tipoDocumento, idAdmin, epsID);
-        return (long) q.executeUnique();
+		return pp.getSqlEPS().adicionarAdministrador(pm, idAdmin, contrasenia, correo, nombre, tipoDocumento, epsID);
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar UN GUSTAN de la base de datos de Parranderos, por sus identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBebedor - El identificador del bebedor
-	 * @param idBebida - El identificador de la bebida
-	 * @return EL número de tuplas eliminadas
-	 */
+
 	public long adicionarAfiliado(PersistenceManager pm, long idAfiliado, String fechaNacimiento, String correo, String nombre, String tipoDocumento, long epsID)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAfiliado() + "(afiliadoID, correo, nombre, tipoDocumento, fechaNacimiento, epsID) values (?, ?, ?, ?, ?, ?)");
-        q.setParameters(idAfiliado, correo, nombre, tipoDocumento, fechaNacimiento, epsID);
-        return (long) q.executeUnique();
+		return pp.getSqlEPS().adicionarAfiliado(pm, idAfiliado, fechaNacimiento, correo, nombre, tipoDocumento, epsID);
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de los GUSTAN de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos GUSTAN
-	 */
 	public long adicionarGerente (PersistenceManager pm, long idGerente, String correo, String nombre, String tipoDocumento, long epsID)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaGerente() + "(gerenteID, correo, nombre, tipoDocumento, epsID) values (?, ?, ?, ?, ?)");
-        q.setParameters(idGerente, correo, nombre, tipoDocumento, epsID);
-        return (long) q.executeUnique();
+		return pp.getSqlEPS().adicionarGerente(pm, idGerente, correo, nombre, tipoDocumento, epsID);
 	}
 	
 	public long adicionarMedico (PersistenceManager pm, long idMedico, String especialidad, String nombre, String tipoDocumento, long numReg)
@@ -104,9 +79,7 @@ class SQLAdministradorD
 	
 	public long adicionarIPS (PersistenceManager pm, long idIps, String localizacion, String nombre, long epsID)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaIPS() + "(iPSID, localizacion, nombre, epsID) values (?, ?, ?, ?)");
-        q.setParameters(idIps, localizacion, nombre, epsID);
-        return (long) q.executeUnique();
+		return pp.getSqlEPS().adicionarIPS(pm, idIps, localizacion, nombre, epsID);
 	}
 
 }
