@@ -108,7 +108,8 @@ public class AdministradorD implements VOAdministradorD
 	@Override
 	public String toString() 
 	{
-		return "Administrador [, nombre=" + nombre + "]";
+		return "Administrador [idAdmin="+ idAdmin + ", nombre=" + nombre + ", correo=" + correo + ", contraseña="
+				+ contrasenia + ", idEps=" + idEps + "]";
 	}
 
 }

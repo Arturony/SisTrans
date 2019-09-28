@@ -16,34 +16,27 @@
 package uniandes.isis2304.parranderos.negocio;
 
 /**
- * Clase para modelar la relación SIRVEN del negocio de los Parranderos:
+ *
  * Cada objeto de esta clase representa el hecho que un bar sirve una bebida y viceversa.
  * Se modela mediante los identificadores del bar y de la bebida respectivamente
  * Debe existir un bar con el identificador dado
  * Debe existir una bebida con el identificador dado 
  * Adicionalmente contiene el horario (DIURNO, NOCTURNO, TODOS) en el cual el bar sirve la bebida
  * 
- * @author Germán Bravo
+ * @author
  */
 public class Servicios implements VOServicios
 {
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	/**
-	 * El identificador del bar que sirve la bebida
-	 */
-	private long idBar;
+	private long idServicio;
 	
-	/**
-	 * El identificador de la bebida que es servida en el bar
-	 */
-	private long idBebida;
-	
-	/**
-	 * El horario en que sirve la bebida en el bar (DIURNO, NOCTURNO, TODOS)
-	 */
 	private String horario;
+	
+	private int medicosDisponibles;
+	
+	private String nombre;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -53,70 +46,50 @@ public class Servicios implements VOServicios
 	 */
 	public Servicios () 
 	{
-		this.idBar = 0;
-		this.idBebida = 0;
+		this.idServicio = 0;
+		this.medicosDisponibles = 0;
 		this.horario = "";
+		this.nombre = "";
 	}
 
-	/**
-	 * Constructor con valores
-	 * @param idBar - El identificador del bar. Debe exixtir un bar con dicho identificador
-	 * @param idBebida - El identificador de la bebida. Debe existir una bebida con dicho identificador
-	 * @param horario - El horario en el que el bar sirve la bebida (DIURNO, NOCTURNO, TODOS)
-	 */
-	public Servicios (long idBar, long idBebida, String horario) 
+	public Servicios (long idBar, int medicosDisponibles, String horario, String nombre) 
 	{
-		this.idBar = idBar;
-		this.idBebida = idBebida;
+		this.idServicio = idBar;
+		this.medicosDisponibles = medicosDisponibles;
 		this.horario = horario;
 	}
 
-	/**
-	 * @return El idBar
-	 */
-	public long getIdBar() 
-	{
-		return idBar;
+	
+	public long getIdServicio() {
+		return idServicio;
 	}
 
-	/**
-	 * @param idBar - El nuevo identificador de bar. Debe existir un bar con dicho identificador
-	 */
-	public void setIdBar(long idBar) 
-	{
-		this.idBar = idBar;
+	public void setIdServicio(long idServicio) {
+		this.idServicio = idServicio;
 	}
 
-	/**
-	 * @return El idBebida
-	 */
-	public long getIdBebida() 
-	{
-		return idBebida;
-	}
-
-	/**
-	 * @param idBebida - El nuevo identificador de bebida. Debe existir una bebida con dicho identificador
-	 */
-	public void setIdBebida(long idBebida) 
-	{
-		this.idBebida = idBebida;
-	}
-
-	/**
-	 * @return El horario en que el bar sirve la bebida
-	 */
-	public String getHorario() 
-	{
+	public String getHorario() {
 		return horario;
 	}
 
-	/**
-	 * @param horario - El nuevo horario en que el bar sirve la bebida (DIURNO, NOCTURNO, TODOS)
-	 */
-	public void setHorario(String horario) 
-	{
+	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+
+	public int getMedicosDisponibles() {
+		return medicosDisponibles;
+	}
+
+	public void setMedicosDisponibles(int medicosDisponibles) {
+		this.medicosDisponibles = medicosDisponibles;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	/** 
@@ -125,6 +98,7 @@ public class Servicios implements VOServicios
 	@Override
 	public String toString() 
 	{
-		return "Sirven [idBar=" + idBar + ", idBebida=" + idBebida + ", horario=" + horario + "]";
+		return "Servicio de Salud [idServicior=" + idServicio + ", nombre=" + nombre + ", horario=" + horario + 
+				", medicos disponibles=" + medicosDisponibles + "]";
 	}
 }

@@ -24,14 +24,12 @@ package uniandes.isis2304.parranderos.negocio;
 public interface VOAfiliado 
 {
 	public long getIdEps();
-	
-	public String getContrasenia();
 
 	public String getNombre();
 	
 	public String getCorreo();
 	
-	public String getDocumento();
+	public long getIdAfiliado();
 	
 	public String getTipo();
 

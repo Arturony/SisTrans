@@ -26,20 +26,13 @@ public interface VOServicios
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
-	/**
-	 * @return El idBar
-	 */
-	public long getIdBar();
-
-	/**
-	 * @return El idBebida
-	 */
-	public long getIdBebida();
-
-	/**
-	 * @return El horario en que el bar sirve la bebida
-	 */
 	public String getHorario();
+	
+	public long getIdServicio();
+	
+	public int getMedicosDisponibles();
+	
+	public String getNombre();
 
 	/** 
 	 * @return Una cadena con la información básica

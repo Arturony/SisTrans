@@ -16,10 +16,10 @@
 package uniandes.isis2304.parranderos.negocio;
 
 /**
- * Interfaz para los métodos get de TIPOBEBIDA.
+ * Interfaz para los métodos get
  * Sirve para proteger la información del negocio de posibles manipulaciones desde la interfaz 
  * 
- * @author Germán Bravo
+ * @author
  */
 public interface VOOrden 
 {
@@ -27,26 +27,15 @@ public interface VOOrden
 	 * 			Métodos
 	 *****************************************************************/
 	/**
-	 * @return El id del tipo de bebida
+	 * @return El id 
 	 */
 	public long getId();
 
-	/**
-	 * @return El nombre del tipo de bebida
-	 */
-	public String getNombre();
+	public long getIdAfiliado();
 
 	/**
-	 * @return Una cadena de caracteres con la información del tipo de bebida
+	 * @return Una cadena de caracteres con la información
 	 */
 	@Override
 	public String toString(); 
-
-	/**
-	 * Define la igualdad dos Tipos de bebida
-	 * @param tb - El tipo de bebida a comparar
-	 * @return true si tienen el mismo identificador y el mismo nombre
-	 */
-	@Override
-	public boolean equals (Object tb); 
 }

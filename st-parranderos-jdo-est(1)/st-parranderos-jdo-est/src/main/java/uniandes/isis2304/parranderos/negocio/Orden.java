@@ -33,7 +33,7 @@ public class Orden implements VOOrden
 	/**
 	 * El nombre del tipo de bebida
 	 */
-	private String nombre;
+	private long idAfiliado;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -44,22 +44,17 @@ public class Orden implements VOOrden
 	public Orden() 
 	{
 		this.id = 0;
-		this.nombre = "Default";
+		this.idAfiliado = 0;
 	}
-
-	/**
-	 * Constructor con valores
-	 * @param id - El identificador del tipo de bebida
-	 * @param nombre - El nombre del tipo de bebida
-	 */
-	public Orden(long id, String nombre) 
+	
+	public Orden(long id, long nombre) 
 	{
 		this.id = id;
-		this.nombre = nombre;
+		this.idAfiliado = nombre;
 	}
 
 	/**
-	 * @return El id del tipo de bebida
+	 * @return El id
 	 */
 	public long getId() 
 	{
@@ -67,47 +62,32 @@ public class Orden implements VOOrden
 	}
 
 	/**
-	 * @param id - El nuevo id del tipo de bebida
+	 * @param id - El nuevo id a
 	 */
 	public void setId(long id) 
 	{
 		this.id = id;
 	}
 
-	/**
-	 * @return El nombre del tipo de bebida
-	 */
-	public String getNombre() 
+
+	public long getIdAfiliado() 
 	{
-		return nombre;
+		return idAfiliado;
 	}
 
-	/**
-	 * @param nombre - El nuevo nombre del tipo de bebida
-	 */
-	public void setNombre(String nombre) 
+	public void setIdAfiliado(long nombre) 
 	{
-		this.nombre = nombre;
+		this.idAfiliado = nombre;
 	}
 
 
 	/**
-	 * @return Una cadena de caracteres con la información del tipo de bebida
+	 * @return Una cadena de caracteres con la información
 	 */
 	@Override
 	public String toString() 
 	{
-		return "TipoBebida [id=" + id + ", nombre=" + nombre + "]";
-	}
-
-	/**
-	 * @param tipo - El TipoBebida a comparar
-	 * @return True si tienen el mismo nombre
-	 */
-	public boolean equals(Object tipo) 
-	{
-		Orden tb = (Orden) tipo;
-		return id == tb.id && nombre.equalsIgnoreCase (tb.nombre);
+		return "Orden [id=" + id + ", idAfiliado=" + idAfiliado + "]";
 	}
 
 }

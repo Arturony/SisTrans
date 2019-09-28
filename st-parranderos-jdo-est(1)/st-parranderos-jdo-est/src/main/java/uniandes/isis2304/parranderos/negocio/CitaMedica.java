@@ -41,6 +41,8 @@ public class CitaMedica implements VOCitaMedica
 	private long idAfiliado;
 	
 	private long idServicio;
+	
+	private long idOrden;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -55,10 +57,11 @@ public class CitaMedica implements VOCitaMedica
 		this.idCita = 0;
 		this.sesiones = 0;
 		this.llego = false;
+		this.idOrden = 0;
 	}
 
 	
-	public CitaMedica (long idServicio, long idAfiliado, String horario, long idCita, int sesiones, boolean llego) 
+	public CitaMedica (long idServicio, long idAfiliado, String horario, long idCita, int sesiones, boolean llego, long idOrden) 
 	{
 		this.idServicio = idServicio;
 		this.idAfiliado = idAfiliado;
@@ -66,6 +69,7 @@ public class CitaMedica implements VOCitaMedica
 		this.idCita = idCita;
 		this.sesiones = sesiones;
 		this.llego = llego;
+		this.idOrden = idOrden;
 	}
 	
 	
@@ -128,6 +132,15 @@ public class CitaMedica implements VOCitaMedica
 	public void setIdServicio(long idServicio) {
 		this.idServicio = idServicio;
 	}
+	
+	public long getIdOrden() {
+		return idOrden;
+	}
+
+
+	public void setIdOrden(long idOrden) {
+		this.idOrden = idOrden;
+	}
 
 
 	/** 
@@ -136,6 +149,7 @@ public class CitaMedica implements VOCitaMedica
 	@Override
 	public String toString() 
 	{
-		return "Sirven [idBar=" + ", horario=" + horario + "]";
+		return "Cita Medica [idCita=" + idCita + ", horario=" + horario +", sesiones="+ sesiones + ", idAfiliado="
+	+ idAfiliado + ", idOrden=" + idOrden + ", idServicio= " +idServicio + ", llego=" +llego+ "]";
 	}
 }

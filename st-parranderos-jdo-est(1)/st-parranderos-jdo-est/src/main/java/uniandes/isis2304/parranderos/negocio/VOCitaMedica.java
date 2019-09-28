@@ -38,6 +38,8 @@ public interface VOCitaMedica
 	public long getIdAfiliado();
 	
 	public long getIdServicio();
+	
+	public long getIdOrden();
 
 	/** 
 	 * @return Una cadena con la información básica

@@ -26,11 +26,10 @@ public class Afiliado implements VOAfiliado
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	private String contrasenia;
 	
 	private String correo;
 	
-	private String documento;
+	private long idAfiliado;
 	
 	private String nombre;
 	
@@ -45,31 +44,22 @@ public class Afiliado implements VOAfiliado
 	 */
 	public Afiliado() 
 	{
-		this.contrasenia = "Default";
 		this.nombre = "Default";
 		this.correo = "Default";
-		this.documento = "10000";
+		this.idAfiliado = 0;
 		this.tipo = "Default";
 		this.idEps = 0;
 	}
 
-	public Afiliado(String tipo, String nombre, String correo, String contrasenia, String documento, long idEps) 
+	public Afiliado(String tipo, String nombre, String correo, long documento, long idEps) 
 	{
-		this.contrasenia = contrasenia;
 		this.nombre = nombre;
 		this.correo = correo;
-		this.documento = documento;
+		this.idAfiliado = documento;
 		this.tipo = tipo;
 		this.idEps = idEps;
 	}
 
-	public String getContrasenia() {
-		return contrasenia;
-	}
-
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
-	}
 
 	public String getCorreo() {
 		return correo;
@@ -79,12 +69,12 @@ public class Afiliado implements VOAfiliado
 		this.correo = correo;
 	}
 
-	public String getDocumento() {
-		return documento;
+	public long getIdAfiliado() {
+		return idAfiliado;
 	}
 
-	public void setDocumento(String documento) {
-		this.documento = documento;
+	public void setIdAfiliado(long documento) {
+		this.idAfiliado = documento;
 	}
 
 	public String getNombre() {
@@ -117,7 +107,8 @@ public class Afiliado implements VOAfiliado
 	@Override
 	public String toString() 
 	{
-		return "Bebida [id=" + ", nombre=" + nombre + ", idTipoBebida=" + documento + ", gradoAlcohol=" + correo + "]";
+		return "Afiliado [idAfiliado="+ idAfiliado + ", nombre=" + nombre + ", correo=" + 
+	", idEps=" + idEps + ", TipoDocumento="+ tipo +"]";
 	}
 
 }
