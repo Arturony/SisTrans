@@ -344,7 +344,35 @@ public class PersistenciaEPSAndes
 		return resp;
 	}
 	
-	
+	public Afiliado adicionarAfiliado(String nombre, String correo, long id, String tipo, String fechaNacimiento, long epsID)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlAdministradorD.adicionarAfiliado(pm, id, fechaNacimiento, correo, nombre, tipo, epsID);
+            tx.commit();
+            
+            log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Afiliado(tipo, nombre, correo, id, epsID);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;
