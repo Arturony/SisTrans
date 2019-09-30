@@ -772,6 +772,16 @@ public class PersistenciaEPSAndes
         }
 	}
 	
+	public EPS darEPSporID (long epsID)
+	{
+		return sqlEPS.darEPSID(pmf.getPersistenceManager(), epsID);
+	}
+	
+	public AdministradorD darAdminporID (long adminID)
+	{
+		return sqlEPS.darAdminID(pmf.getPersistenceManager(), adminID);
+	}
+	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;
 	}

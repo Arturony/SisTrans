@@ -27,27 +27,21 @@ public interface VOAdministradorD
 	 * 			Métodos
 	 *****************************************************************/
 	
-	public long getIdEps();
+	public long getEpsID();
 	
-	public String getContrasenia();
+	public String getContraseña();
 
 	public String getNombre();
 	
 	public String getCorreo();
 	
-	public long getIdAdmin();
+	public long getAdministradorID();
+	
+	public String getTipoDocumento();
 
 	/**
 	 * @return Una cadena de caracteres con la información del tipo
 	 */
 	@Override
 	public String toString(); 
-
-	/**
-	 * Define la igualdad dos Tipos 
-	 * @param tb - El tipo comparar
-	 * @return true si tienen el mismo identificador y el mismo nombre
-	 */
-	@Override
-	public boolean equals (Object tb); 
 }

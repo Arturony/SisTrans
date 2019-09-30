@@ -28,7 +28,7 @@ public class EPS implements VOEPS
 	/**
 	 * El identificador
 	 */
-	private long id;
+	private long epsID;
 	
 	/**
 	 * El nombre
@@ -43,7 +43,7 @@ public class EPS implements VOEPS
      */
 	public EPS() 
     {
-    	this.id = 0;
+    	this.epsID = 0;
 		this.nombre = "";
 	}
 
@@ -54,24 +54,24 @@ public class EPS implements VOEPS
 	 */
     public EPS(long id, String nombre) 
     {
-    	this.id = id;
+    	this.epsID = id;
 		this.nombre = nombre;
 	}
 
     /**
 	 * @return El id del bar
 	 */
-	public long getId() 
+	public long getEpsID() 
 	{
-		return id;
+		return epsID;
 	}
 	
 	/**
 	 * @param id - El nuevo id del bar
 	 */
-	public void setId(long id) 
+	public void setEpsID(long id) 
 	{
-		this.id = id;
+		this.epsID = id;
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class EPS implements VOEPS
 	 */
 	public String toString() 
 	{
-		return "Bar [id=" + id + ", nombre=" + nombre + "]";
+		return "Bar [id=" + epsID + ", nombre=" + nombre + "]";
 	}
 	
 

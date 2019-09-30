@@ -151,6 +151,21 @@ public class EPSAndes
         return array;
 	}
 	
+	public EPS consultarEPS(long epsID)
+	{
+		log.info ("Buscando EPS: " + epsID);
+        EPS eps = pp.darEPSporID(epsID);		
+        log.info ("Buscando EPS: " + eps);
+        return eps;
+	}
+	
+	public AdministradorD consultarAdmin(long epsID)
+	{
+		log.info ("Buscando Admin: " + epsID);
+        AdministradorD eps = pp.darAdminporID(epsID);		
+        log.info ("Buscando Admin: " + eps);
+        return eps;
+	}
 	
 	public Medico consultarMedico(String nombre, String especialidad, String tipoDocumento, int numReg, long id)
 	{

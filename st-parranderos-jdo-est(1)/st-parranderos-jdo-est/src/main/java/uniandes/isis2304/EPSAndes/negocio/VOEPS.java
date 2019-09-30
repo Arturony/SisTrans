@@ -29,7 +29,7 @@ public interface VOEPS
      /**
 	 * @return El id
 	 */
-	public long getId();
+	public long getEpsID();
 	
 	/**
 	 * @return el nombre

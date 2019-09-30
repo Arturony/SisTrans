@@ -85,7 +85,8 @@ class SQLUtil
         long servEliminados = (long) qServ.executeUnique ();
         long trabEliminados = (long) qTrabajan.executeUnique ();
         return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
-        		tiposBebidaEliminados, bebedoresEliminados, baresEliminados};
+        		tiposBebidaEliminados, bebedoresEliminados, baresEliminados, ordenesEliminados, presEliminados,
+        		recepEliminados, servEliminados, trabEliminados};
 
 	}
 

@@ -26,15 +26,17 @@ public class AdministradorD implements VOAdministradorD
 	 * 			Atributos
 	 *****************************************************************/
 	
-	private String contrasenia;
+	private String contraseña;
 	
 	private String correo;
 	
-	private long idAdmin;
+	private long administradorID;
+	
+	private String tipoDocumento;
 	
 	private String nombre;
 	
-	private long idEps;
+	private long epsID;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -44,30 +46,30 @@ public class AdministradorD implements VOAdministradorD
 	 */
 	public AdministradorD() 
 	{
-		this.contrasenia = "Default";
+		this.contraseña = "Default";
 		this.nombre = "Default";
 		this.correo = "Default";
-		this.idAdmin = 10000;
-		this.idEps = 0;
+		this.administradorID = 10000;
+		this.epsID = 0;
 	}
 
 	public AdministradorD(String nombre, String correo, String contrasenia, long documento, long idEps) 
 	{
-		this.contrasenia = contrasenia;
+		this.contraseña = contrasenia;
 		this.nombre = nombre;
 		this.correo = correo;
-		this.idAdmin = documento;
-		this.idEps = 0;
+		this.administradorID = documento;
+		this.epsID = 0;
 	}
 
 	
 	
-	public String getContrasenia() {
-		return contrasenia;
+	public String getContraseña() {
+		return contraseña;
 	}
 
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+	public void setContraseña(String contrasenia) {
+		this.contraseña = contrasenia;
 	}
 
 	public String getCorreo() {
@@ -78,12 +80,12 @@ public class AdministradorD implements VOAdministradorD
 		this.correo = correo;
 	}
 
-	public long getIdAdmin() {
-		return idAdmin;
+	public long getAdministradorID() {
+		return administradorID;
 	}
 
-	public void setIdAdmin(long documento) {
-		this.idAdmin = documento;
+	public void setAdministradorID(long documento) {
+		this.administradorID = documento;
 	}
 
 	public String getNombre() {
@@ -94,12 +96,22 @@ public class AdministradorD implements VOAdministradorD
 		this.nombre = nombre;
 	}
 	
-	public long getIdEps() {
-		return idEps;
+	public long getEpsID() {
+		return epsID;
 	}
 
-	public void setIdEps(long idEps) {
-		this.idEps = idEps;
+	public void setEpsID(long idEps) {
+		this.epsID = idEps;
+	}
+
+	
+	
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	/**
@@ -108,8 +120,8 @@ public class AdministradorD implements VOAdministradorD
 	@Override
 	public String toString() 
 	{
-		return "Administrador [idAdmin="+ idAdmin + ", nombre=" + nombre + ", correo=" + correo + ", contraseña="
-				+ contrasenia + ", idEps=" + idEps + "]";
+		return "Administrador [idAdmin="+ administradorID + "tipoDocumento=" + tipoDocumento + ", nombre=" + nombre + ", correo=" + correo + ", contraseña="
+				+ contraseña + ", idEps=" + epsID + "]";
 	}
 
 }

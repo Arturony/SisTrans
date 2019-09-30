@@ -7,7 +7,9 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 /**
  * @author 
@@ -79,5 +81,19 @@ class SQLEPS
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaEps() + "(\"nombre\", \"epsID\") values (?, ?)");
         q.setParameters(nombre, epsID);
         return (long) q.executeUnique();
+	}
+	
+	public EPS darEPSID (PersistenceManager pm, long epsID)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaEps() + "WHERE \"epsID\" = " + epsID);
+		q.setResultClass(EPS.class);
+		return (EPS) q.executeUnique();
+	}
+	
+	public AdministradorD darAdminID (PersistenceManager pm, long administradorID)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAdmin() + "WHERE \"administradorID\" = " + administradorID);
+		q.setResultClass(AdministradorD.class);	
+		return (AdministradorD) q.executeUnique();
 	}
 }

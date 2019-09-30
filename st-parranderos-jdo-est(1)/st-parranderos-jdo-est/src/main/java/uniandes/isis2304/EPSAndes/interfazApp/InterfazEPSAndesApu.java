@@ -43,6 +43,7 @@ import uniandes.isis2304.EPSAndes.negocio.VOCitaMedica;
 import uniandes.isis2304.EPSAndes.negocio.VOEPS;
 import uniandes.isis2304.EPSAndes.negocio.VOGerente;
 import uniandes.isis2304.EPSAndes.negocio.VOMedico;
+import uniandes.isis2304.EPSAndes.negocio.VOOrden;
 import uniandes.isis2304.EPSAndes.negocio.VORecepcionista;
 import uniandes.isis2304.EPSAndes.negocio.VOServicios;
 
@@ -132,7 +133,15 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 
         setLayout (new BorderLayout());
         add (new JLabel (new ImageIcon (path)), BorderLayout.NORTH );          
-        add( panelDatos, BorderLayout.CENTER );        
+        add( panelDatos, BorderLayout.CENTER );
+        if(verificarExistenciaInicial() != true)
+        {
+        	adicionarEPS("Eps Andes", 1);
+	        adicionarAdministrador("Admin", 1, "Cedula Ciudadania", "1", "admin@epsandes.edu.co");
+        }
+        panelDatos.actualizarInterfaz("");
+        
+	        
     }
     
 	/* ****************************************************************
@@ -235,7 +244,12 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
         setJMenuBar ( menuBar );	
     }
     
-
+    private boolean verificarExistenciaInicial()
+    {
+    	if(epsAndes.consultarEPS(1) != null && epsAndes.consultarAdmin(1) != null)
+    		return true;
+    	return false;
+    }
 
    
 
@@ -648,6 +662,30 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			return false;
 		}
 	 }
+	public boolean adicionarOrden(int afiliado, int servicio, int ordenes)
+	{
+		
+		try 
+		{	    		
+			VOOrden tb = epsAndes.adicionarOrden(afiliado, servicio, ordenes);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una Orden con  id: " + ordenes);
+			}
+			String resultado = "En adicionarOrden\n\n";
+			resultado += "Orden adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
 	
 	public boolean adicionarEPS(String nombre, int epsID)
 	{
@@ -673,6 +711,8 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			return false;
 		}
 	 }
+	
+	
 
 	/* ****************************************************************
 	 * 			Métodos de la Interacción
