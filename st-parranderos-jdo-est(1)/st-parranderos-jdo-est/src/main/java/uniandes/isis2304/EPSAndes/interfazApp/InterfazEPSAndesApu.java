@@ -36,7 +36,14 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
+import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
+import uniandes.isis2304.EPSAndes.negocio.Afiliado;
+import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
+import uniandes.isis2304.EPSAndes.negocio.Gerente;
+import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.VOAfiliado;
 import uniandes.isis2304.EPSAndes.negocio.VOCitaMedica;
@@ -103,6 +110,8 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
      * Menú de la aplicación
      */
     private JMenuBar menuBar;
+    
+    private String login;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -140,7 +149,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	        adicionarAdministrador("Admin", 1, "Cedula Ciudadania", "1", "admin@epsandes.edu.co");
         }
         panelDatos.actualizarInterfaz("");
-        
+        mostrarDialogoLogin();
 	        
     }
     
@@ -474,6 +483,13 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	}
 	
+	public void mostrarDialogoLogin()
+	{
+		DialogoUsuario dialogo = new DialogoUsuario( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
 	public void mostrarDialogoMedico()
 	{
 		DialogoCrearMedico dialogo = new DialogoCrearMedico( this );
@@ -737,6 +753,49 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		} 
 	}
     
+    public EPS consultarEPS(int epsID)
+    {
+    	return epsAndes.consultarEPS(epsID);
+    }
+    
+    public AdministradorD consultarAdmin(int epsID)
+    {
+    	return epsAndes.consultarAdmin(epsID);
+    }
+    
+    public Gerente consultarGerente(int epsID)
+    {
+    	return epsAndes.consultarGerente(epsID);
+    }
+    
+    public Afiliado consultarAfilaido(int epsID)
+    {
+    	return epsAndes.consultarAfiliado(epsID);
+    }
+    
+    public Medico consultarMedico(int epsID)
+    {
+    	return epsAndes.consultarMedico(epsID);
+    }
+    
+    public Recepcionista consultarRecepcionista(int epsID)
+    {
+    	return epsAndes.consultarRecepcionista(epsID);
+    }
+    
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+	
+	public PanelDatos getPanelDatos()
+	{
+		return this.panelDatos;
+	}
+
 	/* ****************************************************************
 	 * 			Programa principal
 	 *****************************************************************/

@@ -81,8 +81,7 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
      */
     public PanelSeleccionarUsuario( )
     {
-        setLayout( new GridLayout( 6, 2, 5, 5 ) );
-        setSize(300, 400);
+        setLayout( new GridLayout( 6, 2, 6, 6 ) );
 
         String[] tipoDocumentos = {"Cedula Ciudadania", "Pasaporte", "Cedula Extrangeria"};
         String[] tipoUsuario = {"Afiliado", "Administrador de Datos", "Gerente", "Medico", "Recepcionista"};
@@ -113,6 +112,8 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
         add( etiquetaTipoUsuario );
 
         comboTipousuario = new JComboBox<String>(tipoUsuario);
+        comboTipousuario.setActionCommand("CambioValor");
+        comboTipousuario.addActionListener(this);
         comboTipousuario.setFont( comboTipousuario.getFont( ).deriveFont( Font.PLAIN ) );
         add( comboTipousuario );
         
@@ -130,7 +131,6 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
         txtContrasenia = new JTextField( 2 );
         add( txtContrasenia );
 
-        add( new JLabel( ) );
 
         setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
     }
@@ -182,6 +182,27 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
      */
     public void actionPerformed( ActionEvent evento )
     {
+        String e = evento.getActionCommand();
         
+        if(e.equals("CambioValor"))
+        {
+        	String user = ((String)comboTipousuario.getSelectedItem());
+        	if(user.equals("Medico"))
+        	{
+        		txtContrasenia.setEditable(false);
+        		txtCorreo.setEditable(false);
+        	}
+        	else if(user.equals("Recepcionista") || user.equals("Afiliado") || user.equals("Gerente"))
+        	{
+        		txtContrasenia.setEditable(false);
+        		txtCorreo.setEditable(true);
+        	}
+        	else
+        	{
+        		txtContrasenia.setEditable(true);
+        		txtCorreo.setEditable(true);
+        	}
+        		
+        }
     }
 }

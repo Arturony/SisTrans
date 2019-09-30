@@ -9,6 +9,7 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
+import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 /**
@@ -95,5 +96,12 @@ class SQLEPS
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAdmin() + "WHERE \"administradorID\" = " + administradorID);
 		q.setResultClass(AdministradorD.class);	
 		return (AdministradorD) q.executeUnique();
+	}
+	
+	public Gerente darGerenteID (PersistenceManager pm, long gerenteID)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaGerente() + "WHERE \"gerenteID\" = " + gerenteID);
+		q.setResultClass(Gerente.class);	
+		return (Gerente) q.executeUnique();
 	}
 }

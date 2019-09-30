@@ -85,11 +85,11 @@ public class PanelBotonesUsuario extends JPanel implements ActionListener
 
         if( ENTRAR.equals( comando ) )
         {
-            //ventana.entrar( );
+            ventana.entrar( );
         }
         else if( CANCELAR.equals( comando ) )
         {
-            ventana.dispose( );
+            ventana.cerrarApp();
         }
 
     }

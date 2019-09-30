@@ -6,6 +6,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import uniandes.isis2304.EPSAndes.interfazApp.InterfazEPSAndesApu;
+import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 
 
 public class DialogoUsuario extends JDialog
@@ -45,7 +46,6 @@ public class DialogoUsuario extends JDialog
     {
         super( id, true );
         principal = id;
-
         panelDatos = new PanelSeleccionarUsuario( );
         panelBotones = new PanelBotonesUsuario( this );
 
@@ -64,7 +64,7 @@ public class DialogoUsuario extends JDialog
     /**
      * Guarda el disco
      */
-    public void crearMedico( )
+    public void entrar( )
     {
         boolean parametersOk = true;
         String nombreU = panelDatos.darNombreUsuario();
@@ -84,15 +84,55 @@ public class DialogoUsuario extends JDialog
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
 			}
-
 			if( parametersOk )
 			{
-				
+				if(tipoU.equals("Administrador de Datos") && principal.consultarAdmin(document) != null)
+				{
+					principal.setLogin("Administrador");
+					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU +  " \n Tipo de Usuario: " + principal.getLogin());
+					dispose();
+				}
+				else if(tipoU.equals("Afiliado") && principal.consultarAfilaido(document) != null)
+				{
+					principal.setLogin("Afiliado");
+					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+
+					dispose();
+				}
+				else if(tipoU.equals("Gerente") && principal.consultarGerente(document) != null)
+				{
+					principal.setLogin("Gerente");
+					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+
+					dispose();
+				}
+				else if(tipoU.equals("Medico") && principal.consultarMedico(document) != null)
+				{
+					principal.setLogin("Medico");
+					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+
+					dispose();
+				}
+				else if(tipoU.equals("Recepcionista") && principal.consultarRecepcionista(document) != null)
+				{
+					principal.setLogin("Recepcionista");
+					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+					dispose();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog( this, "Datos Invalidos" );
+				}
 			}
 		} 
         catch (Exception e) 
         {
         	JOptionPane.showMessageDialog( this, "Ingrese datos numericos para Documento y Registro Medico" );
 		}
+    }
+    
+    public void cerrarApp()
+    {
+    	System.exit(0);
     }
 }

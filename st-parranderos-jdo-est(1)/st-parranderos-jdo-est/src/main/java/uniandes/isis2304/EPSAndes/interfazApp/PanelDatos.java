@@ -16,9 +16,13 @@
 package uniandes.isis2304.EPSAndes.interfazApp;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -32,8 +36,6 @@ public class PanelDatos extends JPanel
     // -----------------------------------------------------------------
     // Atributos
     // -----------------------------------------------------------------
-
-
     // -----------------------------------------------------------------
     // Atributos de interfaz
     // -----------------------------------------------------------------
@@ -41,6 +43,8 @@ public class PanelDatos extends JPanel
 	 * Área de texto con barras de deslizamiento
 	 */
 	private JTextArea textArea;
+	
+	private JTextField login;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -54,6 +58,12 @@ public class PanelDatos extends JPanel
     {
         setBorder (new TitledBorder ("Panel de información"));
         setLayout( new BorderLayout( ) );
+        
+        login = new JTextField(10);
+        login.setFont( login.getFont( ).deriveFont( Font.PLAIN ) );
+        login.setText("Hola! Usuario Actual: ");
+        login.setEditable(false);
+        add( login, BorderLayout.NORTH );
         
         textArea = new JTextArea("Aquí sale el resultado de las operaciones solicitadas");
         textArea.setEditable(false);
@@ -71,6 +81,11 @@ public class PanelDatos extends JPanel
     public void actualizarInterfaz (String texto)
     {
     	textArea.setText(texto);
+    }
+    
+    public void actualizarLogin(String text)
+    {
+    	login.setText(text);
     }
 
 }

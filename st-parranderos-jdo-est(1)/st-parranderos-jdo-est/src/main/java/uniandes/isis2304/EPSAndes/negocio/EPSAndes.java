@@ -167,11 +167,35 @@ public class EPSAndes
         return eps;
 	}
 	
-	public Medico consultarMedico(String nombre, String especialidad, String tipoDocumento, int numReg, long id)
+	public Gerente consultarGerente(long epsID)
 	{
-		log.info ("Adicionando Medico: " + nombre);
-        Medico medico = pp.adicionarMedico(nombre, id, especialidad, tipoDocumento, numReg);		
-        log.info ("Adicionando Medico: " + medico);
+		log.info ("Buscando Gerente: " + epsID);
+        Gerente eps = pp.darGerenteID(epsID);		
+        log.info ("Buscando Gerente: " + eps);
+        return eps;
+	}
+	
+	public Afiliado consultarAfiliado(long id)
+	{
+		log.info ("Buscando Afiliado: " + id);
+        Afiliado medico = pp.darAfiliadoID(id);		
+        log.info ("Buscando Afiliado: " + medico);
+        return medico;
+	}
+	
+	public Medico consultarMedico(long id)
+	{
+		log.info ("Buscando Medico: " + id);
+        Medico medico = pp.darMedicoID(id);		
+        log.info ("Buscando Medico: " + medico);
+        return medico;
+	}
+	
+	public Recepcionista consultarRecepcionista(long id)
+	{
+		log.info ("Buscando Recepcionista: " + id);
+        Recepcionista medico = pp.darRecepcionistaID(id);		
+        log.info ("Buscando Recepcionista: " + medico);
         return medico;
 	}
 	

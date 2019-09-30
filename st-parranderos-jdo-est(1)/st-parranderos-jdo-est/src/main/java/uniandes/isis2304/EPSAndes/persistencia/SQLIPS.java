@@ -7,9 +7,12 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
+import uniandes.isis2304.EPSAndes.negocio.Afiliado;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
+import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 
 /**
  * @author
@@ -72,6 +75,27 @@ class SQLIPS
 		q.setResultClass(Medico.class);
 		String resp =  q.execute().toString();
 		return resp;
+	}
+	
+	public Medico darMedicoID (PersistenceManager pm, long administradorID)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMedico() + "WHERE \"medicosSID\" = " + administradorID);
+		q.setResultClass(Medico.class);	
+		return (Medico) q.executeUnique();
+	}
+	
+	public Afiliado darAfiliadoID (PersistenceManager pm, long administradorID)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAfiliado() + "WHERE \"afiliadoID\" = " + administradorID);
+		q.setResultClass(Afiliado.class);	
+		return (Afiliado) q.executeUnique();
+	}
+	
+	public Recepcionista darRecepcionistaID (PersistenceManager pm, long administradorID)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaRecepcionista() + "WHERE \"recepcionistaID\" = " + administradorID);
+		q.setResultClass(Recepcionista.class);	
+		return (Recepcionista) q.executeUnique();
 	}
 
 }

@@ -782,6 +782,26 @@ public class PersistenciaEPSAndes
 		return sqlEPS.darAdminID(pmf.getPersistenceManager(), adminID);
 	}
 	
+	public Gerente darGerenteID (long adminID)
+	{
+		return sqlEPS.darGerenteID(pmf.getPersistenceManager(), adminID);
+	}
+	
+	public Medico darMedicoID (long adminID)
+	{
+		return sqlIPS.darMedicoID(pmf.getPersistenceManager(), adminID);
+	}
+	
+	public Afiliado darAfiliadoID (long adminID)
+	{
+		return sqlIPS.darAfiliadoID(pmf.getPersistenceManager(), adminID);
+	}
+	
+	public Recepcionista darRecepcionistaID (long adminID)
+	{
+		return sqlIPS.darRecepcionistaID(pmf.getPersistenceManager(), adminID);
+	}
+	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;
 	}
