@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class PanelBotonesAfiliado extends JPanel implements ActionListener
+public class PanelBotonesAdmin extends JPanel implements ActionListener
 {
 	 // -----------------------------------------------------------------
     // Constantes
@@ -16,7 +16,7 @@ public class PanelBotonesAfiliado extends JPanel implements ActionListener
     /**
      * El comando para crear un disco
      */
-    private static final String CREAR_AFILIADO = "CrearAfiliado";
+    private static final String CREAR_ADMIN = "CrearAdmin";
 
     /**
      * El comando para cancelar la creación de un disco
@@ -30,16 +30,12 @@ public class PanelBotonesAfiliado extends JPanel implements ActionListener
     /**
      * Es una referencia al dialogo al que pertenece este panel
      */
-    private DialogoCrearAfiliado ventana;
+    private DialogoCrearAdmin ventana;
 
     // -----------------------------------------------------------------
     // Atributos de la Interfaz
     // -----------------------------------------------------------------
-
-    /**
-     * Es el botón que sirve para agregar un nuevo disco
-     */
-    private JButton botonAgregarAfiliado;
+    private JButton botonAgregarAdmin;
 
     /**
      * Es el botón que sirve para cerrar el diálogo sin guardar los cambios
@@ -54,15 +50,15 @@ public class PanelBotonesAfiliado extends JPanel implements ActionListener
      * Construye el panel e inicializa sus componentes
      * @param dca es una referencia al dialogo que contiene a este panel
      */
-    public PanelBotonesAfiliado( DialogoCrearAfiliado dca )
+    public PanelBotonesAdmin( DialogoCrearAdmin dca )
     {
 
         ventana = dca;
 
-        botonAgregarAfiliado = new JButton( "Crear" );
-        botonAgregarAfiliado.setActionCommand( CREAR_AFILIADO );
-        botonAgregarAfiliado.addActionListener( this );
-        add( botonAgregarAfiliado );
+        botonAgregarAdmin = new JButton( "Crear" );
+        botonAgregarAdmin.setActionCommand( CREAR_ADMIN );
+        botonAgregarAdmin.addActionListener( this );
+        add( botonAgregarAdmin );
 
         botonCancelar = new JButton( "Cancelar" );
         botonCancelar.setActionCommand( CANCELAR );
@@ -83,9 +79,9 @@ public class PanelBotonesAfiliado extends JPanel implements ActionListener
     {
         String comando = evento.getActionCommand( );
 
-        if( CREAR_AFILIADO.equals( comando ) )
+        if( CREAR_ADMIN.equals( comando ) )
         {
-            ventana.crearAfiliado( );
+            ventana.crearAdmin( );
         }
         else if( CANCELAR.equals( comando ) )
         {

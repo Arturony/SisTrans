@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import uniandes.isis2304.EPSAndes.interfazApp.InterfazEPSAndesApu;
 
 
-public class DialogoCrearAfiliado extends JDialog
+public class DialogoCrearServicio extends JDialog
 {
 	// -----------------------------------------------------------------
     // Atributos
@@ -26,12 +26,12 @@ public class DialogoCrearAfiliado extends JDialog
     /**
      * Es el panel con los datos para crear el nuevo disco
      */
-    private PanelCrearAfiliado panelDatos;
+    private PanelCrearServicio panelDatos;
 
     /**
      * Es el panel con los botones para guardar el disco
      */
-    private PanelBotonesAfiliado panelBotones;
+    private PanelBotonesServicio panelBotones;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -41,13 +41,13 @@ public class DialogoCrearAfiliado extends JDialog
      * Construye el diálogo
      * @param id es una referencia a la clase principal de la interfaz
      */
-    public DialogoCrearAfiliado( InterfazEPSAndesApu id )
+    public DialogoCrearServicio( InterfazEPSAndesApu id )
     {
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearAfiliado( );
-        panelBotones = new PanelBotonesAfiliado( this );
+        panelDatos = new PanelCrearServicio( );
+        panelBotones = new PanelBotonesServicio( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
         getContentPane( ).add( panelBotones, BorderLayout.SOUTH );
@@ -64,21 +64,22 @@ public class DialogoCrearAfiliado extends JDialog
     /**
      * Guarda el disco
      */
-    public void crearAfiliado( )
+    public void crearServicio( )
     {
         boolean parametersOk = true;
         String nombre = panelDatos.darNombre();
-        String documento = panelDatos.darDocumento();
-        String tipo = panelDatos.darTipoDocumento();
-        String fecha = panelDatos.darFecha();
-        String correo = panelDatos.darCorreo();
+        String horario = panelDatos.darHorario();
+        String ipsId = panelDatos.darIDIPS();
+        String id = panelDatos.darID();
+        String capacidad = panelDatos.darCapacidad();
         try 
         {
-			int document = Integer.parseInt(documento);
-			
-			if(document < 0)
+			int idServ = Integer.parseInt(id);
+			int idIps = Integer.parseInt(ipsId);
+			int cap = Integer.parseInt(capacidad);
+			if(cap < 0 && idServ < 0 && idIps < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || fecha.equals( "" ) || fecha.equals( "" ) ) )
+			if( ( nombre.equals( "" ) || horario.equals( "" ) ) || ( ipsId.equals( "" ) || id.equals( "" ) || capacidad.equals( "" ) ) )
 			{
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
@@ -86,7 +87,7 @@ public class DialogoCrearAfiliado extends JDialog
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarAfiliado(nombre, document, tipo, fecha, correo);
+				boolean ok = principal.adicionarServicio(nombre, idServ, horario, cap, idIps);
 				if( ok )
 				dispose( );
 				else

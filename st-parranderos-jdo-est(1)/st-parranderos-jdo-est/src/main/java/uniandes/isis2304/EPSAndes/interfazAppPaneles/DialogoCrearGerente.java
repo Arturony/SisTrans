@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import uniandes.isis2304.EPSAndes.interfazApp.InterfazEPSAndesApu;
 
 
-public class DialogoCrearAfiliado extends JDialog
+public class DialogoCrearGerente extends JDialog
 {
 	// -----------------------------------------------------------------
     // Atributos
@@ -26,12 +26,12 @@ public class DialogoCrearAfiliado extends JDialog
     /**
      * Es el panel con los datos para crear el nuevo disco
      */
-    private PanelCrearAfiliado panelDatos;
+    private PanelCrearGerente panelDatos;
 
     /**
      * Es el panel con los botones para guardar el disco
      */
-    private PanelBotonesAfiliado panelBotones;
+    private PanelBotonesGerente panelBotones;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -41,18 +41,18 @@ public class DialogoCrearAfiliado extends JDialog
      * Construye el diálogo
      * @param id es una referencia a la clase principal de la interfaz
      */
-    public DialogoCrearAfiliado( InterfazEPSAndesApu id )
+    public DialogoCrearGerente( InterfazEPSAndesApu id )
     {
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearAfiliado( );
-        panelBotones = new PanelBotonesAfiliado( this );
+        panelDatos = new PanelCrearGerente( );
+        panelBotones = new PanelBotonesGerente( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
         getContentPane( ).add( panelBotones, BorderLayout.SOUTH );
 
-        setTitle( "Crear Disco" );
+        setTitle( "Crear Gerente" );
         pack( );
 
     }
@@ -64,13 +64,12 @@ public class DialogoCrearAfiliado extends JDialog
     /**
      * Guarda el disco
      */
-    public void crearAfiliado( )
+    public void crearGerente( )
     {
         boolean parametersOk = true;
         String nombre = panelDatos.darNombre();
         String documento = panelDatos.darDocumento();
         String tipo = panelDatos.darTipoDocumento();
-        String fecha = panelDatos.darFecha();
         String correo = panelDatos.darCorreo();
         try 
         {
@@ -78,15 +77,15 @@ public class DialogoCrearAfiliado extends JDialog
 			
 			if(document < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || fecha.equals( "" ) || fecha.equals( "" ) ) )
+			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || correo.equals( "" ) ) )
 			{
 				parametersOk = false;
-				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
+				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el gerente" );
 			}
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarAfiliado(nombre, document, tipo, fecha, correo);
+				boolean ok = principal.adicionarGerente(nombre, document, tipo, correo);
 				if( ok )
 				dispose( );
 				else
@@ -95,7 +94,7 @@ public class DialogoCrearAfiliado extends JDialog
 		} 
         catch (Exception e) 
         {
-        	JOptionPane.showMessageDialog( this, "Ingrese datos numericos para Documento y Registro Medico" );
+        	JOptionPane.showMessageDialog( this, "Ingrese datos numericos para Documento" );
 		}
     }
 }

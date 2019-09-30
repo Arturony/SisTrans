@@ -10,7 +10,7 @@ public class Servicios implements VOServicios
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	private long idServicio;
+	private long servicioSaludID;
 	
 	private String horario;
 	
@@ -26,7 +26,7 @@ public class Servicios implements VOServicios
 	 */
 	public Servicios () 
 	{
-		this.idServicio = 0;
+		this.servicioSaludID = 0;
 		this.medicosDisponibles = 0;
 		this.horario = "";
 		this.nombre = "";
@@ -34,18 +34,17 @@ public class Servicios implements VOServicios
 
 	public Servicios (long idServicio, int medicosDisponibles, String horario, String nombre) 
 	{
-		this.idServicio = idServicio;
+		this.servicioSaludID = idServicio;
 		this.medicosDisponibles = medicosDisponibles;
 		this.horario = horario;
 	}
 
-	
-	public long getIdServicio() {
-		return idServicio;
+	public long getServicioSaludID() {
+		return servicioSaludID;
 	}
 
-	public void setIdServicio(long idServicio) {
-		this.idServicio = idServicio;
+	public void setServicioSaludID(long servicioSaludID) {
+		this.servicioSaludID = servicioSaludID;
 	}
 
 	public String getHorario() {
@@ -78,7 +77,7 @@ public class Servicios implements VOServicios
 	@Override
 	public String toString() 
 	{
-		return "Servicio de Salud [idServicio=" + idServicio + ", nombre=" + nombre + ", horario=" + horario + 
+		return "Servicio de Salud [idServicio=" + servicioSaludID + ", nombre=" + nombre + ", horario=" + horario + 
 				", medicos disponibles=" + medicosDisponibles + "]";
 	}
 }

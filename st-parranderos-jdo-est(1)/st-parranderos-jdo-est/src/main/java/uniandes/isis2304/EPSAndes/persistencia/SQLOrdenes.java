@@ -54,8 +54,14 @@ class SQLOrdenes
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes());
 		q.setResultClass(Orden.class);
-		List<Orden> resp = (List<Orden>) q.execute();
-		return resp;
+		return (List<Orden>) q.execute();
+	}
+
+	public Orden darOrdenes(PersistenceManager pm, int servicio, int afiliado, int ordenes) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes() + "WHERE \"ordenesID\" = ? AND = \"afiliadoId\" ? AND \"servicioID\" = ?");
+		q.setParameters(ordenes, afiliado, servicio);
+		q.setResultClass(Orden.class);
+		return (Orden) q.executeUnique();
 	}
 
 }

@@ -60,30 +60,30 @@ class SQLUtil
 	{
 		
         Query qAdmin = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAdmin ());          
-        Query qAfiliado = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAfiliado ());
         Query qCitas = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCitas());
-        Query qEps = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaEps());
         Query qGerente = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGerente());
-        Query qIps = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaIPS());
         Query qMedicos = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMedico());
         Query qOrdenes = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOrdenes());
+        Query qAfiliado = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAfiliado ());
         Query qPrestaciones = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPrestaciones());
         Query qRecep = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaRecepcionista());
         Query qServ = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServicio());
         Query qTrabajan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTrabajan());
+        Query qIps = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaIPS());
+        Query qEps = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaEps());
 
         long gustanEliminados = (long) qAdmin.executeUnique ();
-        long sirvenEliminados = (long) qAfiliado.executeUnique ();
         long visitanEliminadas = (long) qCitas.executeUnique ();
-        long bebidasEliminadas = (long) qEps.executeUnique ();
         long tiposBebidaEliminados = (long) qGerente.executeUnique ();
-        long bebedoresEliminados = (long) qIps.executeUnique ();
         long baresEliminados = (long) qMedicos.executeUnique ();
         long ordenesEliminados = (long) qOrdenes.executeUnique ();
+        long sirvenEliminados = (long) qAfiliado.executeUnique ();
         long presEliminados = (long) qPrestaciones.executeUnique ();
         long recepEliminados = (long) qRecep.executeUnique ();
         long servEliminados = (long) qServ.executeUnique ();
         long trabEliminados = (long) qTrabajan.executeUnique ();
+        long bebedoresEliminados = (long) qIps.executeUnique ();
+        long bebidasEliminadas = (long) qEps.executeUnique ();
         return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
         		tiposBebidaEliminados, bebedoresEliminados, baresEliminados, ordenesEliminados, presEliminados,
         		recepEliminados, servEliminados, trabEliminados};

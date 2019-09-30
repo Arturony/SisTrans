@@ -16,11 +16,11 @@ public interface VOOrden
 	/**
 	 * @return El id 
 	 */
-	public long getIdOrden();
+	public long getOrdenesID();
 
-	public long getIdAfiliado();
+	public long getAfiliadoID();
 	
-	public long getIdServicio();
+	public long getServicioID();
 
 	/**
 	 * @return Una cadena de caracteres con la información

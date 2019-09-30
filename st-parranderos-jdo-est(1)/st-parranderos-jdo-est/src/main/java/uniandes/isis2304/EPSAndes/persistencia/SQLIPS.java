@@ -7,6 +7,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import oracle.net.aso.n;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
@@ -79,7 +80,7 @@ class SQLIPS
 	
 	public Medico darMedicoID (PersistenceManager pm, long administradorID)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMedico() + "WHERE \"medicosSID\" = " + administradorID);
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMedico() + "WHERE \"medicosID\" = " + administradorID);
 		q.setResultClass(Medico.class);	
 		return (Medico) q.executeUnique();
 	}
@@ -94,6 +95,31 @@ class SQLIPS
 	public Recepcionista darRecepcionistaID (PersistenceManager pm, long administradorID)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaRecepcionista() + "WHERE \"recepcionistaID\" = " + administradorID);
+		q.setResultClass(Recepcionista.class);	
+		return (Recepcionista) q.executeUnique();
+	}
+
+	public Medico darMedico(PersistenceManager pm, String nombre, long id, String tipoDocumento, int reg) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMedico() + "WHERE \"medicosID\" = ? AND \"nombre\" = ? AND \"tipoDocumento\" = ? AND \"numeroRegistroMedico\" = ?");
+		q.setParameters(id, nombre, tipoDocumento, reg);
+		q.setResultClass(Medico.class);	
+		return (Medico) q.executeUnique();
+
+	}
+
+	public Afiliado darAfiliado(PersistenceManager pm, String nombre, String correo, long id,
+			String tipo) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAfiliado() + "WHERE \"afiliadoID\" = ? AND \"nombre\" = ? AND \"correo\" = ? AND \"tipoDocumento\" = ?");
+		q.setParameters(id, nombre, correo, tipo);
+		q.setResultClass(Afiliado.class);	
+		return (Afiliado) q.executeUnique();
+	}
+
+	public Recepcionista darRecepcionista(PersistenceManager pm, String nombre, String correo, long id,
+			String tipo) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaRecepcionista() + "WHERE \"recepcionistaID\" = ? AND \"correo\" = ? AND \"nombre\" = ? AND \"tipoDocumento\" = ?");
+		q.setParameters(id, correo, nombre, tipo);
 		q.setResultClass(Recepcionista.class);	
 		return (Recepcionista) q.executeUnique();
 	}

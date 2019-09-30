@@ -9,7 +9,7 @@ public interface VOGerente
 	 * 			Métodos
 	 *****************************************************************/
 
-	public long getIdGerente();
+	public long getGerenteID();
 
 
 	public String getCorreo();
@@ -18,6 +18,8 @@ public interface VOGerente
 	public String getNombre();
 
 	public String getTipoDocumento();
+	
+	public long getEpsID();
 
 	
 	@Override

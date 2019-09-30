@@ -12,15 +12,15 @@ public class CitaMedica implements VOCitaMedica
 	 *****************************************************************/
 	private String horario;
 	
-	private long idCita;
+	private long citaMedicaID;
 	
 	private int llego;
 	
 	private int sesiones;
 	
-	private long idAfiliado;
+	private long afiliadoID;
 	
-	private long idServicio;
+	private long servicioSaludID;
 	
 	
 	//private long idOrden;
@@ -32,28 +32,24 @@ public class CitaMedica implements VOCitaMedica
 	 */
 	public CitaMedica () 
 	{
-		this.idServicio = 0;
-		this.idAfiliado = 0;
+		this.servicioSaludID = 0;
+		this.afiliadoID = 0;
 		this.horario = "";
-		this.idCita = 0;
+		this.citaMedicaID = 0;
 		this.sesiones = 0;
 		this.llego = 0;
-		//this.idOrden = 0;
 	}
 
 	
 	public CitaMedica (long idServicio, long idAfiliado, String horario, long idCita, int sesiones, int llego) 
 	{
-		this.idServicio = idServicio;
-		this.idAfiliado = idAfiliado;
+		this.servicioSaludID = idServicio;
+		this.afiliadoID = idAfiliado;
 		this.horario = horario;
-		this.idCita = idCita;
+		this.citaMedicaID = idCita;
 		this.sesiones = sesiones;
 		this.llego =llego;
-		//this.idOrden = idOrden;
 	}
-	
-	
 
 	public String getHorario() {
 		return horario;
@@ -65,13 +61,13 @@ public class CitaMedica implements VOCitaMedica
 	}
 
 
-	public long getIdCita() {
-		return idCita;
+	public long getCitaMedicaID() {
+		return citaMedicaID;
 	}
 
 
-	public void setIdCita(long idCita) {
-		this.idCita = idCita;
+	public void setCitaMedicaID(long citaMedicaID) {
+		this.citaMedicaID = citaMedicaID;
 	}
 
 
@@ -95,34 +91,25 @@ public class CitaMedica implements VOCitaMedica
 	}
 
 
-	public long getIdAfiliado() {
-		return idAfiliado;
+	public long getAfiliadoID() {
+		return afiliadoID;
 	}
 
 
-	public void setIdAfiliado(long idAfiliado) {
-		this.idAfiliado = idAfiliado;
+	public void setAfiliadoID(long afiliadoID) {
+		this.afiliadoID = afiliadoID;
 	}
 
 
-	public long getIdServicio() {
-		return idServicio;
+	public long getServicioSaludID() {
+		return servicioSaludID;
 	}
 
 
-	public void setIdServicio(long idServicio) {
-		this.idServicio = idServicio;
-	}
-	/*
-	public long getIdOrden() {
-		return idOrden;
+	public void setServicioSaludID(long servicioSaludID) {
+		this.servicioSaludID = servicioSaludID;
 	}
 
-
-	public void setIdOrden(long idOrden) {
-		this.idOrden = idOrden;
-	}
-*/
 
 	/** 
 	 * @return Una cadena con la información básica
@@ -130,7 +117,7 @@ public class CitaMedica implements VOCitaMedica
 	@Override
 	public String toString() 
 	{
-		return "Cita Medica [idCita=" + idCita + ", horario=" + horario +", sesiones="+ sesiones + ", idAfiliado="
-	+ idAfiliado  + ", idServicio= " +idServicio + ", llego=" +llego+ "]";
+		return "Cita Medica [idCita=" + citaMedicaID + ", horario=" + horario +", sesiones="+ sesiones + ", idAfiliado="
+	+ afiliadoID  + ", idServicio= " +servicioSaludID + ", llego=" +llego+ "]";
 	}
 }

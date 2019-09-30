@@ -71,6 +71,14 @@ public class EPSAndes
         return medico;
 	}
 	
+	public Medico conusltarMedico(String nombre, String tipoDocumento, int id, int reg)
+	{
+		log.info ("Consultando Medico: " + nombre);
+        Medico medico = pp.darMedico(nombre, id, tipoDocumento, reg);		
+        log.info ("Consultando Medico: " + medico);
+        return medico;
+	}
+	
 	public Afiliado adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo)
 	{
 		log.info ("Adicionando Afiliado: " + nombre);
@@ -79,11 +87,27 @@ public class EPSAndes
         return afiliado;
 	}
 	
-	public Recepcionista adicionarRecepcionista(String nombre, int documento, String tipo, String fecha, String correo)
+	public Afiliado consultarAfiliado(String nombre, int documento, String tipoDocumento, String correo)
+	{
+		log.info ("Consultando Afiliado: " + nombre);
+        Afiliado afiliado = pp.darAfiliado(nombre, correo, documento, tipoDocumento);		
+        log.info ("Consultando Afiliado: " + afiliado);
+        return afiliado;
+	}
+	
+	public Recepcionista adicionarRecepcionista(String nombre, int documento, String tipo, int idIps, String correo)
 	{
 		log.info ("Adicionando recepcionista: " + nombre);
-        Recepcionista recep = pp.adicionarRecepcionista(nombre, correo, documento, tipo, fecha, 1);		
+        Recepcionista recep = pp.adicionarRecepcionista(nombre, correo, documento, tipo, idIps);		
         log.info ("Adicionando recepcionista: " + recep);
+        return recep;
+	}
+	
+	public Recepcionista consultarRecepcionista(String nombre, int documento, String tipo, String correo)
+	{
+		log.info ("Consultando recepcionista: " + nombre);
+        Recepcionista recep = pp.darRecepcionista(nombre, correo, documento, tipo);		
+        log.info ("Consultando recepcionista: " + recep);
         return recep;
 	}
 	
@@ -95,11 +119,27 @@ public class EPSAndes
         return admin;
 	}
 	
+	public AdministradorD consultarAdministrador(String nombre, int documento, String tipo, int contrasenia, String correo)
+	{
+		log.info ("Consultando Administrador: " + nombre);
+        AdministradorD admin = pp.darAdmin(nombre, correo, documento, tipo, contrasenia);		
+        log.info ("Consultando Administrador: " + admin);
+        return admin;
+	}
+	
 	public Gerente adicionarGerente(String nombre, String correo, int idGerente, String tipo)
 	{
 		log.info ("Adicionando gerente: " + idGerente);
        	Gerente gerente = pp.adicionarGerente(nombre, correo, idGerente, tipo, 1);		
         log.info ("Adicionando gerente: " + gerente);
+        return gerente;
+	}
+	
+	public Gerente consultarGerente(String nombre, String correo, int idGerente, String tipo)
+	{
+		log.info ("Consultando gerente: " + idGerente);
+       	Gerente gerente = pp.darGerente(nombre, correo, idGerente, tipo);		
+        log.info ("Consultando gerente: " + gerente);
         return gerente;
 	}
 	
@@ -111,6 +151,14 @@ public class EPSAndes
         return ips;
 	}
 	
+	public IPS consultarIPS(String nombre, int documento, String localizacion)
+	{
+		log.info ("Consultando ips: " + nombre);
+        IPS ips = pp.darIPS(nombre, documento, localizacion);		
+        log.info ("Consultando ips: " + ips);
+        return ips;
+	}
+	
 	public EPS adicionarEPS(String nombre, int epsID)
 	{
 		log.info ("Adicionando eps: " + nombre);
@@ -119,11 +167,27 @@ public class EPSAndes
         return eps;
 	}
 	
-	public Servicios adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles)
+	public EPS consultarEPS(String nombre, int epsID)
+	{
+		log.info ("Consultando eps: " + nombre);
+        EPS eps = pp.darEPS(nombre, epsID);		
+        log.info ("Consultando eps: " + eps);
+        return eps;
+	}
+	
+	public Servicios adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles, int idIps)
 	{
 		log.info ("Adicionando servicio: " + nombre);
-        Servicios servicio = pp.adicionarServicio(nombre, horario, idServ, medicosDisponibles);		
+        Servicios servicio = pp.adicionarServicio(nombre, horario, idServ, medicosDisponibles, idIps);		
         log.info ("Adicionando servicio: " + servicio);
+        return servicio;
+	}
+	
+	public Servicios consultarServicio(String nombre, int idServ, String horario)
+	{
+		log.info ("Consultando servicio: " + nombre);
+        Servicios servicio = pp.darServicio(nombre, idServ, horario);		
+        log.info ("Consultando servicio: " + servicio);
         return servicio;
 	}
 	
@@ -135,11 +199,27 @@ public class EPSAndes
         return orden;
 	}
 	
+	public Orden consultarOrden(int afiliado, int servicio, int ordenes)
+	{
+		log.info ("Consultando orden: " + ordenes);
+       	Orden orden = pp.darOrden(servicio, afiliado, ordenes);		
+        log.info ("Consultando orden: " + orden);
+        return orden;
+	}
+	
 	public CitaMedica adicionarCita(int afiliado, int servicio, int idCita, String horario, int sesiones)
 	{
 		log.info ("Adicionando cita: " + idCita);
        	CitaMedica cita = pp.adicionarCita(servicio, afiliado, idCita, horario, 0, sesiones);		
         log.info ("Adicionando cita: " + cita);
+        return cita;
+	}
+	
+	public CitaMedica consultarCita(int afiliado, int servicio, int idCita, String horario, int sesiones)
+	{
+		log.info ("Consultando cita: " + idCita);
+       	CitaMedica cita = pp.darCita(servicio, afiliado, idCita, horario, sesiones);		
+        log.info ("Consultando cita: " + cita);
         return cita;
 	}
 	
@@ -159,7 +239,7 @@ public class EPSAndes
         return eps;
 	}
 	
-	public AdministradorD consultarAdmin(long epsID)
+	public AdministradorD consultarAdminID(long epsID)
 	{
 		log.info ("Buscando Admin: " + epsID);
         AdministradorD eps = pp.darAdminporID(epsID);		
@@ -167,7 +247,7 @@ public class EPSAndes
         return eps;
 	}
 	
-	public Gerente consultarGerente(long epsID)
+	public Gerente consultarGerenteID(long epsID)
 	{
 		log.info ("Buscando Gerente: " + epsID);
         Gerente eps = pp.darGerenteID(epsID);		
@@ -175,7 +255,7 @@ public class EPSAndes
         return eps;
 	}
 	
-	public Afiliado consultarAfiliado(long id)
+	public Afiliado consultarAfiliadoID(long id)
 	{
 		log.info ("Buscando Afiliado: " + id);
         Afiliado medico = pp.darAfiliadoID(id);		
@@ -183,7 +263,7 @@ public class EPSAndes
         return medico;
 	}
 	
-	public Medico consultarMedico(long id)
+	public Medico consultarMedicoID(long id)
 	{
 		log.info ("Buscando Medico: " + id);
         Medico medico = pp.darMedicoID(id);		
@@ -191,7 +271,7 @@ public class EPSAndes
         return medico;
 	}
 	
-	public Recepcionista consultarRecepcionista(long id)
+	public Recepcionista consultarRecepcionistaID(long id)
 	{
 		log.info ("Buscando Recepcionista: " + id);
         Recepcionista medico = pp.darRecepcionistaID(id);		

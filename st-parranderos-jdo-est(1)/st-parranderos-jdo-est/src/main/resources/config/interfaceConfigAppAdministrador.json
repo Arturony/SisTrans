@@ -1,11 +1,11 @@
 {
-	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"title": "Aplicación transaccional de EPS Andes",
 	"frameH": 600,
 	"frameW": 800,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "Registrar",
+		{ "menuTitle": "Acciones",
 		  "options":
 			[
 				{
@@ -23,6 +23,18 @@
 				{
 					"label": "Registrar IPS",
 					"event": "mostrarDialogoIPS"
+				},
+				{
+					"label": "Registrar Recepcionista",
+					"event": "mostrarDialogoRecepcionista"
+				},
+				{
+					"label": "Registrar Gerente",
+					"event": "mostrarDialogoGerente"
+				},
+				{
+					"label": "Registrar Administrador",
+					"event": "mostrarDialogoAdmin"
 				}
 			]
 		},

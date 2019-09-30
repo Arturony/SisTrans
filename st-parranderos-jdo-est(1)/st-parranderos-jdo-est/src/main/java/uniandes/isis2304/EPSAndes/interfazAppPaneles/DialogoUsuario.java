@@ -73,55 +73,67 @@ public class DialogoUsuario extends JDialog
         String tipoU = panelDatos.darTipoUsuario();
         String correo = panelDatos.darCorreo();
         String contra = panelDatos.darContrasenia();
+        String registro = panelDatos.darRegistro();
         try 
         {
 			int document = Integer.parseInt(documento);
+			int contrasenia = 0;
+			int reg = 0;
+			if(!contra.equals(""))
+			{
+				contrasenia = Integer.parseInt(contra);
+			}
+			if(!registro.equals(""))
+			{
+				reg = Integer.parseInt(registro);
+			}
+				
 			
 			if(document < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( nombreU.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || correo.equals( "" ) || contra.equals( "" ) ) )
+			if( ( nombreU.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) ) )
 			{
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
 			}
 			if( parametersOk )
 			{
-				if(tipoU.equals("Administrador de Datos") && principal.consultarAdmin(document) != null)
+				if(tipoU.equals("Administrador de Datos") && principal.consultarAdmin(document, nombreU, tipo, contrasenia, correo)!= null)
 				{
 					principal.setLogin("Administrador");
-					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU +  " \n Tipo de Usuario: " + principal.getLogin());
+					principal.setNombreU("Hola! " + nombreU +  " \n Tipo de Usuario: " + principal.getLogin());
 					dispose();
 				}
-				else if(tipoU.equals("Afiliado") && principal.consultarAfilaido(document) != null)
+				else if(tipoU.equals("Afiliado") && principal.consultarAfiliado(document, nombreU, tipo, correo) != null)
 				{
 					principal.setLogin("Afiliado");
-					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+					principal.setNombreU("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
 
 					dispose();
 				}
-				else if(tipoU.equals("Gerente") && principal.consultarGerente(document) != null)
+				else if(tipoU.equals("Gerente") && principal.consultarGerente(document, nombreU, correo, tipo) != null)
 				{
 					principal.setLogin("Gerente");
-					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+					principal.setNombreU("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
 
 					dispose();
 				}
-				else if(tipoU.equals("Medico") && principal.consultarMedico(document) != null)
+				else if(tipoU.equals("Medico") && principal.consultarMedico(document, nombreU, tipo, reg) != null)
 				{
 					principal.setLogin("Medico");
-					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+					principal.setNombreU("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
 
 					dispose();
 				}
-				else if(tipoU.equals("Recepcionista") && principal.consultarRecepcionista(document) != null)
+				else if(tipoU.equals("Recepcionista") && principal.consultarRecepcionista(document, nombreU, tipo, correo) != null)
 				{
 					principal.setLogin("Recepcionista");
-					principal.getPanelDatos().actualizarLogin("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
+					principal.setNombreU("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
 					dispose();
 				}
 				else
 				{
-					JOptionPane.showMessageDialog( this, "Datos Invalidos" );
+					JOptionPane.showMessageDialog( this, "No se ha encontrado un usuario con esos datos" );
 				}
 			}
 		} 

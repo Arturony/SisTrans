@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class PanelSeleccionarUsuario extends JPanel implements ActionListener
+public class PanelCrearAdmin extends JPanel implements ActionListener
 {
 
     // -----------------------------------------------------------------
@@ -24,12 +24,12 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
     /**
      * Es la etiqueta "Nombre"
      */
-    private JLabel etiquetaUsuario;
+    private JLabel etiquetaNombre;
 
     /**
      * Es el campo de texto para ingresar el título del nuevo disco
      */
-    private JTextField txtUsuario;
+    private JTextField txtNombre;
 
     /**
      * Es la etiqueta "Documento"
@@ -44,38 +44,26 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
     private JLabel etiquetaTipoDocumento;
     
     private JComboBox comboDocumento;
-    
-    private JLabel etiquetaTipoUsuario;
-
-    /**
-     * Es la etiqueta "Especialidad"
-     */
-    private JComboBox comboTipousuario;
-    
-    private JLabel etiquetaCorreo;
-    
-    private JTextField txtCorreo;
-
-    /**
-     * Es el campo de texto para ingresar el género del nuevo disco
-     */
 
     /**
      * Es la etiqueta "Registro"
      */
+    private JLabel etiquetaCorreo;
+
+    /**
+     * Es el campo de texto para ingresar la imagen del nuevo disco
+     */
+    private JTextField txtCorreo;
+    
+    /**
+     * Es la etiqueta "Especialidad"
+     */
     private JLabel etiquetaContrasenia;
 
     /**
-     * Es el campo de texto para ingresar la imagen del nuevo disco
+     * Es el campo de texto para ingresar el género del nuevo disco
      */
     private JTextField txtContrasenia;
-    
-    private JLabel etiquetaRegistro;
-
-    /**
-     * Es el campo de texto para ingresar la imagen del nuevo disco
-     */
-    private JTextField txtRegistro;
     
     // -----------------------------------------------------------------
     // Constructores
@@ -84,19 +72,19 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
     /**
      * Construye el panel creando las etiquetas y los campos de texto necesarios para crear un nuevo disco
      */
-    public PanelSeleccionarUsuario( )
+    public PanelCrearAdmin( )
     {
-        setLayout( new GridLayout( 8, 2, 6, 6 ) );
+        setLayout( new GridLayout( 6, 2, 5, 5 ) );
+        setSize(300, 400);
 
         String[] tipoDocumentos = {"Cedula Ciudadania", "Pasaporte", "Cedula Extrangeria"};
-        String[] tipoUsuario = {"Administrador de Datos", "Afiliado", "Gerente", "Medico", "Recepcionista"};
         
-        etiquetaUsuario = new JLabel( "Nombre de Usuario: " );
-        etiquetaUsuario.setFont( etiquetaUsuario.getFont( ).deriveFont( Font.PLAIN ) );
-        add( etiquetaUsuario );
+        etiquetaNombre = new JLabel( "Nombre: " );
+        etiquetaNombre.setFont( etiquetaNombre.getFont( ).deriveFont( Font.PLAIN ) );
+        add( etiquetaNombre );
 
-        txtUsuario = new JTextField( 2 );
-        add( txtUsuario );
+        txtNombre = new JTextField( 2 );
+        add( txtNombre );
 
         etiquetaDocumento = new JLabel( "Documento: " );
         etiquetaDocumento.setFont( etiquetaDocumento.getFont( ).deriveFont( Font.PLAIN ) );
@@ -111,39 +99,20 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
         
         comboDocumento = new JComboBox<String>(tipoDocumentos);
         add(comboDocumento);
-        
-        etiquetaTipoUsuario = new JLabel( "Tipo de Usuario: " );
-        etiquetaTipoUsuario.setFont( etiquetaTipoUsuario.getFont( ).deriveFont( Font.PLAIN ) );
-        add( etiquetaTipoUsuario );
 
-        comboTipousuario = new JComboBox<String>(tipoUsuario);
-        comboTipousuario.setActionCommand("CambioValor");
-        comboTipousuario.addActionListener(this);
-        comboTipousuario.setFont( comboTipousuario.getFont( ).deriveFont( Font.PLAIN ) );
-        add( comboTipousuario );
-        
-        etiquetaRegistro = new JLabel( "Registro Médico: " );
-        etiquetaRegistro.setFont( etiquetaRegistro.getFont( ).deriveFont( Font.PLAIN ) );
-        add( etiquetaRegistro );
-
-        txtRegistro = new JTextField( 2 );
-        add( txtRegistro);
-        txtRegistro.setEditable(false);
-        
         etiquetaCorreo = new JLabel( "Correo: " );
         etiquetaCorreo.setFont( etiquetaCorreo.getFont( ).deriveFont( Font.PLAIN ) );
         add( etiquetaCorreo );
 
         txtCorreo = new JTextField( 2 );
-        add( txtCorreo);
-
+        add( txtCorreo );
+        
         etiquetaContrasenia = new JLabel( "Contraseña: " );
         etiquetaContrasenia.setFont( etiquetaContrasenia.getFont( ).deriveFont( Font.PLAIN ) );
         add( etiquetaContrasenia );
 
         txtContrasenia = new JTextField( 2 );
         add( txtContrasenia );
-
 
         setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
     }
@@ -156,9 +125,9 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
      * Da el valor del campo de texto con el título del disco
      * @return El texto con el título
      */
-    public String darNombreUsuario( )
+    public String darNombre( )
     {
-        return txtUsuario.getText( );
+        return txtNombre.getText( );
     }
 
     /**
@@ -169,6 +138,7 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
     {
         return txtDocumento.getText( );
     }
+
 
     public String darTipoDocumento()
     {
@@ -185,47 +155,12 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
     	return txtContrasenia.getText();
     }
     
-    public String darTipoUsuario()
-    {
-    	return (String)comboTipousuario.getSelectedItem();
-    }
-    
-    public String darRegistro() 
-    {
-		return txtRegistro.getText();
-	}
     /**
      * Ejecuta una acción cuando se hace click sobre un botón
      * @param evento el evento del click sobre un botón
      */
     public void actionPerformed( ActionEvent evento )
     {
-        String e = evento.getActionCommand();
         
-        if(e.equals("CambioValor"))
-        {
-        	String user = ((String)comboTipousuario.getSelectedItem());
-        	if(user.equals("Medico"))
-        	{
-        		txtRegistro.setEditable(true);
-        		txtContrasenia.setEditable(false);
-        		txtCorreo.setEditable(false);
-        	}
-        	else if(user.equals("Recepcionista") || user.equals("Afiliado") || user.equals("Gerente"))
-        	{
-        		txtContrasenia.setEditable(false);
-        		txtCorreo.setEditable(true);
-        		txtRegistro.setEditable(false);
-        	}
-        	else
-        	{
-        		txtContrasenia.setEditable(true);
-        		txtCorreo.setEditable(true);
-        		txtRegistro.setEditable(false);
-        	}
-        		
-        }
     }
-
-	
 }

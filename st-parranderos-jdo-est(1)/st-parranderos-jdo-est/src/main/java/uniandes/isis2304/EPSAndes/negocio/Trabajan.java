@@ -13,9 +13,9 @@ public class Trabajan implements VOTrabajan
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	private long idMedico;	
+	private long medicosID;	
 
-	private long idIps;
+	private long iPSID;
 
 	
 	/* ****************************************************************
@@ -26,38 +26,36 @@ public class Trabajan implements VOTrabajan
 	 */
 	public Trabajan() 
 	{
-		this.idMedico = 0;
-		this.idIps = 0;
+		this.medicosID = 0;
+		this.iPSID = 0;
 	}
 
 	public Trabajan(long idM, long idI) 
 	{
-		this.idMedico = idM;
-		this.idIps = idI;	
+		this.medicosID = idM;
+		this.iPSID = idI;	
 	}
 
-	
-	
-	public long getIdMedico() {
-		return idMedico;
+	public long getMedicosID() {
+		return medicosID;
 	}
 
-	public void setIdMedico(long idMedico) {
-		this.idMedico = idMedico;
+	public void setMedicosID(long medicosID) {
+		this.medicosID = medicosID;
 	}
 
-	public long getIdIps() {
-		return idIps;
+	public long getiPSID() {
+		return iPSID;
 	}
 
-	public void setIdIps(long idIps) {
-		this.idIps = idIps;
+	public void setiPSID(long iPSID) {
+		this.iPSID = iPSID;
 	}
 
 	@Override
 	public String toString() 
 	{
-		return "Trabajan [idMedico=" + idMedico + ", idIps=" + idIps + "]";
+		return "Trabajan [idMedico=" + medicosID + ", idIps=" + iPSID + "]";
 	}
 
 

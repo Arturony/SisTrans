@@ -10,11 +10,11 @@ public class Orden implements VOOrden
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	private long idOrden;
+	private long ordenesID;
 
-	private long idAfiliado;
+	private long afiliadoID;
 	
-	private long idServicio;
+	private long servicioID;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -24,52 +24,40 @@ public class Orden implements VOOrden
 	 */
 	public Orden() 
 	{
-		this.idOrden = 0;
-		this.idAfiliado = 0;
-		idServicio = 0;
+		this.ordenesID = 0;
+		this.afiliadoID = 0;
+		servicioID = 0;
 	}
 	
 	public Orden(long idOrden, long idAfiliado, long idServicio) 
 	{
-		this.idOrden = idOrden;
-		this.idAfiliado = idAfiliado;
-		this.idServicio = idServicio;
+		this.ordenesID = idOrden;
+		this.afiliadoID = idAfiliado;
+		this.servicioID = idServicio;
 	}
 
-	/**
-	 * @return El id
-	 */
-	public long getIdOrden() 
-	{
-		return idOrden;
+	public long getOrdenesID() {
+		return ordenesID;
 	}
 
-	/**
-	 * @param id - El nuevo id a
-	 */
-	public void setIdOrden(long id) 
-	{
-		this.idOrden = id;
+	public void setOrdenesID(long ordenesID) {
+		this.ordenesID = ordenesID;
 	}
 
-
-	public long getIdAfiliado() 
-	{
-		return idAfiliado;
+	public long getAfiliadoID() {
+		return afiliadoID;
 	}
 
-	public void setIdAfiliado(long nombre) 
-	{
-		this.idAfiliado = nombre;
-	}
-	
- 
-	public long getIdServicio() {
-		return idServicio;
+	public void setAfiliadoID(long afiliadoID) {
+		this.afiliadoID = afiliadoID;
 	}
 
-	public void setIdServicio(long idServicio) {
-		this.idServicio = idServicio;
+	public long getServicioID() {
+		return servicioID;
+	}
+
+	public void setServicioID(long servicioID) {
+		this.servicioID = servicioID;
 	}
 
 	/**
@@ -78,7 +66,7 @@ public class Orden implements VOOrden
 	@Override
 	public String toString() 
 	{
-		return "Orden [id=" + idOrden + ", idAfiliado=" + idAfiliado + "]";
+		return "Orden [id=" + ordenesID + ", idAfiliado=" + afiliadoID + "]";
 	}
 
 }

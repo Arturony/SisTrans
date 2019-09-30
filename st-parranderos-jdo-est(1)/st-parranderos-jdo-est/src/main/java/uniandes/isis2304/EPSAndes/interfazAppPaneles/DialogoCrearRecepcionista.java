@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import uniandes.isis2304.EPSAndes.interfazApp.InterfazEPSAndesApu;
 
 
-public class DialogoCrearAfiliado extends JDialog
+public class DialogoCrearRecepcionista extends JDialog
 {
 	// -----------------------------------------------------------------
     // Atributos
@@ -26,12 +26,12 @@ public class DialogoCrearAfiliado extends JDialog
     /**
      * Es el panel con los datos para crear el nuevo disco
      */
-    private PanelCrearAfiliado panelDatos;
+    private PanelCrearRecepcionista panelDatos;
 
     /**
      * Es el panel con los botones para guardar el disco
      */
-    private PanelBotonesAfiliado panelBotones;
+    private PanelBotonesRecepcionista panelBotones;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -41,13 +41,13 @@ public class DialogoCrearAfiliado extends JDialog
      * Construye el diálogo
      * @param id es una referencia a la clase principal de la interfaz
      */
-    public DialogoCrearAfiliado( InterfazEPSAndesApu id )
+    public DialogoCrearRecepcionista( InterfazEPSAndesApu id )
     {
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearAfiliado( );
-        panelBotones = new PanelBotonesAfiliado( this );
+        panelDatos = new PanelCrearRecepcionista( );
+        panelBotones = new PanelBotonesRecepcionista( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
         getContentPane( ).add( panelBotones, BorderLayout.SOUTH );
@@ -64,29 +64,29 @@ public class DialogoCrearAfiliado extends JDialog
     /**
      * Guarda el disco
      */
-    public void crearAfiliado( )
+    public void crearRecepcionista( )
     {
         boolean parametersOk = true;
         String nombre = panelDatos.darNombre();
         String documento = panelDatos.darDocumento();
         String tipo = panelDatos.darTipoDocumento();
-        String fecha = panelDatos.darFecha();
+        String ips = panelDatos.darIPS();
         String correo = panelDatos.darCorreo();
         try 
         {
 			int document = Integer.parseInt(documento);
-			
+			int contra = Integer.parseInt(ips);
 			if(document < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || fecha.equals( "" ) || fecha.equals( "" ) ) )
+			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || ips.equals( "" ) || correo.equals( "" ) ) )
 			{
 				parametersOk = false;
-				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
+				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear al recepcionista" );
 			}
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarAfiliado(nombre, document, tipo, fecha, correo);
+				boolean ok = principal.adicionarRecepcionista(nombre, document, tipo, contra, correo);
 				if( ok )
 				dispose( );
 				else

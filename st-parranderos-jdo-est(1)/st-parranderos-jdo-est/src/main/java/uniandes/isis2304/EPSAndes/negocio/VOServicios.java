@@ -12,7 +12,7 @@ public interface VOServicios
 	 *****************************************************************/
 	public String getHorario();
 	
-	public long getIdServicio();
+	public long getServicioSaludID();
 	
 	public int getMedicosDisponibles();
 	

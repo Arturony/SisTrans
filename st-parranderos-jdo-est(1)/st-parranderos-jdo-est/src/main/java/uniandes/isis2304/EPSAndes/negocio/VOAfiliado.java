@@ -11,15 +11,17 @@ import java.util.List;
  */
 public interface VOAfiliado 
 {
-	public long getIdEps();
+	public long getEpsID();
 
 	public String getNombre();
 	
 	public String getCorreo();
 	
-	public long getIdAfiliado();
+	public long getAfiliadoID();
 	
-	public String getTipo();
+	public String getTipoDocumento();
+	
+	public String getFechaNacimiento();
 	
 	public List<Object[]> getOrdenesRealizadas();
 	

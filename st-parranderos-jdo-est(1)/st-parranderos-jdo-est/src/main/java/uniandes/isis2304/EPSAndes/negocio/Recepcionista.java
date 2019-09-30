@@ -10,7 +10,7 @@ public class Recepcionista implements VORecepcionista
 	 * 			Atributos
 	 *****************************************************************/
 
-	private long idIps;
+	private long iPSID;
 	
 	private String tipoDocumento;
 
@@ -18,59 +18,74 @@ public class Recepcionista implements VORecepcionista
 
 	private String correo;
 	
-	private long idRecepcionista;
+	private long recepcionistaID;
 	
 	public Recepcionista(long pIdIps, String pNombre, String pCorreo, String tipo, long idRe)
 	{
-		idIps = pIdIps;
+		iPSID = pIdIps;
 		nombre = pNombre;
 		correo = pCorreo;
 		tipoDocumento = tipo;
-		idRecepcionista = idRe;
+		recepcionistaID = idRe;
 	}
 	
 
 	/*el documento puede ser C.C o Pasaporte
 	*/
 	
+	public long getiPSID() {
+		return iPSID;
+	}
 
-	public long getIdRecepcionista() {
-		return idRecepcionista;
+
+	public void setiPSID(long iPSID) {
+		this.iPSID = iPSID;
 	}
-	public void setIdRecepcionista(long idRecepcionista) {
-		this.idRecepcionista = idRecepcionista;
-	}
-	public long getIdIps() {
-		return idIps;
-	}
-	public void setIdIps(long idIps) {
-		this.idIps = idIps;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getCorreo() {
-		return correo;
-	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
+
+
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
-	/**
-	 * @param Documento - El nuevo TipoDocumento se genero que puede ser (PASAPORTE, C.C)
-	 */
+
+
 	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
 	}
 
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public String getCorreo() {
+		return correo;
+	}
+
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+
+	public long getRecepcionistaID() {
+		return recepcionistaID;
+	}
+
+
+	public void setRecepcionistaID(long recepcionistaID) {
+		this.recepcionistaID = recepcionistaID;
+	}
+
+
 	@Override
 	public String toString() 
 	{
-		return "Sirven id recepcionista " + idRecepcionista + ", idIps " + idIps + ", nombre " + nombre + "tipoDocumento " + tipoDocumento + "y correo "+correo ;
+		return " Recepcionista [ recepcionistaID=" + recepcionistaID + ", idIps=" + iPSID + ", nombre=" + nombre + "tipoDocumento=" + tipoDocumento + " correo="+ correo +"]" ;
 	}
 }

@@ -52,8 +52,16 @@ class SQLCitaMedica
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas());
 		q.setResultClass(CitaMedica.class);
-		List<CitaMedica> resp = (List<CitaMedica>) q.execute();
-		return resp;
+		return (List<CitaMedica>) q.execute();
+	}
+
+	public CitaMedica darCita(PersistenceManager pm, int servicio, int afiliado, int idCita,
+			String horario, int sesiones) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas() + "WHERE \"afiliadoID\" = ? AND \"servicioSaludID\" = ? AND \"citaMedicaID\" = ? AND \"horario\" = ? AND \"sesiones\" = ?");
+		q.setParameters(afiliado, servicio, idCita, horario, sesiones);
+		q.setResultClass(CitaMedica.class);
+		return (CitaMedica) q.executeUnique();
 	}
 
 }

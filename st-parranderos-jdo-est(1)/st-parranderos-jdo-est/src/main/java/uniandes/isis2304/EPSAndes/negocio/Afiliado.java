@@ -20,13 +20,15 @@ public class Afiliado implements VOAfiliado
 	
 	private String correo;
 	
-	private long idAfiliado;
+	private long afiliadoID;
 	
 	private String nombre;
 	
-	private long idEps;
+	private long epsID;
 	
-	private String tipo;
+	private String tipoDocumento;
+	
+	private String fechaNacimiento;
 	
 	private List<Object []> citasRealizadas;
 
@@ -41,20 +43,22 @@ public class Afiliado implements VOAfiliado
 	{
 		this.nombre = "Default";
 		this.correo = "Default";
-		this.idAfiliado = 0;
-		this.tipo = "Default";
-		this.idEps = 0;
+		this.afiliadoID = 0;
+		this.tipoDocumento = "Default";
+		this.epsID = 0;
+		this.fechaNacimiento = "";
 		citasRealizadas = new LinkedList<Object[]>();
 		ordenesRealizadas = new LinkedList<Object[]>();
 	}
 
-	public Afiliado(String tipo, String nombre, String correo, long documento, long idEps) 
+	public Afiliado(String tipo, String nombre, String correo, long documento, long idEps, String fecha) 
 	{
 		this.nombre = nombre;
 		this.correo = correo;
-		this.idAfiliado = documento;
-		this.tipo = tipo;
-		this.idEps = idEps;
+		this.afiliadoID = documento;
+		this.tipoDocumento = tipo;
+		this.epsID = idEps;
+		this.fechaNacimiento = fecha;
 		citasRealizadas = new LinkedList<Object[]>();
 		ordenesRealizadas = new LinkedList<Object[]>();
 	}
@@ -68,13 +72,6 @@ public class Afiliado implements VOAfiliado
 		this.correo = correo;
 	}
 
-	public long getIdAfiliado() {
-		return idAfiliado;
-	}
-
-	public void setIdAfiliado(long documento) {
-		this.idAfiliado = documento;
-	}
 
 	public String getNombre() {
 		return nombre;
@@ -83,22 +80,46 @@ public class Afiliado implements VOAfiliado
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 	
-	public long getIdEps() {
-		return idEps;
+	public long getAfiliadoID() {
+		return afiliadoID;
 	}
 
-	public void setIdEps(long idEps) {
-		this.idEps = idEps;
-	}	
+	public void setAfiliadoID(long afiliadoID) {
+		this.afiliadoID = afiliadoID;
+	}
+
+	public long getEpsID() {
+		return epsID;
+	}
+
+	public void setEpsID(long epsID) {
+		this.epsID = epsID;
+	}
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public void setCitasRealizadas(List<Object[]> citasRealizadas) {
+		this.citasRealizadas = citasRealizadas;
+	}
+
+	public void setOrdenesRealizadas(List<Object[]> ordenesRealizadas) {
+		this.ordenesRealizadas = ordenesRealizadas;
+	}
 
 	public List<Object[]> getCitasRealizadas() {
 		return citasRealizadas;
@@ -114,8 +135,8 @@ public class Afiliado implements VOAfiliado
 	@Override
 	public String toString() 
 	{
-		return "Afiliado [idAfiliado="+ idAfiliado + ", nombre=" + nombre + ", correo=" + 
-	", idEps=" + idEps + ", TipoDocumento="+ tipo +"]";
+		return "Afiliado [idAfiliado="+ afiliadoID + ", nombre=" + nombre + ", correo=" + 
+	", idEps=" + epsID + ", TipoDocumento="+ tipoDocumento + ", fecha de Nacimiento=" + fechaNacimiento +"]";
 	}
 
 	public String toStringCompleto () 

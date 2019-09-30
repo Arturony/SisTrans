@@ -10,16 +10,14 @@ public interface VOIPS
 	 * 			Métodos
 	 *****************************************************************/
 	
-	public long getIdIps();
+	public long getiPSID();
 
 	public String getNombre();
 
 	public String getLocalizacion();
 
-	public long getIdEps();
+	public long getEpsID();
 	@Override
 	public String toString();
-
-	//public String toStringCompleto ();
 
 }

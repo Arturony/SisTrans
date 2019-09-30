@@ -12,9 +12,9 @@ import java.util.List;
  */
 public interface VOTrabajan 
 {
-	public long getIdMedico();
+	public long getMedicosID();
 	
-	public long getIdIps();
+	public long getiPSID();
 	
 	/* ****************************************************************
 	 * 			Métodos

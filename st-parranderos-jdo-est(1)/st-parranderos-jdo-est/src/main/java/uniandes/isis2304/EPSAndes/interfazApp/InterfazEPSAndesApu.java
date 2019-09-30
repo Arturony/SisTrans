@@ -34,8 +34,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAdmin;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearGerente;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearIPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrden;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearRecepcionista;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearServicio;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
@@ -49,6 +55,7 @@ import uniandes.isis2304.EPSAndes.negocio.VOAfiliado;
 import uniandes.isis2304.EPSAndes.negocio.VOCitaMedica;
 import uniandes.isis2304.EPSAndes.negocio.VOEPS;
 import uniandes.isis2304.EPSAndes.negocio.VOGerente;
+import uniandes.isis2304.EPSAndes.negocio.VOIPS;
 import uniandes.isis2304.EPSAndes.negocio.VOMedico;
 import uniandes.isis2304.EPSAndes.negocio.VOOrden;
 import uniandes.isis2304.EPSAndes.negocio.VORecepcionista;
@@ -73,7 +80,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
-	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceConfigApp.json"; 
+	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceConfigApp"; 
 	
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos
@@ -112,6 +119,8 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     private JMenuBar menuBar;
     
     private String login;
+    
+    private String nombreU;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -122,11 +131,19 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
      */
     public InterfazEPSAndesApu( )
     {
-    	
     	String log4jConfPath = "src/main/resources/log4j.properties";
     	BasicConfigurator.configure();
+    	epsAndes = new EPSAndes ();
+    	panelDatos = new PanelDatos ( );
+    	if(verificarExistenciaInicial() != true)
+    	{
+    		adicionarEPS("Eps Andes", 1);
+    		adicionarAdministrador("Admin", 1, "Cedula Ciudadania", "1", "admin@epsandes.edu.co");
+    	}
+    	mostrarDialogoLogin();
+    	
         // Carga la configuración de la interfaz desde un archivo JSON
-        guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
+        guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ + this.getLogin() + ".json");
         
         // Configura la apariencia del frame que contiene la interfaz gráfica
         configurarFrame ( );
@@ -135,21 +152,17 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
      	   crearMenu( guiConfig.getAsJsonArray("menuBar") );
         }
         
-        epsAndes = new EPSAndes ();
+        
         
     	String path = guiConfig.get("bannerPath").getAsString();
-        panelDatos = new PanelDatos ( );
 
         setLayout (new BorderLayout());
         add (new JLabel (new ImageIcon (path)), BorderLayout.NORTH );          
         add( panelDatos, BorderLayout.CENTER );
-        if(verificarExistenciaInicial() != true)
-        {
-        	adicionarEPS("Eps Andes", 1);
-	        adicionarAdministrador("Admin", 1, "Cedula Ciudadania", "1", "admin@epsandes.edu.co");
-        }
+       
         panelDatos.actualizarInterfaz("");
-        mostrarDialogoLogin();
+        panelDatos.actualizarLogin(nombreU);
+        
 	        
     }
     
@@ -255,7 +268,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     
     private boolean verificarExistenciaInicial()
     {
-    	if(epsAndes.consultarEPS(1) != null && epsAndes.consultarAdmin(1) != null)
+    	if(epsAndes.consultarEPS(1) != null && epsAndes.consultarAdminID(1) != null)
     		return true;
     	return false;
     }
@@ -554,6 +567,13 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	 }
 	
+	public void mostrarDialogoAdmin()
+	{
+		DialogoCrearAdmin dialogo = new DialogoCrearAdmin( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
 	public boolean adicionarAdministrador(String nombre, int documento, String tipoDocumento, String contrasenia, String correo)
 	{
 		
@@ -578,6 +598,13 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			return false;
 		}
 	 }
+	
+	public void mostrarDialogoGerente()
+	{
+		DialogoCrearGerente dialogo = new DialogoCrearGerente( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
 	
 	public boolean adicionarGerente(String nombre, int documento, String tipoDocumento, String correo)
 	{
@@ -604,12 +631,19 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	 }
 	
-	public boolean adicionarRecepcionista(String nombre, int documento, String tipoDocumento, String fecha, String correo)
+	public void mostrarDialogoRecepcionista()
+	{
+		DialogoCrearRecepcionista dialogo = new DialogoCrearRecepcionista( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarRecepcionista(String nombre, int documento, String tipoDocumento, int idIps, String correo)
 	{
 		
 		try 
 		{	    		
-			VORecepcionista tb = epsAndes.adicionarRecepcionista(nombre, documento, tipoDocumento, fecha, correo);
+			VORecepcionista tb = epsAndes.adicionarRecepcionista(nombre, documento, tipoDocumento, idIps, correo);
 			if (tb == null)
 			{
 				throw new Exception ("No se pudo crear un Recepcionista con nombre y documento: " + nombre + ", " + documento);
@@ -629,12 +663,19 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	 }
 	
-	public boolean adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles)
+	public void mostrarDialogoServicio()
+	{
+		DialogoCrearServicio dialogo = new DialogoCrearServicio( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles, int idIps)
 	{
 		
 		try 
 		{	    		
-			VOServicios tb = epsAndes.adicionarServicio(nombre, idServ, horario, medicosDisponibles);
+			VOServicios tb = epsAndes.adicionarServicio(nombre, idServ, horario, medicosDisponibles, idIps);
 			if (tb == null)
 			{
 				throw new Exception ("No se pudo crear un Servico con nombre y id: " + nombre + ", " + idServ);
@@ -653,6 +694,13 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			return false;
 		}
 	 }
+	
+	public void mostrarDialogoCita()
+	{
+		DialogoCrearAfiliado dialogo = new DialogoCrearAfiliado( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
 	
 	public boolean adicionarCita(int afiliado, int servicio, int idCita, String horario, int sesiones)
 	{
@@ -678,6 +726,14 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			return false;
 		}
 	 }
+	
+	public void mostrarDialogoOrden()
+	{
+		DialogoCrearOrden dialogo = new DialogoCrearOrden( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
 	public boolean adicionarOrden(int afiliado, int servicio, int ordenes)
 	{
 		
@@ -690,6 +746,38 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			}
 			String resultado = "En adicionarOrden\n\n";
 			resultado += "Orden adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public void mostrarDialogoIPS()
+	{
+		DialogoCrearIPS dialogo = new DialogoCrearIPS( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarIPS(String nombre, int id, String local)
+	{
+		
+		try 
+		{	    		
+			VOIPS tb = epsAndes.adicionarIPS(nombre, id, local);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una Ips con  id: " + id);
+			}
+			String resultado = "En adicionarIPS\n\n";
+			resultado += "Ips adicionado exitosamente: " + tb;
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
 			return true;
@@ -753,34 +841,66 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		} 
 	}
     
-    public EPS consultarEPS(int epsID)
+    
+    
+    public EPS consultarEPSID(int epsID)
     {
     	return epsAndes.consultarEPS(epsID);
     }
     
-    public AdministradorD consultarAdmin(int epsID)
+    public EPS consultarEPS(int epsID, String nombre)
     {
-    	return epsAndes.consultarAdmin(epsID);
+    	return epsAndes.consultarEPS(nombre, epsID);
     }
     
-    public Gerente consultarGerente(int epsID)
+    public AdministradorD consultarAdminID(int epsID)
     {
-    	return epsAndes.consultarGerente(epsID);
+    	return epsAndes.consultarAdminID(epsID);
+    }
+
+    public AdministradorD consultarAdmin(int documento, String nombre, String tipo, int contrasenia, String correo)
+    {
+    	return epsAndes.consultarAdministrador(nombre, documento, tipo, contrasenia, correo);
     }
     
-    public Afiliado consultarAfilaido(int epsID)
+    public Gerente consultarGerenteID(int epsID)
     {
-    	return epsAndes.consultarAfiliado(epsID);
+    	return epsAndes.consultarGerenteID(epsID);
     }
     
-    public Medico consultarMedico(int epsID)
+    public Gerente consultarGerente(int idGerente, String nombre, String correo, String tipo)
     {
-    	return epsAndes.consultarMedico(epsID);
+    	return epsAndes.consultarGerente(nombre, correo, idGerente, tipo);
     }
     
-    public Recepcionista consultarRecepcionista(int epsID)
+    public Afiliado consultarAfiliadoID(int epsID)
     {
-    	return epsAndes.consultarRecepcionista(epsID);
+    	return epsAndes.consultarAfiliadoID(epsID);
+    }
+    
+    public Afiliado consultarAfiliado(int documento, String nombre, String tipoDocumento, String correo)
+    {
+    	return epsAndes.consultarAfiliado(nombre, documento, tipoDocumento, correo);
+    }
+    
+    public Medico consultarMedicoID(int epsID)
+    {
+    	return epsAndes.consultarMedicoID(epsID);
+    }
+    
+    public Medico consultarMedico(int id, String nombre, String tipoDocumento, int reg)
+    {
+    	return epsAndes.conusltarMedico(nombre, tipoDocumento, id, reg);
+    }
+    
+    public Recepcionista consultarRecepcionistaID(int epsID)
+    {
+    	return epsAndes.consultarRecepcionistaID(epsID);
+    }
+    
+    public Recepcionista consultarRecepcionista(int documento, String nombre, String tipo, String correo)
+    {
+    	return epsAndes.consultarRecepcionista(nombre, documento, tipo, correo);
     }
     
 	public String getLogin() {
@@ -794,6 +914,14 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	public PanelDatos getPanelDatos()
 	{
 		return this.panelDatos;
+	}
+
+	public String getNombreU() {
+		return nombreU;
+	}
+
+	public void setNombreU(String nombreU) {
+		this.nombreU = nombreU;
 	}
 
 	/* ****************************************************************

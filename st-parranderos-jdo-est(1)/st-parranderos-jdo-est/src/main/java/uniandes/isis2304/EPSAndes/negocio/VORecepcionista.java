@@ -10,7 +10,7 @@ public interface VORecepcionista
 	 * 			Métodos
 	 *****************************************************************/
 
-	public long getIdRecepcionista();
+	public long getRecepcionistaID();
 	
 	public String getCorreo();
 	
@@ -18,7 +18,7 @@ public interface VORecepcionista
 	 
 	public String getTipoDocumento();
 	
-	public long getIdIps();
+	public long getiPSID();
 	
 	@Override
 	public String toString();

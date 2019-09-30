@@ -14,13 +14,13 @@ public interface VOMedico
 	 * 			Métodos
 	 *****************************************************************/
 
-	public long getIdMedico();
+	public long getMedicosID();
 	
-	public int getNumeroRegistro();
+	public int getNumeroRegistroMedico();
 	
 	public String getNombre();
 	
-	public String getTipo();
+	public String getTipoDocumento();
 	
 	public String getEspecialidad();
 	

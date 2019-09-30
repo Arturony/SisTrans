@@ -11,15 +11,15 @@ public class Medico implements VOMedico
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	private String tipo;
+	private String tipoDocumento;
 	
-	private long idMedico;
+	private long medicosID;
 	
 	private String nombre;
 	
-	private int numeroRegistro;
+	private int numeroRegistroMedico;
 	
-	private String especialidad;
+	private String Especialidad;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -28,60 +28,72 @@ public class Medico implements VOMedico
 	 */
 	public Medico() 
 	{
-		this.tipo = "";
-		this.idMedico = 0;
+		this.tipoDocumento = "";
+		this.medicosID = 0;
 		this.nombre = "Default";
-		this.numeroRegistro = 0;
-		this.especialidad = "";
+		this.numeroRegistroMedico = 0;
+		this.Especialidad = "";
 	}
 
 	
 	public Medico(String idTipo, long id, String nombre, int numeroRegistro, String esp) 
 	{
-		this.tipo = idTipo;
-		this.idMedico = id;
+		this.tipoDocumento = idTipo;
+		this.medicosID = id;
 		this.nombre = nombre;
-		this.numeroRegistro = numeroRegistro;
-		this.especialidad = esp;
+		this.numeroRegistroMedico = numeroRegistro;
+		this.Especialidad = esp;
 	}
 	
 	
-	
-	public String getTipo() {
-		return tipo;
+
+	public String getTipoDocumento() {
+		return tipoDocumento;
 	}
 
-	public void setTipo(String idTipo) {
-		this.tipo = idTipo;
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
 
-	public long getIdMedico() {
-		return idMedico;
+
+	public long getMedicosID() {
+		return medicosID;
 	}
 
-	public void setIdMedico(long id) {
-		this.idMedico = id;
+
+	public void setMedicosID(long medicosID) {
+		this.medicosID = medicosID;
 	}
+
 
 	public String getNombre() {
 		return nombre;
 	}
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public int getNumeroRegistro() {
-		return numeroRegistro;
+
+	public int getNumeroRegistroMedico() {
+		return numeroRegistroMedico;
 	}
 
-	public void setNumeroRegistro(int numeroRegistro) {
-		this.numeroRegistro = numeroRegistro;
+
+	public void setNumeroRegistroMedico(int numeroRegistroMedico) {
+		this.numeroRegistroMedico = numeroRegistroMedico;
 	}
 
-	
+
 	public String getEspecialidad() {
-		return especialidad;
+		return Especialidad;
+	}
+
+
+	public void setEspecialidad(String especialidad) {
+		Especialidad = especialidad;
 	}
 
 
@@ -91,7 +103,7 @@ public class Medico implements VOMedico
 	@Override
 	public String toString() 
 	{
-		return "Medico [idMedico=" + idMedico + ", Tipo Documento=" + tipo + ", nombre+" + nombre + ", Especialidad=" + especialidad + ", Numero Registro="+numeroRegistro +"]";
+		return "Medico [idMedico=" + medicosID + ", Tipo Documento=" + tipoDocumento + ", nombre+" + nombre + ", Especialidad=" + Especialidad + ", Numero Registro="+numeroRegistroMedico +"]";
 	}
 	
 }

@@ -10,6 +10,7 @@ import javax.jdo.Query;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
+import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 /**
@@ -103,5 +104,38 @@ class SQLEPS
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaGerente() + "WHERE \"gerenteID\" = " + gerenteID);
 		q.setResultClass(Gerente.class);	
 		return (Gerente) q.executeUnique();
+	}
+
+	public EPS darEPS(PersistenceManager pm, String nombre, long epsID) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaEps() + "WHERE \"epsID\" = ? AND \"nombre\" = ? " );
+		q.setParameters(epsID, nombre);
+		q.setResultClass(EPS.class);
+		return (EPS) q.executeUnique();
+	}
+
+	public AdministradorD darAdmin(PersistenceManager pm, String nombre, String correo, long idAdmin,
+			String tipoDocumento, int contrasenia) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAdmin() + "WHERE \"administradorID\" = ? AND \"nombre\" = ? AND \"correo\" = ? AND \"contraseña\" = ? AND \"tipoDocumento\" = ?");
+		q.setParameters(idAdmin, nombre, correo, contrasenia, tipoDocumento);
+		q.setResultClass(AdministradorD.class);	
+		return (AdministradorD) q.executeUnique();
+	}
+
+	public Gerente darGerente(PersistenceManager pm, String nombre, String correo, long idGerente,
+			String tipoDocumento) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaGerente() + "WHERE \"gerenteID\" = ? AND \"nombre\" = ? AND \"correo\" = ? AND \"tipoDocumento\" = ?" );
+		q.setParameters(idGerente, nombre, correo, tipoDocumento);
+		q.setResultClass(Gerente.class);	
+		return (Gerente) q.executeUnique();
+	}
+
+	public IPS darIPS(PersistenceManager pm, String nombre, int documento, String localizacion) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaIPS() + "WHERE \"iPSID\" = ? AND \"nombre\" = ? AND \"localizacion\" = ?" );
+		q.setParameters(documento, nombre, localizacion);
+		q.setResultClass(IPS.class);
+		return (IPS) q.executeUnique();
 	}
 }

@@ -12,7 +12,7 @@ public class Gerente implements VOGerente
 	 * 			Atributos
 	 *****************************************************************/
 	
-	private long idGerente;
+	private long gerenteID;
 	
 	
 	private String nombre;
@@ -23,6 +23,8 @@ public class Gerente implements VOGerente
 	/*el documento puede ser C.C o Pasaporte
 	*/
 	private String tipoDocumento;
+	
+	private long epsID;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -32,31 +34,23 @@ public class Gerente implements VOGerente
 	 */
 	public Gerente() 
 	{
-		this.idGerente = 0;
+		this.gerenteID = 0;
 		this.nombre="";
 		this.tipoDocumento = "";
 		this.correo = "";
+		this.epsID = 0;
 	}
 
 
-	public Gerente(long idGerente, String nombre, String correo, String tipoDocumento) 
+	public Gerente(long idGerente, String nombre, String correo, String tipoDocumento, long epsId) 
 	{
-		this.idGerente = idGerente;
+		this.gerenteID = idGerente;
 		this.correo = correo;
 		this.nombre = nombre;
 		this.tipoDocumento = tipoDocumento;
+		this.epsID = epsId;
 	}
 
-
-	public long getIdGerente() 
-	{
-		return idGerente;
-	}
-
-	public void setIdBebedor(long idBebedor) 
-	{
-		this.idGerente = idBebedor;
-	}
 
 	
 	public String getNombre() 
@@ -68,31 +62,47 @@ public class Gerente implements VOGerente
 	{
 		this.nombre = nombree;
 	}
+	
+
+	public long getGerenteID() {
+		return gerenteID;
+	}
 
 
-	public String getCorreo() 
-	{
+	public void setGerenteID(long gerenteID) {
+		this.gerenteID = gerenteID;
+	}
+
+
+	public String getCorreo() {
 		return correo;
 	}
 
-	
-	public void setFechaVisita(String correeo) 
-	{
-		this.correo = correeo;
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
-	public String getTipoDocumento() 
-	{
+
+	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
 
-	/**
-	 * @param Documento - El nuevo TipoGerente se genero (PASAPORTE, C.C)
-	 */
-	public void setDocumento(String tipo) 
-	{
-		this.tipoDocumento = tipo;
+
+	public void setTipoDocumento(String tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
 	}
+
+
+	public long getEpsID() {
+		return epsID;
+	}
+
+
+	public void setEpsID(long epsID) {
+		this.epsID = epsID;
+	}
+
 
 	/** 
 	 * @return Una cadena con la información básica
@@ -100,7 +110,7 @@ public class Gerente implements VOGerente
 	@Override
 	public String toString() 
 	{
-		return "El gerente " + idGerente + ", correo=" + correo + ", nombre" + nombre + ", con tipo documento"
+		return "El gerente " + gerenteID + ", correo=" + correo + ", nombre" + nombre + ", con tipo documento"
 				+ tipoDocumento;
 	}
 }
