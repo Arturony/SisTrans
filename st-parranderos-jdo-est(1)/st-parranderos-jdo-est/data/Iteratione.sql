@@ -62,7 +62,7 @@ CREATE TABLE "Medicos"
 (
 	"Especialidad" VARCHAR(50) NOT NULL,
 	"nombre" VARCHAR(50) NOT NULL,
-	"numeroRegistroMedico" LONG NOT NULL,
+	"numeroRegistroMedico" NUMBER(8,2) NOT NULL,
 	"tipoDocumento" VARCHAR(50) NOT NULL,
 	"medicosID" NUMBER(8,2) NOT NULL
 )

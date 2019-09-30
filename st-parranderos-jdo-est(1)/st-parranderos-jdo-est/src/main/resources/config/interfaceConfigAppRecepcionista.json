@@ -9,8 +9,8 @@
 		  "options":
 			[
 				{
-					"label": "Registrar Prestación de servicio",
-					"event": "mostrarDialogoPrestacion"
+					"label": "Registrar Prestacion de servicio",
+					"event": "mostrarDialogoLlegada"
 				}
 			]
 		},		

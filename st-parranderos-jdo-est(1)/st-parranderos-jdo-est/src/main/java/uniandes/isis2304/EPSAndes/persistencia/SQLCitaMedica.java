@@ -41,10 +41,10 @@ class SQLCitaMedica
 		this.pp = pp;
 	}
 	
-	public long cambiarEstado (PersistenceManager pm, long afiliadoID)
+	public long cambiarEstado (PersistenceManager pm, long afiliadoID, long idCitaMedica)
 	{
-        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaCitas() + " SET llego = 1 WHERE \"afiliadoID\" = ?");
-        q.setParameters(afiliadoID);
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaCitas() + " SET \"llego\" = 1 WHERE \"afiliadoID\" = ? AND \"citaMedicaID\" = ?");
+        q.setParameters(afiliadoID, idCitaMedica);
         return (long) q.executeUnique();
 	}
 	

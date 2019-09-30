@@ -663,7 +663,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlMedico.crearOrden(pm, idServicio, idAfiliado, idOrden);
+            long tuplasInsertadas = sqlMedico.crearOrden(pm, idAfiliado, idServicio, idOrden);
             tx.commit();
 
             log.trace ("Inserción de Orden: [" + idServicio + ", " + idAfiliado + "," + idOrden + "]. " + tuplasInsertadas + " tuplas insertadas");
@@ -742,19 +742,24 @@ public class PersistenciaEPSAndes
 		return false;
 	}
 	
-	public CitaMedica registrarPrestacion(long idAfiliado, long idCitaMedica) 
+	public CitaMedica registrarPrestacion(long idAfiliado,int idCitaMedica) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
+            
+            if(!verificarPrestacion(idAfiliado, idCitaMedica))
+            {
+            	throw new Exception("El afiliado ya llegó a esta cita");
+            }
    
-            long tuplasInsertadas = sqlRecepcionista.actualizarEstado(pm, idAfiliado);
+            long tuplasInsertadas = sqlRecepcionista.actualizarEstado(pm, idAfiliado, idCitaMedica);
             tx.commit();
             log.trace ("Actualización de Cita Medica: [" + idCitaMedica + ", " + idAfiliado +"]. " + tuplasInsertadas + " tuplas actualizadas");
 
-            return sqlAfiliado.darCitaEspecifica(pm, idCitaMedica);
+            return sqlAfiliado.darCitaEspecifica(pm, idCitaMedica, idAfiliado);
         }
         catch (Exception e)
         {
@@ -774,6 +779,21 @@ public class PersistenciaEPSAndes
 	
 	
 	
+	private boolean verificarPrestacion(long idAfiliado, int idCitaMedica) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		CitaMedica cita = sqlAfiliado.darCitaEspecifica(pm, idCitaMedica, idAfiliado);
+		
+		if(cita.getLlego() == 1)
+		{
+			return false;
+		}
+		else
+			return true;
+		
+	}
+
 	public EPS darEPSporID (long epsID)
 	{
 		return sqlEPS.darEPSID(pmf.getPersistenceManager(), epsID);
@@ -809,9 +829,9 @@ public class PersistenciaEPSAndes
 		return sqlIPS.darMedicoID(pmf.getPersistenceManager(), adminID);
 	}
 	
-	public Medico darMedico (String nombre, long id, String tipoDocumento, int reg)
+	public Medico darMedico (String nombre, int id, String tipoDocumento, int reg)
 	{
-		return sqlIPS.darMedicoID(pmf.getPersistenceManager(), id);
+		return sqlIPS.darMedico(pmf.getPersistenceManager(), nombre, reg, id, tipoDocumento);
 	}
 	
 	public Afiliado darAfiliadoID (long adminID)
@@ -819,7 +839,7 @@ public class PersistenciaEPSAndes
 		return sqlIPS.darAfiliadoID(pmf.getPersistenceManager(), adminID);
 	}
 	
-	public Afiliado darAfiliado (String nombre, String correo, long id, String tipo)
+	public Afiliado darAfiliado (String nombre, String correo, int id, String tipo)
 	{
 		return sqlIPS.darAfiliado(pmf.getPersistenceManager(), nombre, correo, id, tipo);
 	}
@@ -829,7 +849,7 @@ public class PersistenciaEPSAndes
 		return sqlIPS.darRecepcionistaID(pmf.getPersistenceManager(), adminID);
 	}
 	
-	public Recepcionista darRecepcionista(String nombre, String correo, long id, String tipo)
+	public Recepcionista darRecepcionista(String nombre, String correo, int id, String tipo)
 	{
 		return sqlIPS.darRecepcionista(pmf.getPersistenceManager(), nombre, correo, id, tipo);
 	}

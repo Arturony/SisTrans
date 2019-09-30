@@ -52,7 +52,7 @@ class SQLServicios
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"servicioSaludID\" = ?");
 		q.setParameters(idServicio);
 		q.setResultClass(Servicios.class);
-		return (Servicios) q.execute();
+		return (Servicios) q.executeUnique();
 	}
 	
 	public List<Servicios> darServicios (PersistenceManager pm)
@@ -67,7 +67,7 @@ class SQLServicios
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"servicioSaludID\" = ? AND \"nombre\" = ? AND \"horario\" = ? ");
 		q.setParameters(idServ, nombre, horario);
 		q.setResultClass(Servicios.class);
-		return (Servicios) q.execute();
+		return (Servicios) q.executeUnique();
 	}
 		 	
 }

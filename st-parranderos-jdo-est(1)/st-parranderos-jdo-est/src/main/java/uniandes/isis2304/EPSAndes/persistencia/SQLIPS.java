@@ -99,15 +99,15 @@ class SQLIPS
 		return (Recepcionista) q.executeUnique();
 	}
 
-	public Medico darMedico(PersistenceManager pm, String nombre, long id, String tipoDocumento, int reg) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMedico() + "WHERE \"medicosID\" = ? AND \"nombre\" = ? AND \"tipoDocumento\" = ? AND \"numeroRegistroMedico\" = ?");
-		q.setParameters(id, nombre, tipoDocumento, reg);
+	public Medico darMedico(PersistenceManager pm, String nombre, int numReg, int id,
+			String tipo) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMedico() + "WHERE \"medicosID\" = ? AND \"nombre\" = ? AND \"numeroRegistroMedico\" = ? AND \"tipoDocumento\" = ?");
+		q.setParameters(id, nombre, numReg, tipo);
 		q.setResultClass(Medico.class);	
 		return (Medico) q.executeUnique();
-
 	}
 
-	public Afiliado darAfiliado(PersistenceManager pm, String nombre, String correo, long id,
+	public Afiliado darAfiliado(PersistenceManager pm, String nombre, String correo, int id,
 			String tipo) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAfiliado() + "WHERE \"afiliadoID\" = ? AND \"nombre\" = ? AND \"correo\" = ? AND \"tipoDocumento\" = ?");
 		q.setParameters(id, nombre, correo, tipo);
@@ -115,7 +115,7 @@ class SQLIPS
 		return (Afiliado) q.executeUnique();
 	}
 
-	public Recepcionista darRecepcionista(PersistenceManager pm, String nombre, String correo, long id,
+	public Recepcionista darRecepcionista(PersistenceManager pm, String nombre, String correo, int id,
 			String tipo) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaRecepcionista() + "WHERE \"recepcionistaID\" = ? AND \"correo\" = ? AND \"nombre\" = ? AND \"tipoDocumento\" = ?");

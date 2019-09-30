@@ -58,12 +58,12 @@ class SQLAfiliado
         return (long) q.executeUnique();
 	}
 	
-	public CitaMedica darCitaEspecifica (PersistenceManager pm, long idCita)
+	public CitaMedica darCitaEspecifica (PersistenceManager pm, long idCita, long idAfiliado)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas() + "WHERE \"citaMedicaID\" = ?");
-		q.setParameters(idCita);
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas() + "WHERE \"citaMedicaID\" = ? AND \"afiliadoID\" = ?");
+		q.setParameters(idCita, idAfiliado);
 		q.setResultClass(CitaMedica.class);
-		CitaMedica resp = (CitaMedica) q.execute();
+		CitaMedica resp = (CitaMedica) q.executeUnique();
 		return resp;
 	}
 	
@@ -72,7 +72,7 @@ class SQLAfiliado
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes() + "WHERE \"ordenesID\" = ?");
 		q.setParameters(idOrden);
 		q.setResultClass(Orden.class);
-		Orden resp = (Orden) q.execute();
+		Orden resp = (Orden) q.executeUnique();
 		return resp;
 	}
 	public List<CitaMedica> darCitasAfiliado (PersistenceManager pm, long idAfiliado)
@@ -80,7 +80,7 @@ class SQLAfiliado
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas() + "WHERE \"afiliadoID\" = ?");
 		q.setParameters(idAfiliado);
 		q.setResultClass(CitaMedica.class);
-		List<CitaMedica> resp = (List<CitaMedica>) q.execute();
+		List<CitaMedica> resp = (List<CitaMedica>) q.executeList();
 		return resp;
 	}
 	
@@ -89,7 +89,7 @@ class SQLAfiliado
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes() + "WHERE \"afiliadoID\" = ?");
 		q.setParameters(idAfiliado);
 		q.setResultClass(Orden.class);
-		List<Orden> resp = (List<Orden>) q.execute();
+		List<Orden> resp = (List<Orden>) q.executeList();
 		return resp;
 	}
 

@@ -18,7 +18,7 @@ public interface VORecepcionista
 	 
 	public String getTipoDocumento();
 	
-	public long getiPSID();
+	public long getIPSID();
 	
 	@Override
 	public String toString();

@@ -36,12 +36,14 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAdmin;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearCita;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearGerente;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearIPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrden;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearRecepcionista;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearServicio;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoRegistrarLlegada;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
@@ -697,7 +699,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	
 	public void mostrarDialogoCita()
 	{
-		DialogoCrearAfiliado dialogo = new DialogoCrearAfiliado( this );
+		DialogoCrearCita dialogo = new DialogoCrearCita( this );
         dialogo.setLocationRelativeTo( this );
         dialogo.setVisible( true );
 	}
@@ -778,6 +780,38 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			}
 			String resultado = "En adicionarIPS\n\n";
 			resultado += "Ips adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public void mostrarDialogoLlegada()
+	{
+		DialogoRegistrarLlegada dialogo = new DialogoRegistrarLlegada(this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean prestarServicio(int idAfiliado, int idCita)
+	{
+		
+		try 
+		{	    		
+			VOCitaMedica tb = epsAndes.prestarServicio(idAfiliado, idCita);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo actualizar la cita con id: " + idCita);
+			}
+			String resultado = "En prestarServicio\n\n";
+			resultado += "Cita Modificada exitosamente: " + tb;
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
 			return true;

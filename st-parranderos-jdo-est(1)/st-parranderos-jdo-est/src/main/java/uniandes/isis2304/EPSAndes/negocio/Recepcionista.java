@@ -20,6 +20,15 @@ public class Recepcionista implements VORecepcionista
 	
 	private long recepcionistaID;
 	
+	public Recepcionista()
+	{
+		iPSID = 0;
+		nombre = "";
+		correo = "";
+		tipoDocumento = "";
+		recepcionistaID = 0;
+	}
+	
 	public Recepcionista(long pIdIps, String pNombre, String pCorreo, String tipo, long idRe)
 	{
 		iPSID = pIdIps;
@@ -33,12 +42,12 @@ public class Recepcionista implements VORecepcionista
 	/*el documento puede ser C.C o Pasaporte
 	*/
 	
-	public long getiPSID() {
+	public long getIPSID() {
 		return iPSID;
 	}
 
 
-	public void setiPSID(long iPSID) {
+	public void setIPSID(long iPSID) {
 		this.iPSID = iPSID;
 	}
 

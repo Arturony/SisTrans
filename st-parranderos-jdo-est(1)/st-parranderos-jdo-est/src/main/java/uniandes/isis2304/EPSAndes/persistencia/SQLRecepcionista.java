@@ -46,9 +46,9 @@ class SQLRecepcionista
 		this.pp = pp;
 	}
 	
-	public long actualizarEstado(PersistenceManager pm, long idAfiliado)
+	public long actualizarEstado(PersistenceManager pm, long idAfiliado, long idCitaMedica)
 	{
-		return pp.getSqlCitasMedicas().cambiarEstado(pm, idAfiliado);
+		return pp.getSqlCitasMedicas().cambiarEstado(pm, idAfiliado, idCitaMedica);
 	}
 		 	
 }

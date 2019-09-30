@@ -279,5 +279,13 @@ public class EPSAndes
         return medico;
 	}
 	
+	public CitaMedica prestarServicio(int idAfiliado, int idCita)
+	{
+		log.info ("Modificando cita: " + idCita);
+       	CitaMedica cita = pp.registrarPrestacion(idAfiliado, idCita);		
+        log.info ("Modificando cita: " + cita);
+        return cita;
+	}
+	
 	
 }
