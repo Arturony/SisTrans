@@ -1,0 +1,20 @@
+{
+	"title": "Nombres de las tablas de Parranderos Uniandes para la aplicación A",
+	"unidadPersistencia": "EPSUNIANDES",
+	"tablas":
+	[
+		"ISIS2304C191920.EPSUNIANDES_sequence",
+		"ISIS2304C191920.Administrador",
+		"ISIS2304C191920.Afiliado",
+		"ISIS2304C191920.CitaMedica",
+		"ISIS2304C191920.Eps",
+		"ISIS2304C191920.Gerente",
+		"ISIS2304C191920.IPS",
+		"ISIS2304C191920.Medicos",
+		"ISIS2304C191920.Ordenes",
+		"ISIS2304C191920.Prestaciones",
+		"ISIS2304C191920.Recepcionista",
+		"ISIS2304C191920.ServicioSalud",
+		"ISIS2304C191920.Trabajan"
+	]
+}
