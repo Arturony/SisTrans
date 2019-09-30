@@ -63,5 +63,102 @@ public class EPSAndes
 		pp.cerrarUnidadPersistencia ();
 	}
 	
+	public Medico adicionarMedico(String nombre, String especialidad, String tipoDocumento, int numReg, long id)
+	{
+		log.info ("Adicionando Medico: " + nombre);
+        Medico medico = pp.adicionarMedico(nombre, id, especialidad, tipoDocumento, numReg);		
+        log.info ("Adicionando Medico: " + medico);
+        return medico;
+	}
+	
+	public Afiliado adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo)
+	{
+		log.info ("Adicionando Afiliado: " + nombre);
+        Afiliado afiliado = pp.adicionarAfiliado(nombre, correo, documento, tipoDocumento, fecha, 1);		
+        log.info ("Adicionando Afiliado: " + afiliado);
+        return afiliado;
+	}
+	
+	public Recepcionista adicionarRecepcionista(String nombre, int documento, String tipo, String fecha, String correo)
+	{
+		log.info ("Adicionando recepcionista: " + nombre);
+        Recepcionista recep = pp.adicionarRecepcionista(nombre, correo, documento, tipo, fecha, 1);		
+        log.info ("Adicionando recepcionista: " + recep);
+        return recep;
+	}
+	
+	public AdministradorD adicionarAdministrador(String nombre, int documento, String tipo, String contrasenia, String correo)
+	{
+		log.info ("Adicionando Administrador: " + nombre);
+        AdministradorD admin = pp.adicionarAdministrador(nombre, correo, documento, tipo, contrasenia, 1);		
+        log.info ("Adicionando Administrador: " + admin);
+        return admin;
+	}
+	
+	public Gerente adicionarGerente(String nombre, String correo, int idGerente, String tipo)
+	{
+		log.info ("Adicionando gerente: " + idGerente);
+       	Gerente gerente = pp.adicionarGerente(nombre, correo, idGerente, tipo, 1);		
+        log.info ("Adicionando gerente: " + gerente);
+        return gerente;
+	}
+	
+	public IPS adicionarIPS(String nombre, int documento, String localizacion)
+	{
+		log.info ("Adicionando ips: " + nombre);
+        IPS ips = pp.adicionarIPS(nombre, localizacion, documento, 1);		
+        log.info ("Adicionando ips: " + ips);
+        return ips;
+	}
+	
+	public EPS adicionarEPS(String nombre, int epsID)
+	{
+		log.info ("Adicionando eps: " + nombre);
+        EPS eps = pp.adicionarEPS(nombre, epsID);		
+        log.info ("Adicionando eps: " + eps);
+        return eps;
+	}
+	
+	public Servicios adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles)
+	{
+		log.info ("Adicionando servicio: " + nombre);
+        Servicios servicio = pp.adicionarServicio(nombre, horario, idServ, medicosDisponibles);		
+        log.info ("Adicionando servicio: " + servicio);
+        return servicio;
+	}
+	
+	public Orden adicionarOrden(int afiliado, int servicio, int ordenes)
+	{
+		log.info ("Adicionando orden: " + ordenes);
+       	Orden orden = pp.adicionarOrden(servicio, afiliado, ordenes);		
+        log.info ("Adicionando orden: " + orden);
+        return orden;
+	}
+	
+	public CitaMedica adicionarCita(int afiliado, int servicio, int idCita, String horario, int sesiones)
+	{
+		log.info ("Adicionando cita: " + idCita);
+       	CitaMedica cita = pp.adicionarCita(servicio, afiliado, idCita, horario, 0, sesiones);		
+        log.info ("Adicionando cita: " + cita);
+        return cita;
+	}
+	
+	public long[] limpiarBD()
+	{
+		log.info ("Limpiando base de datos");
+       	long[] array = pp.limpiarEPS();	
+       	log.info ("Limpiando base de datos");
+        return array;
+	}
+	
+	
+	public Medico consultarMedico(String nombre, String especialidad, String tipoDocumento, int numReg, long id)
+	{
+		log.info ("Adicionando Medico: " + nombre);
+        Medico medico = pp.adicionarMedico(nombre, id, especialidad, tipoDocumento, numReg);		
+        log.info ("Adicionando Medico: " + medico);
+        return medico;
+	}
+	
 	
 }

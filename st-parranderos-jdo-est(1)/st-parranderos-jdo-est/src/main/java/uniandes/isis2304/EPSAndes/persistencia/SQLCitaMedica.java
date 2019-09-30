@@ -6,7 +6,9 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.EPSAndes.negocio.CitaMedica;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 class SQLCitaMedica 
 {
@@ -39,11 +41,19 @@ class SQLCitaMedica
 		this.pp = pp;
 	}
 	
-	public long cambiarEstado (PersistenceManager pm, String afiliadoID)
+	public long cambiarEstado (PersistenceManager pm, long afiliadoID)
 	{
-        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaCitas() + " SET llego = 1 WHERE afiliadoID = ?");
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaCitas() + " SET llego = 1 WHERE \"afiliadoID\" = ?");
         q.setParameters(afiliadoID);
         return (long) q.executeUnique();
+	}
+	
+	public List<CitaMedica> darCitas (PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas());
+		q.setResultClass(CitaMedica.class);
+		List<CitaMedica> resp = (List<CitaMedica>) q.execute();
+		return resp;
 	}
 
 }

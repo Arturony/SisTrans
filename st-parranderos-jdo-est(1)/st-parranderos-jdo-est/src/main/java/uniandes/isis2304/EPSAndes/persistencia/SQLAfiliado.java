@@ -9,6 +9,8 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
+import uniandes.isis2304.EPSAndes.negocio.CitaMedica;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 /**
  * @author 
@@ -45,16 +47,50 @@ class SQLAfiliado
 	}
 	public long adicionarOrden(PersistenceManager pm, long idAfiliado, long idServicioSalud, long idOrden)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaOrdenes() + "(ordenesID, afiliadoID, servicioID) values (?, ?, ?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaOrdenes() + "(\"ordenesID\", \"afiliadoID\", \"servicioID\") values (?, ?, ?)");
         q.setParameters(idOrden,idAfiliado,  idServicioSalud );
         return (long) q.executeUnique();
 	}
 	public long adicionarCitaMedica(PersistenceManager pm, long idAfiliado, long idCitaMedica, int sesiones, String horario, int llego, long serviciosSaludId)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCitas() + "(horario, llego, sesiones,citaMedicaID,afiliadoID,servicioSaludID) values (?, ?, ?, ?, ?,?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCitas() + "(\"horario\", \"llego\", \"sesiones\",\"citaMedicaID\",\"afiliadoID\",\"servicioSaludID\") values (?, ?, ?, ?, ?,?)");
         q.setParameters(horario,llego,sesiones,idCitaMedica,  idAfiliado, serviciosSaludId );
         return (long) q.executeUnique();
 	}
 	
+	public CitaMedica darCitaEspecifica (PersistenceManager pm, long idCita)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas() + "WHERE \"citaMedicaID\" = ?");
+		q.setParameters(idCita);
+		q.setResultClass(CitaMedica.class);
+		CitaMedica resp = (CitaMedica) q.execute();
+		return resp;
+	}
+	
+	public Orden darOrdenEspecifica (PersistenceManager pm, long idOrden)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes() + "WHERE \"ordenesID\" = ?");
+		q.setParameters(idOrden);
+		q.setResultClass(Orden.class);
+		Orden resp = (Orden) q.execute();
+		return resp;
+	}
+	public List<CitaMedica> darCitasAfiliado (PersistenceManager pm, long idAfiliado)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCitas() + "WHERE \"afiliadoID\" = ?");
+		q.setParameters(idAfiliado);
+		q.setResultClass(CitaMedica.class);
+		List<CitaMedica> resp = (List<CitaMedica>) q.execute();
+		return resp;
+	}
+	
+	public List<Orden> darOrdenesAfiliado (PersistenceManager pm, long idAfiliado)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes() + "WHERE \"afiliadoID\" = ?");
+		q.setParameters(idAfiliado);
+		q.setResultClass(Orden.class);
+		List<Orden> resp = (List<Orden>) q.execute();
+		return resp;
+	}
 
 }

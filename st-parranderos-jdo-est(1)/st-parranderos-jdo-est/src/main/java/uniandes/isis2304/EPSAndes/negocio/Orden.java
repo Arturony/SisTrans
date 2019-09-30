@@ -2,7 +2,6 @@
 package uniandes.isis2304.EPSAndes.negocio;
 
 /**
- * Clase para modelar el concepto BAR del negocio de los Parranderos
  *
  * @author 
  */
@@ -11,14 +10,8 @@ public class Orden implements VOOrden
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	/**
-	 * El identificador del tipo de bebida
-	 */
-	private long id;
+	private long idOrden;
 
-	/**
-	 * El nombre del tipo de bebida
-	 */
 	private long idAfiliado;
 	
 	private long idServicio;
@@ -31,30 +24,32 @@ public class Orden implements VOOrden
 	 */
 	public Orden() 
 	{
-		this.id = 0;
+		this.idOrden = 0;
 		this.idAfiliado = 0;
+		idServicio = 0;
 	}
 	
-	public Orden(long id, long nombre) 
+	public Orden(long idOrden, long idAfiliado, long idServicio) 
 	{
-		this.id = id;
-		this.idAfiliado = nombre;
+		this.idOrden = idOrden;
+		this.idAfiliado = idAfiliado;
+		this.idServicio = idServicio;
 	}
 
 	/**
 	 * @return El id
 	 */
-	public long getId() 
+	public long getIdOrden() 
 	{
-		return id;
+		return idOrden;
 	}
 
 	/**
 	 * @param id - El nuevo id a
 	 */
-	public void setId(long id) 
+	public void setIdOrden(long id) 
 	{
-		this.id = id;
+		this.idOrden = id;
 	}
 
 
@@ -83,7 +78,7 @@ public class Orden implements VOOrden
 	@Override
 	public String toString() 
 	{
-		return "Orden [id=" + id + ", idAfiliado=" + idAfiliado + "]";
+		return "Orden [id=" + idOrden + ", idAfiliado=" + idAfiliado + "]";
 	}
 
 }

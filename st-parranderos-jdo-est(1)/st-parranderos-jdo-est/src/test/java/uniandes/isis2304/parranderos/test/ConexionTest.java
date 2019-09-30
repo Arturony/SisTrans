@@ -34,7 +34,7 @@ import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
 
 /**
  * Clase con métodos de prueba de conexión a la base de datos
- * @author Germán Bravo
+ * @author 
  *
  */
 public class ConexionTest

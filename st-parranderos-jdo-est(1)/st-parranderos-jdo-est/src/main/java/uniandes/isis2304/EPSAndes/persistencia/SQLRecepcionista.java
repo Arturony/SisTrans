@@ -13,9 +13,6 @@ import javax.jdo.Query;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto VISITAN de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
  * @author 
  */
 class SQLRecepcionista 
@@ -49,6 +46,9 @@ class SQLRecepcionista
 		this.pp = pp;
 	}
 	
-	
+	public long actualizarEstado(PersistenceManager pm, long idAfiliado)
+	{
+		return pp.getSqlCitasMedicas().cambiarEstado(pm, idAfiliado);
+	}
 		 	
 }

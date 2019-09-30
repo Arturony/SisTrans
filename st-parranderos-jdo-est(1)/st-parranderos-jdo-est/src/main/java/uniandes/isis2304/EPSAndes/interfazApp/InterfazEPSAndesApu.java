@@ -24,7 +24,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -32,8 +34,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
 import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
 import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
+import uniandes.isis2304.EPSAndes.negocio.VOAfiliado;
+import uniandes.isis2304.EPSAndes.negocio.VOCitaMedica;
+import uniandes.isis2304.EPSAndes.negocio.VOEPS;
+import uniandes.isis2304.EPSAndes.negocio.VOGerente;
+import uniandes.isis2304.EPSAndes.negocio.VOMedico;
+import uniandes.isis2304.EPSAndes.negocio.VORecepcionista;
+import uniandes.isis2304.EPSAndes.negocio.VOServicios;
 
 /**
  * Clase principal de la interfaz
@@ -49,7 +60,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(InterfazEPSAndesApu.class.getName());
+	private static Logger log = Logger.getLogger(InterfazEPSAndesApu.class);
 	
 	/**
 	 * Ruta al archivo de configuración de la interfaz
@@ -72,7 +83,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     /**
      * Asociación a la clase principal del negocio.
      */
-    private EPSAndes parranderos;
+    private EPSAndes epsAndes;
     
 	/* ****************************************************************
 	 * 			Atributos de interfaz
@@ -101,6 +112,9 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
      */
     public InterfazEPSAndesApu( )
     {
+    	
+    	String log4jConfPath = "src/main/resources/log4j.properties";
+    	BasicConfigurator.configure();
         // Carga la configuración de la interfaz desde un archivo JSON
         guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
         
@@ -111,8 +125,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
      	   crearMenu( guiConfig.getAsJsonArray("menuBar") );
         }
         
-        tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
-        parranderos = new EPSAndes (tableConfig);
+        epsAndes = new EPSAndes ();
         
     	String path = guiConfig.get("bannerPath").getAsString();
         panelDatos = new PanelDatos ( );
@@ -289,17 +302,21 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		try 
 		{
     		// Ejecución de la demo y recolección de los resultados
-			long eliminados [] = null;
+			long eliminados [] = epsAndes.limpiarBD();
 			
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
 			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
-			resultado += eliminados [0] + " Gustan eliminados\n";
-			resultado += eliminados [1] + " Sirven eliminados\n";
-			resultado += eliminados [2] + " Visitan eliminados\n";
-			resultado += eliminados [3] + " Bebidas eliminadas\n";
-			resultado += eliminados [4] + " Tipos de bebida eliminados\n";
-			resultado += eliminados [5] + " Bebedores eliminados\n";
-			resultado += eliminados [6] + " Bares eliminados\n";
+			resultado += eliminados [0] + " Administradores eliminados\n";
+			resultado += eliminados [1] + " Afiliados eliminados\n";
+			resultado += eliminados [2] + " Citas eliminados\n";
+			resultado += eliminados [3] + " EPS eliminadas\n";
+			resultado += eliminados [4] + " Gerentes eliminados\n";
+			resultado += eliminados [5] + " IPS eliminados\n";
+			resultado += eliminados [6] + " Medicos eliminados\n";
+			resultado += eliminados [7] + " Prestaciones eliminados\n";
+			resultado += eliminados [8] + " Recepcionistas eliminadas\n";
+			resultado += eliminados [9] + " Servicios eliminados\n";
+			resultado += eliminados [6] + " Trabajan eliminados\n";
 			resultado += "\nLimpieza terminada";
    
 			panelDatos.actualizarInterfaz(resultado);
@@ -366,18 +383,6 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public void acercaDe ()
     {
 		String resultado = "\n\n ************************************\n\n";
-		resultado += " * Universidad	de	los	Andes	(Bogotá	- Colombia)\n";
-		resultado += " * Departamento	de	Ingeniería	de	Sistemas	y	Computación\n";
-		resultado += " * Licenciado	bajo	el	esquema	Academic Free License versión 2.1\n";
-		resultado += " * \n";		
-		resultado += " * Curso: isis2304 - Sistemas Transaccionales\n";
-		resultado += " * Proyecto: Parranderos Uniandes\n";
-		resultado += " * @version 1.0\n";
-		resultado += " * @author Germán Bravo\n";
-		resultado += " * Julio de 2018\n";
-		resultado += " * \n";
-		resultado += " * Revisado por: Claudia Jiménez, Christian Ariza\n";
-		resultado += "\n ************************************\n\n";
 
 		panelDatos.actualizarInterfaz(resultado);		
     }
@@ -386,21 +391,6 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	/* ****************************************************************
 	 * 			Métodos privados para la presentación de resultados y otras operaciones
 	 *****************************************************************/
-    /**
-     * Genera una cadena de caracteres con la lista de los tipos de bebida recibida: una línea por cada tipo de bebida
-     * @param lista - La lista con los tipos de bebida
-     * @return La cadena con una líea para cada tipo de bebida recibido
-     */
-    private String listarTiposBebida(List<VOAdministradorD> lista) 
-    {
-    	String resp = "Los tipos de bebida existentes son:\n";
-    	int i = 1;
-        for (VOAdministradorD tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
-	}
 
     /**
      * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
@@ -469,6 +459,220 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			e.printStackTrace();
 		}
 	}
+	
+	public void mostrarDialogoMedico()
+	{
+		DialogoCrearMedico dialogo = new DialogoCrearMedico( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarMedico(String nombre, String especialidad, String tipoDocumento, int numReg, long id)
+	{
+		
+		try 
+		{	    		
+			VOMedico tb = epsAndes.adicionarMedico(nombre, especialidad, tipoDocumento, numReg, id);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un medico con nombre y registro medico: " + nombre + ", " + id);
+			}
+			String resultado = "En adicionarMedico\n\n";
+			resultado += "Medico adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public void mostrarDialogoAfiliado()
+	{
+		DialogoCrearAfiliado dialogo = new DialogoCrearAfiliado( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo)
+	{
+		
+		try 
+		{	    		
+			VOAfiliado tb = epsAndes.adicionarAfiliado(nombre, documento, tipoDocumento, fecha, correo);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un Afiliado con nombre y registro medico: " + nombre + ", " + documento);
+			}
+			String resultado = "En adicionarAfiliado\n\n";
+			resultado += "Afiliado adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean adicionarAdministrador(String nombre, int documento, String tipoDocumento, String contrasenia, String correo)
+	{
+		
+		try 
+		{	    		
+			VOAdministradorD tb = epsAndes.adicionarAdministrador(nombre, documento, tipoDocumento, contrasenia, correo);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un Adinistrador con nombre y documento: " + nombre + ", " + documento);
+			}
+			String resultado = "En adicionarAdministrador\n\n";
+			resultado += "Adinistrador adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean adicionarGerente(String nombre, int documento, String tipoDocumento, String correo)
+	{
+		
+		try 
+		{	    		
+			VOGerente tb = epsAndes.adicionarGerente(nombre, correo, documento, tipoDocumento);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un gerente con nombre y documento: " + nombre + ", " + documento);
+			}
+			String resultado = "En adicionarGerente\n\n";
+			resultado += "Gerente adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean adicionarRecepcionista(String nombre, int documento, String tipoDocumento, String fecha, String correo)
+	{
+		
+		try 
+		{	    		
+			VORecepcionista tb = epsAndes.adicionarRecepcionista(nombre, documento, tipoDocumento, fecha, correo);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un Recepcionista con nombre y documento: " + nombre + ", " + documento);
+			}
+			String resultado = "En adicionarRecepcionista\n\n";
+			resultado += "Recepcionista adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles)
+	{
+		
+		try 
+		{	    		
+			VOServicios tb = epsAndes.adicionarServicio(nombre, idServ, horario, medicosDisponibles);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un Servico con nombre y id: " + nombre + ", " + idServ);
+			}
+			String resultado = "En adicionarServicio\n\n";
+			resultado += "Servicio adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean adicionarCita(int afiliado, int servicio, int idCita, String horario, int sesiones)
+	{
+		
+		try 
+		{	    		
+			VOCitaMedica tb = epsAndes.adicionarCita(afiliado, servicio, idCita, horario, sesiones);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una Cita con id: " + idCita);
+			}
+			String resultado = "En adicionarCita\n\n";
+			resultado += "Cita adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean adicionarEPS(String nombre, int epsID)
+	{
+		
+		try 
+		{	    		
+			VOEPS tb = epsAndes.adicionarEPS(nombre, epsID);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una eps con nombre y id: " + nombre + ", " + epsID);
+			}
+			String resultado = "En adicionarEPS\n\n";
+			resultado += "EPS adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
 
 	/* ****************************************************************
 	 * 			Métodos de la Interacción

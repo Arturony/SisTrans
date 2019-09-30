@@ -39,12 +39,12 @@ public class Gerente implements VOGerente
 	}
 
 
-	public Gerente(long idBebedor, String nomr, String correoe, String horario) 
+	public Gerente(long idGerente, String nombre, String correo, String tipoDocumento) 
 	{
-		this.idGerente = idBebedor;
-		this.correo = correoe;
-		this.nombre = nomr;
-		this.tipoDocumento = horario;
+		this.idGerente = idGerente;
+		this.correo = correo;
+		this.nombre = nombre;
+		this.tipoDocumento = tipoDocumento;
 	}
 
 

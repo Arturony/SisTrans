@@ -3,18 +3,18 @@
 	"unidadPersistencia": "EPSUNIANDES",
 	"tablas":
 	[
-		"EPSUNIANDES_sequence",
-		"A_Administrador",
-		"A_Afiliado",
-		"A_CitaMedica",
-		"A_Eps",
-		"A_Gerente",
-		"A_IPS",
-		"A_Medicos",
-		"A_Ordenes",
-		"A_Prestaciones",
-		"A_Recepcionista",
-		"A_ServicioSalud",
-		"A_Trabajan"
+		"ISIS2304C191920.EPSUNIANDES_sequence",
+		"ISIS2304C191920.Administrador",
+		"ISIS2304C191920.Afiliado",
+		"ISIS2304C191920.CitaMedica",
+		"ISIS2304C191920.Eps",
+		"ISIS2304C191920.Gerente",
+		"ISIS2304C191920.IPS",
+		"ISIS2304C191920.Medicos",
+		"ISIS2304C191920.Ordenes",
+		"ISIS2304C191920.Prestaciones",
+		"ISIS2304C191920.Recepcionista",
+		"ISIS2304C191920.ServicioSalud",
+		"ISIS2304C191920.Trabajan"
 	]
 }

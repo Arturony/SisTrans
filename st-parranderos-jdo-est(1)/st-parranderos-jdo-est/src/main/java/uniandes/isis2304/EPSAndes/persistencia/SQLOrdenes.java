@@ -1,17 +1,3 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 
 package uniandes.isis2304.EPSAndes.persistencia;
 
@@ -21,12 +7,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto GUSTAN de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
- * @author Germán Bravo
+ * @author
  */
 class SQLOrdenes 
 {
@@ -58,46 +42,19 @@ class SQLOrdenes
 	{
 		this.pp = pp;
 	}
-	
-	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar un GUSTAN a la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idBebedor - El identificador del bebedor
-	 * @param idBebida - El identificador de la bebida
-	 * @return EL número de tuplas insertadas
-	 */
-	public long adicionarGustan(PersistenceManager pm, long idBebedor, long idBebida) 
+
+	public long eliminarOrden (PersistenceManager pm, long idServicio, long idAfiliado, long idOrden)
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAdmin () + "(idbebedor, idbebida) values (?, ?)");
-        q.setParameters(idBebedor, idBebida);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOrdenes() + " WHERE \"servicioID\" = ? AND = \"afiliadoId\" ? AND \"ordenesID\" = ?");
+        q.setParameters(idServicio, idAfiliado, idOrden);
         return (long) q.executeUnique();
 	}
 
-	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar UN GUSTAN de la base de datos de Parranderos, por sus identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBebedor - El identificador del bebedor
-	 * @param idBebida - El identificador de la bebida
-	 * @return EL número de tuplas eliminadas
-	 */
-	public long eliminarGustan (PersistenceManager pm, long idBebedor, long idBebida)
+	public List<Orden> darOrdenes (PersistenceManager pm)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAdmin () + " WHERE idbebedor = ? AND idbebida = ?");
-        q.setParameters(idBebedor, idBebida);
-        return (long) q.executeUnique();
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de los GUSTAN de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos GUSTAN
-	 */
-	public List<Medico> darGustan (PersistenceManager pm)
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAdmin ());
-		q.setResultClass(Medico.class);
-		List<Medico> resp = (List<Medico>) q.execute();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrdenes());
+		q.setResultClass(Orden.class);
+		List<Orden> resp = (List<Orden>) q.execute();
 		return resp;
 	}
 

@@ -8,11 +8,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.EPSAndes.negocio.IPS;
+import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto BEBEDOR de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
  * @author
  */
 class SQLIPS 
@@ -48,23 +47,31 @@ class SQLIPS
 	
 	public long adicionarMedico (PersistenceManager pm, long idMedico, String especialidad, String nombre, String tipoDocumento, long numReg)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaMedico() + "(medicosID, especialidad, nombre, tipoDocumento, numReg) values (?, ?, ?, ?, ?)");
-        q.setParameters(idMedico, especialidad, nombre, tipoDocumento, numReg);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaMedico() + " (\"Especialidad\", \"nombre\", \"numeroRegistroMedico\", \"tipoDocumento\", \"medicosID\") values (?, ?, ?, ?, ?)");
+        q.setParameters(especialidad, nombre, numReg, tipoDocumento, idMedico);
         return (long) q.executeUnique();
 	}
 	
 	public long adicionarRecepcionista (PersistenceManager pm, long idRecepcionista, String correo, String nombre, String tipoDocumento, long idIPS)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaRecepcionista() + "(recepcionistaID, correo, nombre, tipoDocumento, iPSID) values (?, ?, ?, ?, ?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaRecepcionista() + "(\"recepcionistaID\", \"correo\", \"nombre\", \"tipoDocumento\", \"iPSID\") values (?, ?, ?, ?, ?)");
         q.setParameters(idRecepcionista, correo, nombre, tipoDocumento, idIPS);
         return (long) q.executeUnique();
 	}
 	
-	public long adicionarServicio (PersistenceManager pm, long idServicio, String horario, String nombre, long medicosDisponibles, long citaMedicaID)
+	public long adicionarServicio (PersistenceManager pm, long idServicio, String horario, String nombre, long medicosDisponibles)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServicio() + "(servicioSaludID, horario, nombre, medicosDisponibles, citaMedicaID) values (?, ?, ?, ?, ?)");
-        q.setParameters(idServicio, horario, nombre, medicosDisponibles, citaMedicaID);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServicio() + "(\"servicioSaludID\", \"horario\", \"nombre\", \"medicosDisponibles\") values (?, ?, ?, ?)");
+        q.setParameters(idServicio, horario, nombre, medicosDisponibles);
         return (long) q.executeUnique();
+	}
+	
+	public String darMedicos (PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT \"nombre\" FROM " + pp.darTablaMedico() + "WHERE \"medicosID\" = 1");
+		q.setResultClass(Medico.class);
+		String resp =  q.execute().toString();
+		return resp;
 	}
 
 }

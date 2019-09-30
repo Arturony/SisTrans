@@ -1,19 +1,10 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
+
 
 package uniandes.isis2304.EPSAndes.negocio;
+
+import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 
@@ -36,6 +27,10 @@ public class Afiliado implements VOAfiliado
 	private long idEps;
 	
 	private String tipo;
+	
+	private List<Object []> citasRealizadas;
+
+	private List<Object []> ordenesRealizadas;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -49,6 +44,8 @@ public class Afiliado implements VOAfiliado
 		this.idAfiliado = 0;
 		this.tipo = "Default";
 		this.idEps = 0;
+		citasRealizadas = new LinkedList<Object[]>();
+		ordenesRealizadas = new LinkedList<Object[]>();
 	}
 
 	public Afiliado(String tipo, String nombre, String correo, long documento, long idEps) 
@@ -58,6 +55,8 @@ public class Afiliado implements VOAfiliado
 		this.idAfiliado = documento;
 		this.tipo = tipo;
 		this.idEps = idEps;
+		citasRealizadas = new LinkedList<Object[]>();
+		ordenesRealizadas = new LinkedList<Object[]>();
 	}
 
 
@@ -99,6 +98,14 @@ public class Afiliado implements VOAfiliado
 
 	public void setIdEps(long idEps) {
 		this.idEps = idEps;
+	}	
+
+	public List<Object[]> getCitasRealizadas() {
+		return citasRealizadas;
+	}
+
+	public List<Object[]> getOrdenesRealizadas() {
+		return ordenesRealizadas;
 	}
 
 	/**
@@ -111,4 +118,27 @@ public class Afiliado implements VOAfiliado
 	", idEps=" + idEps + ", TipoDocumento="+ tipo +"]";
 	}
 
+	public String toStringCompleto () 
+	{
+		String resp =  this.toString();
+		resp += "\n --- Citas realizadas\n";
+		int i = 1;
+		for (Object [] cita : citasRealizadas)
+		{
+			Servicios serv = (Servicios) cita [0];
+			String llego = (String) cita [1];
+			String horario = (String) cita [2];
+			String sesiones = (String) cita [3];
+			resp += i++ + ". " + "[" +serv.toString() + ", llegó= " + llego + ", horario= " + horario + "sesiones=" + sesiones +"]\n";
+		}
+		resp += "\n\n --- Ordenes Realizadas\n";
+		i = 1;
+		for (Object [] orden : ordenesRealizadas)
+		{
+			Servicios serv = (Servicios) orden [0];
+			String idOrden = (String) orden [1];
+			resp += i++ + ". " + "[" + serv.toString() + ", Id Orden= " + idOrden + "]\n";
+		}
+		return resp;
+	}
 }

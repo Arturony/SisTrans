@@ -11,15 +11,28 @@ public class Recepcionista implements VORecepcionista
 	 *****************************************************************/
 
 	private long idIps;
+	
+	private String tipoDocumento;
 
 	private String nombre;
 
 	private String correo;
+	
+	private long idRecepcionista;
+	
+	public Recepcionista(long pIdIps, String pNombre, String pCorreo, String tipo, long idRe)
+	{
+		idIps = pIdIps;
+		nombre = pNombre;
+		correo = pCorreo;
+		tipoDocumento = tipo;
+		idRecepcionista = idRe;
+	}
+	
 
 	/*el documento puede ser C.C o Pasaporte
 	*/
-	private String tipoDocumento;
-	private long idRecepcionista;
+	
 
 	public long getIdRecepcionista() {
 		return idRecepcionista;

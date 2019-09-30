@@ -1,17 +1,3 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
 
 package uniandes.isis2304.EPSAndes.persistencia;
 
@@ -24,12 +10,11 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
+import uniandes.isis2304.EPSAndes.negocio.Servicios;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto VISITAN de Parranderos
- * Nótese que es una clase que es sólo conocida en el paquete de persistencia
- * 
- * @author Germán Bravo
+ * @author 
  */
 class SQLServicios 
 {
@@ -62,5 +47,21 @@ class SQLServicios
 		this.pp = pp;
 	}
 	
+	public Servicios darServicioEspecifico (PersistenceManager pm, long idServicio)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"servicioSaludID\" = ?");
+		q.setParameters(idServicio);
+		q.setResultClass(Servicios.class);
+		Servicios resp = (Servicios) q.execute();
+		return resp;
+	}
+	
+	public List<Servicios> darServicios (PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio());
+		q.setResultClass(Servicios.class);
+		List<Servicios> resp = (List<Servicios>) q.execute();
+		return resp;
+	}
 		 	
 }

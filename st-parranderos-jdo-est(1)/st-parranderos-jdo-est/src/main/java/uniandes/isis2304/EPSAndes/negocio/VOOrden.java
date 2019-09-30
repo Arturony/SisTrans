@@ -16,7 +16,7 @@ public interface VOOrden
 	/**
 	 * @return El id 
 	 */
-	public long getId();
+	public long getIdOrden();
 
 	public long getIdAfiliado();
 	
