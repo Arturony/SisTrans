@@ -46,7 +46,7 @@ public class DialogoCrearCita extends JDialog
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearCita( );
+        panelDatos = new PanelCrearCita(principal.darServicios() );
         panelBotones = new PanelBotonesCita( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );

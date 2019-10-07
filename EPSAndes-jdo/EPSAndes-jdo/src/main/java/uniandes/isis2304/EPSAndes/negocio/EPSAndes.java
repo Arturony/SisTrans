@@ -287,5 +287,11 @@ public class EPSAndes
         return cita;
 	}
 	
-	
+	public List<Servicios> darServicios()
+	{
+		log.info ("Retornando Servicios: ");
+       	List<Servicios> servicios = pp.darServicios();		
+        log.info ("Retornando Servicios: ");
+        return servicios;
+	}
 }

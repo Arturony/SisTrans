@@ -40,4 +40,6 @@ class SQLGerente
 		this.pp = pp;
 	}
 
+	
+	
 }

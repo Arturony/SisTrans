@@ -23,6 +23,7 @@ import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
 import uniandes.isis2304.EPSAndes.negocio.CitaMedica;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
+import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
@@ -50,9 +51,9 @@ public class PersistenciaEPSAndes
 	 */
 	public final static String SQL = "javax.jdo.query.SQL";
 	
-	public final static String GENERAL = "general";
+	public final static String GENERAL = "Consulta medico general";
 	
-	public final static String URGENCIA = "urgencia";
+	public final static String URGENCIA = "Urgencias";
 
 	/* ****************************************************************
 	 * 			Atributos
@@ -701,7 +702,9 @@ public class PersistenciaEPSAndes
             tx.commit();
 
             log.trace ("Inserción de Cita Medica: [" + idServicio + ", " + idAfiliado + "," + idCitaMedica + "," + horario + "," + llego + "," + sesiones + "]. " + tuplasInsertadas + " tuplas insertadas");
-
+            
+            reducirCapacidad(idServicio);
+            
             return new CitaMedica(idServicio, idAfiliado, horario, idCitaMedica, sesiones, llego);
         }
         catch (Exception e)
@@ -740,6 +743,35 @@ public class PersistenciaEPSAndes
 			}
 		}	
 		return false;
+	}
+	
+	private void reducirCapacidad(long idServicio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+   
+            long serv = sqlServicios.reducirCapacidad(pm, idServicio);
+            tx.commit();
+            log.trace ("Actualización de servicio " + serv);
+
+        }
+        catch (Exception e)
+        {
+        	//e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
 	}
 	
 	public CitaMedica registrarPrestacion(long idAfiliado,int idCitaMedica) 
@@ -869,6 +901,11 @@ public class PersistenciaEPSAndes
 	public CitaMedica darCita(int servicio, int afiliado, int idCita, String horario, int sesiones) {
 		// TODO Auto-generated method stub
 		return sqlCitasMedicas.darCita(pmf.getPersistenceManager(), servicio, afiliado, idCita, horario, sesiones);
+	}
+	
+	public List<Servicios> darServicios()
+	{
+		return sqlEPS.darServicios(pmf.getPersistenceManager());
 	}
 	
 	public SQLMedico getSqlMedico() {

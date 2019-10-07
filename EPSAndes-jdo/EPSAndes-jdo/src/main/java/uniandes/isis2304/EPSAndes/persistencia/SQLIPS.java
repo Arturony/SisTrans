@@ -14,6 +14,7 @@ import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Servicios;
 
 /**
  * @author

@@ -74,10 +74,15 @@ public class Servicios implements VOServicios
 	/** 
 	 * @return Una cadena con la información básica
 	 */
-	@Override
-	public String toString() 
+	public String toString1() 
 	{
 		return "Servicio de Salud [idServicio=" + servicioSaludID + ", nombre=" + nombre + ", horario=" + horario + 
 				", medicos disponibles=" + medicosDisponibles + "]";
+	}
+	
+	@Override
+	public String toString()
+	{
+		return nombre + " || " + horario + " || " + medicosDisponibles;
 	}
 }

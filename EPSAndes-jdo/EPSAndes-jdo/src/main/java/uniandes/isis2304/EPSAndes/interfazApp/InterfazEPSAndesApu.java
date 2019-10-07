@@ -52,6 +52,7 @@ import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Servicios;
 import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.VOAfiliado;
 import uniandes.isis2304.EPSAndes.negocio.VOCitaMedica;
@@ -935,6 +936,11 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public Recepcionista consultarRecepcionista(int documento, String nombre, String tipo, String correo)
     {
     	return epsAndes.consultarRecepcionista(nombre, documento, tipo, correo);
+    }
+    
+    public List<Servicios> darServicios()
+    {
+    	return epsAndes.darServicios();
     }
     
 	public String getLogin() {

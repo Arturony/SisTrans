@@ -12,6 +12,8 @@ import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
+import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Servicios;
 
 /**
  * @author 
@@ -137,5 +139,12 @@ class SQLEPS
 		q.setParameters(documento, nombre, localizacion);
 		q.setResultClass(IPS.class);
 		return (IPS) q.executeUnique();
+	}
+	
+	public List<Servicios> darServicios(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio());
+		q.setResultClass(Servicios.class);	
+		return (List<Servicios>) q.executeList();
 	}
 }
