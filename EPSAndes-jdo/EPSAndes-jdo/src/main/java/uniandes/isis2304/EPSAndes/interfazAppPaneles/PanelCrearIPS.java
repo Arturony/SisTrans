@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import uniandes.isis2304.EPSAndes.negocio.EPS;
 
 public class PanelCrearIPS extends JPanel implements ActionListener
 {
@@ -55,7 +58,9 @@ public class PanelCrearIPS extends JPanel implements ActionListener
     /**
      * Es el campo de texto para ingresar el género del nuevo disco
      */
-    private JTextField txtEps;
+    private JComboBox<String> comboEps;
+    
+    private List<EPS> eps;
 
     
     // -----------------------------------------------------------------
@@ -65,8 +70,9 @@ public class PanelCrearIPS extends JPanel implements ActionListener
     /**
      * Construye el panel creando las etiquetas y los campos de texto necesarios para crear un nuevo disco
      */
-    public PanelCrearIPS( )
+    public PanelCrearIPS(List<EPS> eps )
     {
+    	this.eps = eps;
         setLayout( new GridLayout( 5, 2, 5, 5 ) );
         
         etiquetaNombre = new JLabel( "Nombre: " );
@@ -90,12 +96,12 @@ public class PanelCrearIPS extends JPanel implements ActionListener
         txtLocal = new JTextField( 2 );
         add( txtLocal );
         
-        etiquetaEps = new JLabel( "Id Eps: " );
+        etiquetaEps = new JLabel( "Eps: " );
         etiquetaEps.setFont( etiquetaEps.getFont( ).deriveFont( Font.PLAIN ) );
         add( etiquetaEps );
 
-        txtEps = new JTextField( 2 );
-        add( txtEps );
+        comboEps = new JComboBox<String>(darNombres(eps));
+        add( comboEps );
 
         setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
     }
@@ -133,7 +139,19 @@ public class PanelCrearIPS extends JPanel implements ActionListener
     
     public String darEps()
     {
-    	return txtEps.getText();
+    	return eps.get(comboEps.getSelectedIndex()).getEpsID()+"";
+    }
+    
+    public String[] darNombres(List<EPS> eps)
+    {
+    	String[] rta = new String[eps.size()];
+    	
+    	for(int i = 0; i < eps.size(); i++)
+    	{
+    		rta[i] = eps.get(i).getNombre();
+    	}
+    	
+    	return rta;
     }
     
     /**

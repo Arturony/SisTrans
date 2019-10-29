@@ -46,7 +46,7 @@ public class DialogoCrearRecepcionista extends JDialog
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearRecepcionista( );
+        panelDatos = new PanelCrearRecepcionista( principal.darIPS());
         panelBotones = new PanelBotonesRecepcionista( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );

@@ -46,7 +46,7 @@ public class DialogoCrearIPS extends JDialog
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearIPS( );
+        panelDatos = new PanelCrearIPS(principal.darEPS() );
         panelBotones = new PanelBotonesIPS( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );

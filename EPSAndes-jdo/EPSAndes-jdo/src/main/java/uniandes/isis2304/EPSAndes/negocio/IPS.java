@@ -68,11 +68,11 @@ public class IPS implements VOIPS
 	
 
 
-	public long getiPSID() {
+	public long getIPSID() {
 		return iPSID;
 	}
 
-	public void setiPSID(long iPSID) {
+	public void setIPSID(long iPSID) {
 		this.iPSID = iPSID;
 	}
 
@@ -98,7 +98,7 @@ public class IPS implements VOIPS
 	@Override
 	public String toString() 
 	{
-		return "IPS con id" + iPSID + ", nombre=" + nombre + ", localizacion=" + localizacion + ", idEps=" + "]";
+		return "IPS con id" + iPSID + ", nombre=" + nombre + ", localizacion=" + localizacion + ", idEps=" + epsID + "]";
 	}
 
 }

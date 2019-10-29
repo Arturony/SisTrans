@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import uniandes.isis2304.EPSAndes.negocio.IPS;
 
 public class PanelCrearRecepcionista extends JPanel implements ActionListener
 {
@@ -63,7 +66,9 @@ public class PanelCrearRecepcionista extends JPanel implements ActionListener
     /**
      * Es el campo de texto para ingresar el género del nuevo disco
      */
-    private JTextField txtIPS;
+    private JComboBox<String> comboIPS;
+    
+    private List<IPS> ips;
     
     // -----------------------------------------------------------------
     // Constructores
@@ -72,8 +77,10 @@ public class PanelCrearRecepcionista extends JPanel implements ActionListener
     /**
      * Construye el panel creando las etiquetas y los campos de texto necesarios para crear un nuevo disco
      */
-    public PanelCrearRecepcionista( )
+    public PanelCrearRecepcionista(List<IPS> ips  )
     {
+    	
+    	this.ips = ips;
         setLayout( new GridLayout( 6, 2, 5, 5 ) );
         setSize(300, 400);
 
@@ -111,8 +118,8 @@ public class PanelCrearRecepcionista extends JPanel implements ActionListener
         etiquetaIPS.setFont( etiquetaIPS.getFont( ).deriveFont( Font.PLAIN ) );
         add( etiquetaIPS );
 
-        txtIPS = new JTextField( 2 );
-        add( txtIPS );
+        comboIPS = new JComboBox<String>(darNombres(ips));
+        add( comboIPS );
 
         setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
     }
@@ -152,7 +159,19 @@ public class PanelCrearRecepcionista extends JPanel implements ActionListener
     
     public String darIPS()
     {
-    	return txtIPS.getText();
+    	return ips.get(comboIPS.getSelectedIndex()).getIPSID()+"";
+    }
+    
+    public String[] darNombres(List<IPS> ips)
+    {
+    	String[] rta = new String[ips.size()];
+    	
+    	for(int i = 0; i < ips.size(); i++)
+    	{
+    		rta[i] = ips.get(i).getNombre();
+    	}
+    	
+    	return rta;
     }
     
     /**

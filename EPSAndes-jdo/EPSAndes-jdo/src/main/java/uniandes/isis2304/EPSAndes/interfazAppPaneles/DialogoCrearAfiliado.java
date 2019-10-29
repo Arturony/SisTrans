@@ -46,7 +46,7 @@ public class DialogoCrearAfiliado extends JDialog
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearAfiliado( );
+        panelDatos = new PanelCrearAfiliado(principal.darEPS() );
         panelBotones = new PanelBotonesAfiliado( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
@@ -72,13 +72,14 @@ public class DialogoCrearAfiliado extends JDialog
         String tipo = panelDatos.darTipoDocumento();
         String fecha = panelDatos.darFecha();
         String correo = panelDatos.darCorreo();
+        String eps = panelDatos.darEps();
         try 
         {
 			int document = Integer.parseInt(documento);
-			
-			if(document < 0)
+			int idEps = Integer.parseInt(eps);
+			if(document < 0&& idEps < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || fecha.equals( "" ) || fecha.equals( "" ) ) )
+			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( tipo.equals( "" ) || fecha.equals( "" ) || fecha.equals( "" ) || eps.equals("")) )
 			{
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
@@ -86,7 +87,7 @@ public class DialogoCrearAfiliado extends JDialog
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarAfiliado(nombre, document, tipo, fecha, correo);
+				boolean ok = principal.adicionarAfiliado(nombre, document, tipo, fecha, correo, idEps);
 				if( ok )
 				dispose( );
 				else

@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import uniandes.isis2304.EPSAndes.negocio.EPS;
+import uniandes.isis2304.EPSAndes.negocio.IPS;
 
 public class PanelCrearServicio extends JPanel implements ActionListener
 {
@@ -57,11 +61,15 @@ public class PanelCrearServicio extends JPanel implements ActionListener
     private JTextField txtID;
     
     private JLabel etiquetaIPSID;
+    
+    private JComboBox<String> comboIPSID;
+    
+    private List<IPS> ips;
 
     /**
      * Es el campo de texto para ingresar el género del nuevo disco
      */
-    private JTextField txtIPSID;
+   
     
     private JComboBox<String> cmbDia;
     
@@ -86,8 +94,10 @@ public class PanelCrearServicio extends JPanel implements ActionListener
     /**
      * Construye el panel creando las etiquetas y los campos de texto necesarios para crear un nuevo disco
      */
-    public PanelCrearServicio( )
+    public PanelCrearServicio(List<IPS> ips )
     {
+    	
+    	this.ips = ips;
         setLayout( new GridLayout( 6, 2, 5, 5 ) );
         setSize(300, 400);
         
@@ -158,8 +168,8 @@ public class PanelCrearServicio extends JPanel implements ActionListener
         etiquetaIPSID.setFont( etiquetaIPSID.getFont( ).deriveFont( Font.PLAIN ) );
         add( etiquetaIPSID );
 
-        txtIPSID = new JTextField( 2 );
-        add( txtIPSID );
+        comboIPSID = new JComboBox<String>(darNombres(ips));
+        add( comboIPSID );
 
         for( int i = 0; i < 60; i++ )
         {
@@ -229,7 +239,19 @@ public class PanelCrearServicio extends JPanel implements ActionListener
     
     public String darIDIPS()
     {
-    	return txtIPSID.getText();
+    	return ips.get(comboIPSID.getSelectedIndex()).getIPSID()+"";
+    }
+    
+    public String[] darNombres(List<IPS> ips)
+    {
+    	String[] rta = new String[ips.size()];
+    	
+    	for(int i = 0; i < ips.size(); i++)
+    	{
+    		rta[i] = ips.get(i).getNombre();
+    	}
+    	
+    	return rta;
     }
     
     public Integer darDia()

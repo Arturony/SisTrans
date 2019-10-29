@@ -46,7 +46,7 @@ public class DialogoCrearServicio extends JDialog
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearServicio( );
+        panelDatos = new PanelCrearServicio( principal.darIPS());
         panelBotones = new PanelBotonesServicio( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );

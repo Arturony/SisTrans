@@ -148,6 +148,20 @@ class SQLEPS
 		return (List<Servicios>) q.executeList();
 	}
 	
+	public List<IPS> darIPS(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaIPS());
+		q.setResultClass(IPS.class);	
+		return (List<IPS>) q.executeList();
+	}
+	
+	public List<EPS> darEPS(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaEps());
+		q.setResultClass(EPS.class);	
+		return (List<EPS>) q.executeList();
+	}
+	
 	public List<Servicios> consultarServicios(PersistenceManager pm, String horario)
 	{
 		String h = "'%"+horario+"%'";

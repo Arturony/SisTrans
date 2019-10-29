@@ -79,10 +79,10 @@ public class EPSAndes
         return medico;
 	}
 	
-	public Afiliado adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo)
+	public Afiliado adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo, int idEps)
 	{
 		log.info ("Adicionando Afiliado: " + nombre);
-        Afiliado afiliado = pp.adicionarAfiliado(nombre, correo, documento, tipoDocumento, fecha, 1);		
+        Afiliado afiliado = pp.adicionarAfiliado(nombre, correo, documento, tipoDocumento, fecha, idEps);		
         log.info ("Adicionando Afiliado: " + afiliado);
         return afiliado;
 	}
@@ -293,6 +293,22 @@ public class EPSAndes
        	List<Servicios> servicios = pp.darServicios();		
         log.info ("Retornando Servicios: ");
         return servicios;
+	}
+	
+	public List<IPS> darIPS()
+	{
+		log.info ("Retornando IPS: ");
+       	List<IPS> IPS = pp.darIPS();		
+        log.info ("Retornando IPS: ");
+        return IPS;
+	}
+	
+	public List<EPS> darEPS()
+	{
+		log.info ("Retornando EPS: ");
+       	List<EPS> EPS = pp.darEPS();		
+        log.info ("Retornando EPS: ");
+        return EPS;
 	}
 	
 	public List<Servicios> consultarServiciosFecha(String horario)

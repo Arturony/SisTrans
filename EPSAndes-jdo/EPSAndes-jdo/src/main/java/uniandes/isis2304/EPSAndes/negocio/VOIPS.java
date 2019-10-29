@@ -10,7 +10,7 @@ public interface VOIPS
 	 * 			Métodos
 	 *****************************************************************/
 	
-	public long getiPSID();
+	public long getIPSID();
 
 	public String getNombre();
 

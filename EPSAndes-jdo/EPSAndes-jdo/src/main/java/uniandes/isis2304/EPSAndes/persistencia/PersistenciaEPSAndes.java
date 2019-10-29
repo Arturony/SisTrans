@@ -908,6 +908,16 @@ public class PersistenciaEPSAndes
 		return sqlEPS.darServicios(pmf.getPersistenceManager());
 	}
 	
+	public List<IPS> darIPS()
+	{
+		return sqlEPS.darIPS(pmf.getPersistenceManager());
+	}
+	
+	public List<EPS> darEPS()
+	{
+		return sqlEPS.darEPS(pmf.getPersistenceManager());
+	}
+	
 	public List<Servicios> consultarServicios(String horario)
 	{
 		String horario1 = horario.split(",")[0];

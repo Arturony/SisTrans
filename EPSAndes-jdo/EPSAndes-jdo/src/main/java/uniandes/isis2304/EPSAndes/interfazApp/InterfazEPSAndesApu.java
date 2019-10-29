@@ -51,6 +51,7 @@ import uniandes.isis2304.EPSAndes.negocio.Afiliado;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
+import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
@@ -578,12 +579,12 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
         dialogo.setVisible( true );
 	}
 	
-	public boolean adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo)
+	public boolean adicionarAfiliado(String nombre, int documento, String tipoDocumento, String fecha, String correo, int idEps)
 	{
 		
 		try 
 		{	    		
-			VOAfiliado tb = epsAndes.adicionarAfiliado(nombre, documento, tipoDocumento, fecha, correo);
+			VOAfiliado tb = epsAndes.adicionarAfiliado(nombre, documento, tipoDocumento, fecha, correo, idEps);
 			if (tb == null)
 			{
 				throw new Exception ("No se pudo crear un Afiliado con nombre y registro medico: " + nombre + ", " + documento);
@@ -974,6 +975,16 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public List<Servicios> darServicios()
     {
     	return epsAndes.darServicios();
+    }
+    
+    public List<IPS> darIPS()
+    {
+    	return epsAndes.darIPS();
+    }
+    
+    public List<EPS> darEPS()
+    {
+    	return epsAndes.darEPS();
     }
     
     public List<Servicios> consultarServiciosFecha(String horario)
