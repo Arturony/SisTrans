@@ -294,4 +294,12 @@ public class EPSAndes
         log.info ("Retornando Servicios: ");
         return servicios;
 	}
+	
+	public List<Servicios> consultarServiciosFecha(String horario)
+	{
+		log.info ("Retornando Servicios: ");
+       	List<Servicios> servicios = pp.consultarServicios(horario);		
+        log.info ("Retornando Servicios: ");
+        return servicios;
+	}
 }

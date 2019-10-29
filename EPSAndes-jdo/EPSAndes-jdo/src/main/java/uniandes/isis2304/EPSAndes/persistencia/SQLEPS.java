@@ -150,7 +150,8 @@ class SQLEPS
 	
 	public List<Servicios> consultarServicios(PersistenceManager pm, String horario)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE ");
+		String h = "'%"+horario+"%'";
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"horario\" LIKE " + h);
 		q.setResultClass(Servicios.class);	
 		return (List<Servicios>) q.executeList();
 	}

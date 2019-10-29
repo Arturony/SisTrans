@@ -76,13 +76,6 @@ CREATE TABLE "Ordenes"
 )
 ;
 
-CREATE TABLE "Prestaciones"
-(
-	"iPSID" NUMBER(8,2),
-	"servicioSaludID" NUMBER(8,2)
-)
-;
-
 CREATE TABLE "Recepcionista"
 (
 	"correo" VARCHAR(50) NOT NULL,
@@ -95,10 +88,11 @@ CREATE TABLE "Recepcionista"
 
 CREATE TABLE "ServicioSalud"
 (
-	"horario" VARCHAR(50) NOT NULL,
+	"horario" VARCHAR(80) NOT NULL,
 	"medicosDisponibles" NUMBER(8,2) NOT NULL,
 	"nombre" VARCHAR(50) NOT NULL,
-	"servicioSaludID" NUMBER(8,2) NOT NULL
+	"servicioSaludID" NUMBER(8,2) NOT NULL,
+    "iPSID" NUMBER(8,2) NOT NULL
 )
 ;
 
@@ -199,14 +193,9 @@ ALTER TABLE "Ordenes"
 	FOREIGN KEY ("servicioID") REFERENCES "ServicioSalud" ("servicioSaludID")
 ;
 
-ALTER TABLE "Prestaciones" 
+ALTER TABLE "ServicioSalud" 
  ADD CONSTRAINT "FK_Prestaciones_IPS"
 	FOREIGN KEY ("iPSID") REFERENCES "IPS" ("iPSID")
-;
-
-ALTER TABLE "Prestaciones" 
- ADD CONSTRAINT "FK_Prestaciones_ServicioSalud"
-	FOREIGN KEY ("servicioSaludID") REFERENCES "ServicioSalud" ("servicioSaludID")
 ;
 
 ALTER TABLE "Recepcionista" 

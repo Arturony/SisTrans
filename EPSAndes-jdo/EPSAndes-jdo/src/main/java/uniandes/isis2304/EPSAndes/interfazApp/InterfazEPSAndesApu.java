@@ -976,6 +976,11 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     	return epsAndes.darServicios();
     }
     
+    public List<Servicios> consultarServiciosFecha(String horario)
+    {
+    	return epsAndes.consultarServiciosFecha(horario);
+    }
+    
 	public String getLogin() {
 		return login;
 	}

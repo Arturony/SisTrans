@@ -36,9 +36,14 @@ import uniandes.isis2304.EPSAndes.negocio.Servicios;
 public class PanelCrearCita extends JPanel implements ActionListener, ListSelectionListener
 {
 
+    private static final String BUSCAR = "Buscar";
+	
     // -----------------------------------------------------------------
     // Atributos de la Interfaz
     // -----------------------------------------------------------------
+    
+    private DialogoCrearCita ventana;
+    
     /**
      * Es la etiqueta "Nombre"
      */
@@ -93,6 +98,10 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     
     private JList servicios;
     
+    private JButton botonBuscar;
+    
+    private JScrollPane scroll;
+    
     // -----------------------------------------------------------------
     // Constructores
     // -----------------------------------------------------------------
@@ -100,11 +109,15 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     /**
      * Construye el panel creando las etiquetas y los campos de texto necesarios para crear un nuevo disco
      */
-    public PanelCrearCita( List<Servicios> services )
+    public PanelCrearCita( DialogoCrearCita dcc )
     {
+    	ventana = dcc;
+    	
     	JPanel prinp = new JPanel();
+    	JPanel aux1 = new JPanel();
     	setLayout(new BorderLayout());
         prinp.setLayout( new GridLayout( 0, 2, 5, 5 ) );
+        aux1.setLayout(new BorderLayout());
         setPreferredSize(new Dimension(400,400));
         
         etiquetaFecha = new JLabel( "Fecha: " );
@@ -158,11 +171,17 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
         txtID = new JTextField( 2 );
         prinp.add( txtID );
         
-        add(prinp, BorderLayout.NORTH);
+        aux1.add(prinp,BorderLayout.NORTH);
         
-        JScrollPane scroll = new JScrollPane();
+        botonBuscar = new JButton( "Buscar" );
+        botonBuscar.setActionCommand( BUSCAR );
+        botonBuscar.addActionListener( this );
+        aux1.add( botonBuscar, BorderLayout.SOUTH );
+        
+        add(aux1, BorderLayout.NORTH);
+        
+        scroll = new JScrollPane();
         servicios = new JList();
-        servicios.setListData(services.toArray());
         servicios.addListSelectionListener(this);
         scroll.getViewport().add(servicios);
         add(scroll, BorderLayout.SOUTH);
@@ -275,13 +294,25 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     	return darDia() + "," + darFecha() + ", a las " + darHora() + ":" + darMinutos(); 
     }
     
+    public void setList(List<Servicios> services)
+    {
+        servicios.setListData(services.toArray());
+        scroll.getViewport().removeAll();
+        scroll.getViewport().add(servicios);
+    }
+    
     /**
      * Ejecuta una acción cuando se hace click sobre un botón
      * @param evento el evento del click sobre un botón
      */
     public void actionPerformed( ActionEvent evento )
     {
-        
+    	 String comando = evento.getActionCommand( );
+
+         if( BUSCAR.equals( comando ) )
+         {
+        	 ventana.buscarServicios();
+         }
     }
     public void valueChanged( ListSelectionEvent e )
     {

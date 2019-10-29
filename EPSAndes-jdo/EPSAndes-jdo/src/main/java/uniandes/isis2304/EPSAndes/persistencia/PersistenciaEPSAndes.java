@@ -574,12 +574,12 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlAdministradorD.adicionarServicio(pm, idServicio, horario, nombre, medicosDisponibles) + sqlPrestaciones.adicionarPrestaciones(pm, idServicio, idIps);
+            long tuplasInsertadas = sqlAdministradorD.adicionarServicio(pm, idServicio, horario, nombre, medicosDisponibles, idIps);
             tx.commit();
             
             log.trace ("Inserción de Servicio: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Servicios(idServicio, medicosDisponibles, horario, nombre);
+            return new Servicios(idServicio, medicosDisponibles, horario, nombre, idIps);
         }
         catch (Exception e)
         {
@@ -910,7 +910,8 @@ public class PersistenciaEPSAndes
 	
 	public List<Servicios> consultarServicios(String horario)
 	{
-		return sqlEPS.consultarServicios(pmf.getPersistenceManager(), horario);
+		String horario1 = horario.split(",")[0];
+		return sqlEPS.consultarServicios(pmf.getPersistenceManager(), horario1);
 	}
 	
 	

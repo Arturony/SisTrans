@@ -17,6 +17,8 @@ public class Servicios implements VOServicios
 	private int medicosDisponibles;
 	
 	private String nombre;
+	
+	private int iPSID;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -30,13 +32,16 @@ public class Servicios implements VOServicios
 		this.medicosDisponibles = 0;
 		this.horario = "";
 		this.nombre = "";
+		this.iPSID = 0;
 	}
 
-	public Servicios (long idServicio, int medicosDisponibles, String horario, String nombre) 
+	public Servicios (long idServicio, int medicosDisponibles, String horario, String nombre, int idIps) 
 	{
 		this.servicioSaludID = idServicio;
 		this.medicosDisponibles = medicosDisponibles;
 		this.horario = horario;
+		this.nombre = nombre;
+		this.iPSID = idIps;
 	}
 
 	public long getServicioSaludID() {
@@ -71,13 +76,21 @@ public class Servicios implements VOServicios
 		this.nombre = nombre;
 	}
 
+	public int getIPSID() {
+		return iPSID;
+	}
+
+	public void setIPSID(int iPSID) {
+		this.iPSID = iPSID;
+	}
+
 	/** 
 	 * @return Una cadena con la información básica
 	 */
 	public String toString1() 
 	{
 		return "Servicio de Salud [idServicio=" + servicioSaludID + ", nombre=" + nombre + ", horario=" + horario + 
-				", medicos disponibles=" + medicosDisponibles + "]";
+				", medicos disponibles=" + medicosDisponibles + "id Ips= " + iPSID + "]";
 	}
 	
 	@Override

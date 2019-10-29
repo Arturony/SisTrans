@@ -46,7 +46,7 @@ public class DialogoCrearCita extends JDialog
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearCita(principal.darServicios() );
+        panelDatos = new PanelCrearCita(this);
         panelBotones = new PanelBotonesCita( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
@@ -104,5 +104,6 @@ public class DialogoCrearCita extends JDialog
     public void buscarServicios()
     {
     	String horario = panelDatos.darHorario();
+    	panelDatos.setList(principal.consultarServiciosFecha(horario));
     }
 }

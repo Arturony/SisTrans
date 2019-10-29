@@ -23,7 +23,7 @@ public class PanelBotonesCita extends JPanel implements ActionListener
      */
     private static final String CANCELAR = "Cancelar";
     
-    private static final String BUSCAR = "Buscar";
+
 
     // -----------------------------------------------------------------
     // Atributos
@@ -44,7 +44,6 @@ public class PanelBotonesCita extends JPanel implements ActionListener
      */
     private JButton botonCancelar;
     
-    private JButton botonBuscar;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -69,10 +68,6 @@ public class PanelBotonesCita extends JPanel implements ActionListener
         botonCancelar.addActionListener( this );
         add( botonCancelar );
         
-        botonBuscar = new JButton( "Buscar" );
-        botonBuscar.setActionCommand( BUSCAR );
-        botonBuscar.addActionListener( this );
-        add( botonBuscar );
 
     }
 
@@ -95,10 +90,6 @@ public class PanelBotonesCita extends JPanel implements ActionListener
         else if( CANCELAR.equals( comando ) )
         {
             ventana.dispose( );
-        }
-        else if( BUSCAR.equals( comando ) )
-        {
-            ventana.buscarServicios();
         }
 
     }

@@ -17,6 +17,8 @@ public interface VOServicios
 	public int getMedicosDisponibles();
 	
 	public String getNombre();
+	
+	public int getIPSID();
 
 	/** 
 	 * @return Una cadena con la información básica

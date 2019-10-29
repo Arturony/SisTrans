@@ -75,6 +75,8 @@ public class PanelCrearServicio extends JPanel implements ActionListener
     
     private JComboBox<String> cmbMinuto1;
     
+    private String[] semana;
+    
     private JLabel a;
     
     // -----------------------------------------------------------------
@@ -89,7 +91,7 @@ public class PanelCrearServicio extends JPanel implements ActionListener
         setLayout( new GridLayout( 6, 2, 5, 5 ) );
         setSize(300, 400);
         
-        String[] semana = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+        semana = new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
         
         String[] servicios = {"Consulta medico general", "Consulta medico especialista", "Urgencias", "Examen Diagnostico", "Terapia", "Hospitalizacion", "Procedimientos médico especializado"};
         
@@ -230,14 +232,14 @@ public class PanelCrearServicio extends JPanel implements ActionListener
     	return txtIPSID.getText();
     }
     
-    public String darDia()
+    public Integer darDia()
     {
-    	return (String) cmbDia.getSelectedItem();
+    	return (Integer) cmbDia.getSelectedIndex();
     }
     
-    public String darDia1()
+    public Integer darDia1()
     {
-    	return (String) cmbDia1.getSelectedItem();
+    	return (Integer) cmbDia1.getSelectedIndex();
     }
     
     public String darHora()
@@ -262,7 +264,17 @@ public class PanelCrearServicio extends JPanel implements ActionListener
     
     public String darHorario()
     {
-    	return darDia() + " a " + darDia1() + " de " + darHora()+ ":" + darMinutos() + " a " + darHora1() + ":" + darMinutos1();
+    	return darDias() + " de " + darHora()+ ":" + darMinutos() + " a " + darHora1() + ":" + darMinutos1();
+    }
+    
+    public String darDias()
+    {
+    	String rta = semana[darDia()];
+    	for(int i = darDia(); i < darDia1(); i++)
+    	{
+    		rta+= "," + semana[i+1];
+    	}
+    	return rta;
     }
     
     /**
