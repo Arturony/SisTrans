@@ -65,7 +65,7 @@ class SQLUtil
         Query qMedicos = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMedico());
         Query qOrdenes = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOrdenes());
         Query qAfiliado = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAfiliado ());
-        Query qPrestaciones = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPrestaciones());
+        Query qOrg = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOrganizador());
         Query qRecep = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaRecepcionista());
         Query qServ = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServicio());
         Query qTrabajan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTrabajan());
@@ -78,7 +78,7 @@ class SQLUtil
         long baresEliminados = (long) qMedicos.executeUnique ();
         long ordenesEliminados = (long) qOrdenes.executeUnique ();
         long sirvenEliminados = (long) qAfiliado.executeUnique ();
-        long presEliminados = (long) qPrestaciones.executeUnique ();
+        long presEliminados = (long) qOrg.executeUnique ();
         long recepEliminados = (long) qRecep.executeUnique ();
         long servEliminados = (long) qServ.executeUnique ();
         long trabEliminados = (long) qTrabajan.executeUnique ();

@@ -28,6 +28,7 @@ import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
+import uniandes.isis2304.EPSAndes.negocio.Organizador;
 import uniandes.isis2304.EPSAndes.negocio.Prestaciones;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
@@ -113,7 +114,6 @@ public class PersistenciaEPSAndes
 	
 	private SQLCitaMedica sqlCitasMedicas;
 	
-	private SQLPrestaciones sqlPrestaciones;
 	
 	private SQLTrabajan sqlTrabajan;
 	
@@ -123,6 +123,8 @@ public class PersistenciaEPSAndes
 	 * Atributo para el acceso a la tabla VISITAN de la base de datos
 	 */
 	private SQLRecepcionista sqlRecepcionista;
+	
+	private SQLOrganizador sqlOrganizador;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -147,7 +149,7 @@ public class PersistenciaEPSAndes
 		tablas.add ("\"ISIS2304C191920\".\"IPS\"");
 		tablas.add ("\"ISIS2304C191920\".\"Medicos\"");
 		tablas.add ("\"ISIS2304C191920\".\"Ordenes\"");
-		tablas.add ("\"ISIS2304C191920\".\"Prestaciones\"");
+		tablas.add ("\"ISIS2304C191920\".\"Organizador\"");
 		tablas.add ("\"ISIS2304C191920\".\"Recepcionista\"");
 		tablas.add ("\"ISIS2304C191920\".\"ServicioSalud\"");
 		tablas.add ("\"ISIS2304C191920\".\"Trabajan\"");
@@ -235,9 +237,10 @@ public class PersistenciaEPSAndes
 		sqlUtil = new SQLUtil(this);
 		sqlOrdenes = new SQLOrdenes(this);
 		sqlCitasMedicas = new SQLCitaMedica(this);
-		sqlPrestaciones = new SQLPrestaciones(this);
 		sqlTrabajan = new SQLTrabajan(this);
 		sqlServicios = new SQLServicios(this);
+		sqlOrganizador = new SQLOrganizador(this);
+		
 	}
 
 	/**
@@ -309,11 +312,6 @@ public class PersistenciaEPSAndes
 		return tablas.get (8);
 	}
 	
-	public String darTablaPrestaciones()
-	{
-		return tablas.get (9);
-	}
-	
 	public String darTablaRecepcionista()
 	{
 		return tablas.get (10);
@@ -327,6 +325,11 @@ public class PersistenciaEPSAndes
 	public String darTablaTrabajan()
 	{
 		return tablas.get (12);
+	}
+	
+	public String darTablaOrganizador()
+	{
+		return tablas.get (9);
 	}
 	
 	/**
@@ -477,6 +480,36 @@ public class PersistenciaEPSAndes
         }
 	}
 	
+	public Organizador adicionarOrganizador(String nombre, String correo, long idAdmin, String tipoDocumento, String contrasenia, long epsID)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlAdministradorD.adicionarOrganizador(pm, idAdmin, contrasenia, correo, nombre, tipoDocumento, epsID);
+            tx.commit();
+            
+            log.trace ("Inserción de Organizadorr: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Organizador(nombre, correo, contrasenia, idAdmin, epsID);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
 	public Gerente adicionarGerente(String nombre, String correo, long idGerente, String tipoDocumento, long epsID)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -597,35 +630,6 @@ public class PersistenciaEPSAndes
         }
 	}
 	
-	public Prestaciones adicionarPrestaciones(long idServicio, long idIps) 
-	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx=pm.currentTransaction();
-        try
-        {
-            tx.begin();
-            long tuplasInsertadas = sqlPrestaciones.adicionarPrestaciones(pm, idServicio, idIps);
-            tx.commit();
-
-            log.trace ("Inserción de prestaciones: [" + idServicio + ", " + idIps + "]. " + tuplasInsertadas + " tuplas insertadas");
-
-            return new Prestaciones(idIps, idServicio);
-        }
-        catch (Exception e)
-        {
-//        	e.printStackTrace();
-        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-        	return null;
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
-	}
 	
 	public Trabajan adicionarTrabajan(long idMedico, long idIps) 
 	{
@@ -846,6 +850,11 @@ public class PersistenciaEPSAndes
 		return sqlEPS.darAdmin(pmf.getPersistenceManager(), nombre, correo, idAdmin, tipoDocumento, contrasenia);
 	}
 	
+	public Organizador darOrganizador (String nombre, String correo, long idAdmin, String tipoDocumento, int contrasenia)
+	{
+		return sqlEPS.darOrganizador(pmf.getPersistenceManager(), nombre, correo, idAdmin, tipoDocumento, contrasenia);
+	}
+	
 	public Gerente darGerenteID (long adminID)
 	{
 		return sqlEPS.darGerenteID(pmf.getPersistenceManager(), adminID);
@@ -957,12 +966,14 @@ public class PersistenciaEPSAndes
 		return sqlCitasMedicas;
 	}
 
-	public SQLPrestaciones getSqlPrestaciones() {
-		return sqlPrestaciones;
-	}
 
 	public SQLTrabajan getSqlTrabajan() {
 		return sqlTrabajan;
+	}
+	
+	public SQLOrganizador getSqlOrganizador()
+	{
+		return sqlOrganizador;
 	}
 	
 	public long [] limpiarEPS ()

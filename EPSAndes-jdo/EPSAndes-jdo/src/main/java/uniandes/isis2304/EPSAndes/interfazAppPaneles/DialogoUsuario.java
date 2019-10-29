@@ -131,6 +131,12 @@ public class DialogoUsuario extends JDialog
 					principal.setNombreU("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
 					dispose();
 				}
+				else if(tipoU.equals("Organizador de Campañas") && principal.consultarOrganizador(document, nombreU, tipo, contrasenia, correo)!= null)
+				{
+					principal.setLogin("Organizador");
+					principal.setNombreU("Hola! " + nombreU +  " \n Tipo de Usuario: " + principal.getLogin());
+					dispose();
+				}
 				else
 				{
 					JOptionPane.showMessageDialog( this, "No se ha encontrado un usuario con esos datos" );

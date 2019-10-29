@@ -39,6 +39,10 @@
 				{
 					"label": "Registrar EPS",
 					"event": "mostrarDialogoEps"
+				},
+				{
+					"label": "Registrar Organizador",
+					"event": "mostrarDialogoOrganizador"
 				}
 			]
 		},

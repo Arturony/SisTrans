@@ -49,6 +49,11 @@ class SQLAdministradorD
 	{
 		return pp.getSqlEPS().adicionarAdministrador(pm, idAdmin, contrasenia, correo, nombre, tipoDocumento, epsID);
 	}
+	
+	public long adicionarOrganizador(PersistenceManager pm, long idOrg, String contrasenia, String correo,String nombre, String tipoDocumento, long epsID) 
+	{
+		return pp.getSqlEPS().adicionarOrgnizador(pm, idOrg, contrasenia, correo, nombre, tipoDocumento, epsID);
+	}
 
 
 	public long adicionarAfiliado(PersistenceManager pm, long idAfiliado, String fechaNacimiento, String correo, String nombre, String tipoDocumento, long epsID)

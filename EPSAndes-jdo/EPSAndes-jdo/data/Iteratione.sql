@@ -10,6 +10,17 @@ CREATE TABLE "Administrador"
 )
 ;
 
+CREATE TABLE "Organizador"
+(
+	"contraseña" VARCHAR(50) NOT NULL,
+	"correo" VARCHAR(50) NOT NULL,
+	"nombre" VARCHAR(50) NOT NULL,
+	"tipoDocumento" VARCHAR(50) NOT NULL,
+	"organizadorID" NUMBER(8,2) NOT NULL,
+	"epsID" NUMBER(8,2) NOT NULL
+)
+;
+
 CREATE TABLE "Afiliado"
 (
 	"correo" VARCHAR(50) NOT NULL,
@@ -108,6 +119,11 @@ ALTER TABLE "Administrador"
 	PRIMARY KEY ("administradorID") USING INDEX
 ;
 
+ALTER TABLE "Organizador" 
+ ADD CONSTRAINT "PK_Organizador"
+	PRIMARY KEY ("organizadorID") USING INDEX
+;
+
 ALTER TABLE "Afiliado" 
  ADD CONSTRAINT "PK_Afiliado"
 	PRIMARY KEY ("afiliadoID") USING INDEX
@@ -155,6 +171,11 @@ ALTER TABLE "ServicioSalud"
 
 ALTER TABLE "Administrador" 
  ADD CONSTRAINT "FK_Administrador_Eps"
+	FOREIGN KEY ("epsID") REFERENCES "Eps" ("epsID")
+;
+
+ALTER TABLE "Organizador" 
+ ADD CONSTRAINT "FK_Organizador_Eps"
 	FOREIGN KEY ("epsID") REFERENCES "Eps" ("epsID")
 ;
 

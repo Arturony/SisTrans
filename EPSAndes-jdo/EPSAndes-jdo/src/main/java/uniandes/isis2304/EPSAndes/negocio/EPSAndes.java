@@ -127,6 +127,22 @@ public class EPSAndes
         return admin;
 	}
 	
+	public Organizador adicionarOrganizador(String nombre, int documento, String tipo, String contrasenia, String correo, int idEps)
+	{
+		log.info ("Adicionando Organizador: " + nombre);
+        Organizador org = pp.adicionarOrganizador(nombre, correo, documento, tipo, contrasenia, idEps);		
+        log.info ("Adicionando Organizador: " + org);
+        return org;
+	}
+	
+	public Organizador consultarOrganizador(String nombre, int documento, String tipo, int contrasenia, String correo)
+	{
+		log.info ("Consultando Organizador: " + nombre);
+        Organizador org = pp.darOrganizador(nombre, correo, documento, tipo, contrasenia);		
+        log.info ("Consultando Organizador: " + org);
+        return org;
+	}
+	
 	public Gerente adicionarGerente(String nombre, String correo, int idGerente, String tipo)
 	{
 		log.info ("Adicionando gerente: " + idGerente);

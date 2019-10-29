@@ -89,7 +89,7 @@ public class PanelSeleccionarUsuario extends JPanel implements ActionListener
         setLayout( new GridLayout( 8, 2, 6, 6 ) );
 
         String[] tipoDocumentos = {"Cedula Ciudadania", "Pasaporte", "Cedula Extrangeria"};
-        String[] tipoUsuario = {"Administrador de Datos", "Afiliado", "Gerente", "Medico", "Recepcionista"};
+        String[] tipoUsuario = {"Administrador de Datos", "Organizador de Campañas", "Afiliado", "Gerente", "Medico", "Recepcionista"};
         
         etiquetaUsuario = new JLabel( "Nombre de Usuario: " );
         etiquetaUsuario.setFont( etiquetaUsuario.getFont( ).deriveFont( Font.PLAIN ) );

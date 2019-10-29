@@ -42,6 +42,7 @@ import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearGerente;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearIPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrden;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrganizador;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearRecepcionista;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearServicio;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoRegistrarLlegada;
@@ -53,6 +54,7 @@ import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Organizador;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
 import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
@@ -63,6 +65,7 @@ import uniandes.isis2304.EPSAndes.negocio.VOGerente;
 import uniandes.isis2304.EPSAndes.negocio.VOIPS;
 import uniandes.isis2304.EPSAndes.negocio.VOMedico;
 import uniandes.isis2304.EPSAndes.negocio.VOOrden;
+import uniandes.isis2304.EPSAndes.negocio.VOOrganizador;
 import uniandes.isis2304.EPSAndes.negocio.VORecepcionista;
 import uniandes.isis2304.EPSAndes.negocio.VOServicios;
 
@@ -611,6 +614,38 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
         dialogo.setVisible( true );
 	}
 	
+	public boolean adicionarOrganizador(String nombre, int documento, String tipoDocumento, String fecha, String correo, int idEps)
+	{
+		
+		try 
+		{	    		
+			VOOrganizador tb = epsAndes.adicionarOrganizador(nombre, documento, tipoDocumento, fecha, correo, idEps);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un Organizador con nombre y documento: " + nombre + ", " + documento);
+			}
+			String resultado = "En adicionarOrganizador\n\n";
+			resultado += "Organizador adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public void mostrarDialogoOrganizador()
+	{
+		DialogoCrearOrganizador dialogo = new DialogoCrearOrganizador( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
 	public boolean adicionarAdministrador(String nombre, int documento, String tipoDocumento, String contrasenia, String correo)
 	{
 		
@@ -930,6 +965,11 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public AdministradorD consultarAdmin(int documento, String nombre, String tipo, int contrasenia, String correo)
     {
     	return epsAndes.consultarAdministrador(nombre, documento, tipo, contrasenia, correo);
+    }
+    
+    public Organizador consultarOrganizador(int documento, String nombre, String tipo, int contrasenia, String correo)
+    {
+    	return epsAndes.consultarOrganizador(nombre, documento, tipo, contrasenia, correo);
     }
     
     public Gerente consultarGerenteID(int epsID)

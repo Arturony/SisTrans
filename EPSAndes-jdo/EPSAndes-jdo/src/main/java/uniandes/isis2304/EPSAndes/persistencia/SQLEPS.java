@@ -12,6 +12,7 @@ import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
+import uniandes.isis2304.EPSAndes.negocio.Organizador;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
 
@@ -57,6 +58,12 @@ class SQLEPS
         return (long) q.executeUnique();
 	}
 
+	public long adicionarOrgnizador(PersistenceManager pm, long idOrg, String contrasenia, String correo,String nombre, String tipoDocumento, long epsID) 
+	{
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaOrganizador() + "(\"contraseña\", \"correo\", \"nombre\", \"tipoDocumento\", \"organizadorID\", \"epsID\") values (?, ?, ?, ?, ?, ?)");
+        q.setParameters(contrasenia, correo, nombre, tipoDocumento, idOrg, epsID);
+        return (long) q.executeUnique();
+	}
 
 	public long adicionarAfiliado(PersistenceManager pm, long idAfiliado, String fechaNacimiento, String correo, String nombre, String tipoDocumento, long epsID)
 	{
@@ -123,6 +130,14 @@ class SQLEPS
 		q.setParameters(idAdmin, nombre, correo, contrasenia, tipoDocumento);
 		q.setResultClass(AdministradorD.class);	
 		return (AdministradorD) q.executeUnique();
+	}
+	
+	public Organizador darOrganizador(PersistenceManager pm, String nombre, String correo, long idAdmin, String tipoDocumento, int contrasenia) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOrganizador() + "WHERE \"organizadorID\" = ? AND \"nombre\" = ? AND \"correo\" = ? AND \"contraseña\" = ? AND \"tipoDocumento\" = ?");
+		q.setParameters(idAdmin, nombre, correo, contrasenia, tipoDocumento);
+		q.setResultClass(Organizador.class);	
+		return (Organizador) q.executeUnique();
 	}
 
 	public Gerente darGerente(PersistenceManager pm, String nombre, String correo, long idGerente,
