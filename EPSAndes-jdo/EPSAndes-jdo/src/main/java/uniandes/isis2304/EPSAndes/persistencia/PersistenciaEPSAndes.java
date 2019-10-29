@@ -908,6 +908,12 @@ public class PersistenciaEPSAndes
 		return sqlEPS.darServicios(pmf.getPersistenceManager());
 	}
 	
+	public List<Servicios> consultarServicios(String horario)
+	{
+		return sqlEPS.consultarServicios(pmf.getPersistenceManager(), horario);
+	}
+	
+	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;
 	}

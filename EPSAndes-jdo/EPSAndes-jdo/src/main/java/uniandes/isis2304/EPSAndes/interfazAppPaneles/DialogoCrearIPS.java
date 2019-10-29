@@ -70,12 +70,14 @@ public class DialogoCrearIPS extends JDialog
         String nombre = panelDatos.darNombre();
         String documento = panelDatos.darID();
         String local = panelDatos.darLocal();
+        String eps = panelDatos.darEps();
         try 
         {
 			int document = Integer.parseInt(documento);
-			if(document < 0)
+			int idEps = Integer.parseInt(eps);
+			if(document < 0 && idEps < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( local.equals( "" ) ) )
+			if( ( nombre.equals( "" ) || documento.equals( "" ) ) || ( local.equals( "" ) || eps.equals("") ) )
 			{
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear la IPS" );
@@ -83,7 +85,7 @@ public class DialogoCrearIPS extends JDialog
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarIPS(nombre, document, local);
+				boolean ok = principal.adicionarIPS(nombre, document, local, idEps);
 				if( ok )
 				dispose( );
 				else

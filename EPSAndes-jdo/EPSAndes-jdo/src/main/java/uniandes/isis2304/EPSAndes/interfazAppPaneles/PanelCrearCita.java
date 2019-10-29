@@ -10,6 +10,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -248,9 +249,30 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     	return (String) minutos.getSelectedItem();
     }
     
+    public String darDia()
+    {
+    	int dia = chooser.getDate().getDay();
+    	
+    	if(dia == 0)
+    		return "Domingo";
+    	else if(dia == 1)
+    		return "Lunes";
+    	else if(dia == 2)
+    		return "Martes";
+    	else if(dia == 3)
+    		return "Miercoles";
+    	else if(dia == 4)
+    		return "Jueves";
+    	else if(dia == 5)
+    		return "Viernes";
+    	else 
+    		return "Sabado";
+    	
+    }
+    
     public String darHorario()
     {
-    	return darFecha() + " a las" + darHora() + ":" + darMinutos(); 
+    	return darDia() + "," + darFecha() + ", a las " + darHora() + ":" + darMinutos(); 
     }
     
     /**

@@ -96,7 +96,7 @@ public class EPS implements VOEPS
 	 */
 	public String toString() 
 	{
-		return "Bar [id=" + epsID + ", nombre=" + nombre + "]";
+		return "Eps [id=" + epsID + ", nombre=" + nombre + "]";
 	}
 	
 

@@ -147,4 +147,11 @@ class SQLEPS
 		q.setResultClass(Servicios.class);	
 		return (List<Servicios>) q.executeList();
 	}
+	
+	public List<Servicios> consultarServicios(PersistenceManager pm, String horario)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE ");
+		q.setResultClass(Servicios.class);	
+		return (List<Servicios>) q.executeList();
+	}
 }

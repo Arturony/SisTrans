@@ -143,10 +143,10 @@ public class EPSAndes
         return gerente;
 	}
 	
-	public IPS adicionarIPS(String nombre, int documento, String localizacion)
+	public IPS adicionarIPS(String nombre, int documento, String localizacion, int idEps)
 	{
 		log.info ("Adicionando ips: " + nombre);
-        IPS ips = pp.adicionarIPS(nombre, localizacion, documento, 1);		
+        IPS ips = pp.adicionarIPS(nombre, localizacion, documento, idEps);		
         log.info ("Adicionando ips: " + ips);
         return ips;
 	}

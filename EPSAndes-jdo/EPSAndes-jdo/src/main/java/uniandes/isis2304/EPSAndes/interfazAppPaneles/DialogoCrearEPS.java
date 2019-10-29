@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import uniandes.isis2304.EPSAndes.interfazApp.InterfazEPSAndesApu;
 
 
-public class DialogoCrearCita extends JDialog
+public class DialogoCrearEPS extends JDialog
 {
 	// -----------------------------------------------------------------
     // Atributos
@@ -26,12 +26,12 @@ public class DialogoCrearCita extends JDialog
     /**
      * Es el panel con los datos para crear el nuevo disco
      */
-    private PanelCrearCita panelDatos;
+    private PanelCrearEPS panelDatos;
 
     /**
      * Es el panel con los botones para guardar el disco
      */
-    private PanelBotonesCita panelBotones;
+    private PanelBotonesEPS panelBotones;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -41,13 +41,13 @@ public class DialogoCrearCita extends JDialog
      * Construye el diálogo
      * @param id es una referencia a la clase principal de la interfaz
      */
-    public DialogoCrearCita( InterfazEPSAndesApu id )
+    public DialogoCrearEPS( InterfazEPSAndesApu id )
     {
         super( id, true );
         principal = id;
 
-        panelDatos = new PanelCrearCita(principal.darServicios() );
-        panelBotones = new PanelBotonesCita( this );
+        panelDatos = new PanelCrearEPS( );
+        panelBotones = new PanelBotonesEPS( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
         getContentPane( ).add( panelBotones, BorderLayout.SOUTH );
@@ -64,23 +64,17 @@ public class DialogoCrearCita extends JDialog
     /**
      * Guarda el disco
      */
-    public void crearCita( )
+    public void crearEPS( )
     {
         boolean parametersOk = true;
-        String horario = panelDatos.darHorario();
-        String sesiones = panelDatos.darSesiones();
-        String idAfiliado = panelDatos.darAfiliado();
-        String idServicio = panelDatos.darServicio();
+        String nombre = panelDatos.darNombre();
         String id = panelDatos.darID();
         try 
         {
-			int sesion = Integer.parseInt(sesiones);
-			int serv = Integer.parseInt(idServicio);
-			int afil = Integer.parseInt(idAfiliado);
-			int idOrden = Integer.parseInt(id);
-			if(sesion < 0 && serv < 0 && afil < 0 && idOrden < 0)
+			int idServ = Integer.parseInt(id);
+			if(idServ < 0)
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( horario.equals( "" ) || sesiones.equals( "" ) ) || ( idAfiliado.equals( "" ) || idServicio.equals( "" ) || id.equals( "" ) ) )
+			if(  nombre.equals( "" ) ||  id.equals( "" )  )
 			{
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
@@ -88,7 +82,7 @@ public class DialogoCrearCita extends JDialog
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarCita(afil, serv, idOrden, horario, sesion);
+				boolean ok = principal.adicionarEPS(nombre, idServ);
 				if( ok )
 				dispose( );
 				else
@@ -99,10 +93,5 @@ public class DialogoCrearCita extends JDialog
         {
         	JOptionPane.showMessageDialog( this, "Ingrese datos numericos para Documento y Registro Medico" );
 		}
-    }
-    
-    public void buscarServicios()
-    {
-    	String horario = panelDatos.darHorario();
     }
 }

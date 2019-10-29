@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 
-public class PanelBotonesCita extends JPanel implements ActionListener
+public class PanelBotonesEPS extends JPanel implements ActionListener
 {
 	 // -----------------------------------------------------------------
     // Constantes
@@ -16,14 +16,12 @@ public class PanelBotonesCita extends JPanel implements ActionListener
     /**
      * El comando para crear un disco
      */
-    private static final String CREAR_CITA = "CrearCita";
+    private static final String CREAR_EPS = "CrearEPS";
 
     /**
      * El comando para cancelar la creación de un disco
      */
     private static final String CANCELAR = "Cancelar";
-    
-    private static final String BUSCAR = "Buscar";
 
     // -----------------------------------------------------------------
     // Atributos
@@ -32,19 +30,17 @@ public class PanelBotonesCita extends JPanel implements ActionListener
     /**
      * Es una referencia al dialogo al que pertenece este panel
      */
-    private DialogoCrearCita ventana;
+    private DialogoCrearEPS ventana;
 
     // -----------------------------------------------------------------
     // Atributos de la Interfaz
     // -----------------------------------------------------------------
-    private JButton botonAgregarCita;
+    private JButton botonAgregarAdmin;
 
     /**
      * Es el botón que sirve para cerrar el diálogo sin guardar los cambios
      */
     private JButton botonCancelar;
-    
-    private JButton botonBuscar;
 
     // -----------------------------------------------------------------
     // Constructores
@@ -52,27 +48,22 @@ public class PanelBotonesCita extends JPanel implements ActionListener
 
     /**
      * Construye el panel e inicializa sus componentes
-     * @param dcc es una referencia al dialogo que contiene a este panel
+     * @param dca es una referencia al dialogo que contiene a este panel
      */
-    public PanelBotonesCita( DialogoCrearCita dcc )
+    public PanelBotonesEPS( DialogoCrearEPS dca )
     {
 
-        ventana = dcc;
+        ventana = dca;
 
-        botonAgregarCita = new JButton( "Crear" );
-        botonAgregarCita.setActionCommand( CREAR_CITA );
-        botonAgregarCita.addActionListener( this );
-        add( botonAgregarCita );
+        botonAgregarAdmin = new JButton( "Crear" );
+        botonAgregarAdmin.setActionCommand( CREAR_EPS );
+        botonAgregarAdmin.addActionListener( this );
+        add( botonAgregarAdmin );
 
         botonCancelar = new JButton( "Cancelar" );
         botonCancelar.setActionCommand( CANCELAR );
         botonCancelar.addActionListener( this );
         add( botonCancelar );
-        
-        botonBuscar = new JButton( "Buscar" );
-        botonBuscar.setActionCommand( BUSCAR );
-        botonBuscar.addActionListener( this );
-        add( botonBuscar );
 
     }
 
@@ -88,17 +79,13 @@ public class PanelBotonesCita extends JPanel implements ActionListener
     {
         String comando = evento.getActionCommand( );
 
-        if( CREAR_CITA.equals( comando ) )
+        if( CREAR_EPS.equals( comando ) )
         {
-            ventana.crearCita( );
+            ventana.crearEPS( );
         }
         else if( CANCELAR.equals( comando ) )
         {
             ventana.dispose( );
-        }
-        else if( BUSCAR.equals( comando ) )
-        {
-            ventana.buscarServicios();
         }
 
     }

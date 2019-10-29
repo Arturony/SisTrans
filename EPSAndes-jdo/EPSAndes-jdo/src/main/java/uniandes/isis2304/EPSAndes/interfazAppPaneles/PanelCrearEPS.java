@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class PanelCrearIPS extends JPanel implements ActionListener
+public class PanelCrearEPS extends JPanel implements ActionListener
 {
 
     // -----------------------------------------------------------------
@@ -40,23 +40,7 @@ public class PanelCrearIPS extends JPanel implements ActionListener
      * Es el campo de texto para ingresar el artista del nuevo disco
      */
     private JTextField txtID;
-    /**
-     * Es la etiqueta "Especialidad"
-     */
-    private JLabel etiquetaLocal;
-
-    /**
-     * Es el campo de texto para ingresar el género del nuevo disco
-     */
-    private JTextField txtLocal;
-
-    private JLabel etiquetaEps;
-
-    /**
-     * Es el campo de texto para ingresar el género del nuevo disco
-     */
-    private JTextField txtEps;
-
+    
     
     // -----------------------------------------------------------------
     // Constructores
@@ -65,9 +49,12 @@ public class PanelCrearIPS extends JPanel implements ActionListener
     /**
      * Construye el panel creando las etiquetas y los campos de texto necesarios para crear un nuevo disco
      */
-    public PanelCrearIPS( )
+    public PanelCrearEPS( )
     {
-        setLayout( new GridLayout( 5, 2, 5, 5 ) );
+        setLayout( new GridLayout( 6, 2, 5, 5 ) );
+        setSize(300, 400);
+
+        String[] tipoDocumentos = {"Cedula Ciudadania", "Pasaporte", "Cedula Extrangeria"};
         
         etiquetaNombre = new JLabel( "Nombre: " );
         etiquetaNombre.setFont( etiquetaNombre.getFont( ).deriveFont( Font.PLAIN ) );
@@ -76,26 +63,13 @@ public class PanelCrearIPS extends JPanel implements ActionListener
         txtNombre = new JTextField( 2 );
         add( txtNombre );
 
-        etiquetaID = new JLabel( "Id: " );
+        etiquetaID = new JLabel( "ID: " );
         etiquetaID.setFont( etiquetaID.getFont( ).deriveFont( Font.PLAIN ) );
         add( etiquetaID );
 
         txtID = new JTextField( 2 );
         add( txtID );
-
-        etiquetaLocal = new JLabel( "Localización: " );
-        etiquetaLocal.setFont( etiquetaLocal.getFont( ).deriveFont( Font.PLAIN ) );
-        add( etiquetaLocal );
-
-        txtLocal = new JTextField( 2 );
-        add( txtLocal );
         
-        etiquetaEps = new JLabel( "Id Eps: " );
-        etiquetaEps.setFont( etiquetaEps.getFont( ).deriveFont( Font.PLAIN ) );
-        add( etiquetaEps );
-
-        txtEps = new JTextField( 2 );
-        add( txtEps );
 
         setBorder( new EmptyBorder( 5, 5, 5, 5 ) );
     }
@@ -120,20 +94,6 @@ public class PanelCrearIPS extends JPanel implements ActionListener
     public String darID( )
     {
         return txtID.getText( );
-    }
-
-    /**
-     * Da el valor del campo de texto con el género del disco
-     * @return El texto con el género
-     */
-    public String darLocal( )
-    {
-        return txtLocal.getText( );
-    }
-    
-    public String darEps()
-    {
-    	return txtEps.getText();
     }
     
     /**

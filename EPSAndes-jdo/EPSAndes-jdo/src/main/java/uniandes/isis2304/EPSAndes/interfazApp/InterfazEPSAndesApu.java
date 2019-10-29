@@ -37,6 +37,7 @@ import com.google.gson.stream.JsonReader;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAdmin;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearCita;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearEPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearGerente;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearIPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
@@ -506,6 +507,38 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
         dialogo.setVisible( true );
 	}
 	
+	public void mostrarDialogoEps()
+	{
+		DialogoCrearEPS dialogo = new DialogoCrearEPS( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarEps(String nombre, int id)
+	{
+		
+		try 
+		{	    		
+			VOEPS tb = epsAndes.adicionarEPS(nombre, id);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una EPS con nombre y id: " + nombre + ", " + id);
+			}
+			String resultado = "En adicionarEps\n\n";
+			resultado += "Eps adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
 	public void mostrarDialogoMedico()
 	{
 		DialogoCrearMedico dialogo = new DialogoCrearMedico( this );
@@ -769,12 +802,12 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
         dialogo.setVisible( true );
 	}
 	
-	public boolean adicionarIPS(String nombre, int id, String local)
+	public boolean adicionarIPS(String nombre, int id, String local, int idEps)
 	{
 		
 		try 
 		{	    		
-			VOIPS tb = epsAndes.adicionarIPS(nombre, id, local);
+			VOIPS tb = epsAndes.adicionarIPS(nombre, id, local, idEps);
 			if (tb == null)
 			{
 				throw new Exception ("No se pudo crear una Ips con  id: " + id);

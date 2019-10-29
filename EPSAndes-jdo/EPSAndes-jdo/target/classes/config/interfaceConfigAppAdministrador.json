@@ -35,6 +35,10 @@
 				{
 					"label": "Registrar Administrador",
 					"event": "mostrarDialogoAdmin"
+				},
+				{
+					"label": "Registrar EPS",
+					"event": "mostrarDialogoEps"
 				}
 			]
 		},
