@@ -1,15 +1,25 @@
 
-
 package uniandes.isis2304.EPSAndes.persistencia;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import oracle.net.aso.n;
+import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
+import uniandes.isis2304.EPSAndes.negocio.Afiliado;
+import uniandes.isis2304.EPSAndes.negocio.IPS;
+import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Orden;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Servicios;
 
-class SQLOrganizador 
+/**
+ * @author
+ */
+class SQLCampana 
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -35,7 +45,7 @@ class SQLOrganizador
 	 * Constructor
 	 * @param pp - El Manejador de persistencia de la aplicación
 	 */
-	public SQLOrganizador (PersistenciaEPSAndes pp)
+	public SQLCampana (PersistenciaEPSAndes pp)
 	{
 		this.pp = pp;
 	}
@@ -45,4 +55,9 @@ class SQLOrganizador
 		return pp.getSqlCampana().adicionarCampana(pm, campanaId, nombre, fecha, capacidad, epsID);
 	}
 
+	public long cancelarCampana(PersistenceManager pm, long campanaId, String nombre, long epsID)
+	{
+		return 0;
+	}
+	
 }

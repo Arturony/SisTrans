@@ -1,30 +1,24 @@
 
-
 package uniandes.isis2304.EPSAndes.negocio;
 
-/**
- * @author 
- */
-public interface VOServicios 
+
+
+
+public interface VOCampana 
 {
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
-	public String getHorario();
 	
-	public long getServicioSaludID();
-	
-	public int getMedicosDisponibles();
-	
-	public String getNombre();
-	
-	public int getIPSID();
-	
-	public int getReservado();
+	public long getCampanaID();
 
-	/** 
-	 * @return Una cadena con la información básica
-	 */
+	public String getNombre();
+
+	public String getFecha();
+
+	public int getCapacidad();
+	
+	public long getEpsID();
 	@Override
 	public String toString();
 

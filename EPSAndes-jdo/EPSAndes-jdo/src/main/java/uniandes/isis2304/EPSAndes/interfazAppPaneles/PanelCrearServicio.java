@@ -103,7 +103,8 @@ public class PanelCrearServicio extends JPanel implements ActionListener
         
         semana = new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
         
-        String[] servicios = {"Consulta medico general", "Consulta medico especialista", "Urgencias", "Examen Diagnostico", "Terapia", "Hospitalizacion", "Procedimientos médico especializado"};
+        String[] servicios = {"Consulta medico general", "Consulta medico especialista", "Urgencias", "Examen Diagnostico", "Terapia", "Hospitalizacion", "Procedimientos médico especializado",
+        		"Examen de Sangre", "Radiografia", "Consulta Odontologica", "Jornada de Vacunacion"};
         
         etiquetaTipo = new JLabel( "Nombre: " );
         etiquetaTipo.setFont( etiquetaTipo.getFont( ).deriveFont( Font.PLAIN ) );

@@ -1,4 +1,5 @@
 
+
 package uniandes.isis2304.EPSAndes.negocio;
 
 import java.util.List;
@@ -9,18 +10,16 @@ import java.util.List;
  * 
  * @author 
  */
-public interface VOPrestaciones 
+public interface VOParticipa 
 {
+	public long getAfiliadoID();
+	
+	public long getCampanaID();
+	
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
-	public long getiPSID();
 	
-	public long getServicioSaludID();
-
-	/**
-	 * @return Una cadena de caracteres con la información básica del bebedor
-	 */
 	@Override
 	public String toString();
 

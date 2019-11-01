@@ -19,6 +19,8 @@ public class Servicios implements VOServicios
 	private String nombre;
 	
 	private int iPSID;
+	
+	private int reservado;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -33,15 +35,17 @@ public class Servicios implements VOServicios
 		this.horario = "";
 		this.nombre = "";
 		this.iPSID = 0;
+		this.reservado = 0;
 	}
 
-	public Servicios (long idServicio, int medicosDisponibles, String horario, String nombre, int idIps) 
+	public Servicios (long idServicio, int medicosDisponibles, String horario, String nombre, int idIps, int reserva) 
 	{
 		this.servicioSaludID = idServicio;
 		this.medicosDisponibles = medicosDisponibles;
 		this.horario = horario;
 		this.nombre = nombre;
 		this.iPSID = idIps;
+		this.reservado = reserva;
 	}
 
 	public long getServicioSaludID() {
@@ -82,6 +86,14 @@ public class Servicios implements VOServicios
 
 	public void setIPSID(int iPSID) {
 		this.iPSID = iPSID;
+	}
+
+	public int getReservado() {
+		return reservado;
+	}
+
+	public void setReservado(int reservado) {
+		this.reservado = reservado;
 	}
 
 	/** 

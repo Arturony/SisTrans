@@ -1,5 +1,4 @@
 
-
 package uniandes.isis2304.EPSAndes.persistencia;
 
 import java.util.List;
@@ -7,9 +6,14 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Medico;
+import uniandes.isis2304.EPSAndes.negocio.Trabajan;
 
-class SQLOrganizador 
+/**
+ * 
+ * @author 
+ */
+class SQLReservas 
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -35,14 +39,23 @@ class SQLOrganizador
 	 * Constructor
 	 * @param pp - El Manejador de persistencia de la aplicación
 	 */
-	public SQLOrganizador (PersistenciaEPSAndes pp)
+	public SQLReservas (PersistenciaEPSAndes pp)
 	{
 		this.pp = pp;
 	}
-	
-	public long adicionarCampana(PersistenceManager pm, long campanaId, String nombre, String fecha, int capacidad, long epsID) 
+
+	public long adicionarReserva(PersistenceManager pm, long idAfiliado, long idCampana) 
 	{
-		return pp.getSqlCampana().adicionarCampana(pm, campanaId, nombre, fecha, capacidad, epsID);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaTrabajan() + "(\"medicosID\", \"iPSID\") values (?, ?)");
+        q.setParameters(idAfiliado, idCampana);
+        return (long) q.executeUnique();
+	}
+
+	public long eliminarReserva(PersistenceManager pm, long idMedico, long idIps)
+	{
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTrabajan () + " WHERE \"medicosID\" = ? AND \"iPSID\" = ?");
+        q.setParameters(idMedico, idIps);
+        return (long) q.executeUnique();
 	}
 
 }

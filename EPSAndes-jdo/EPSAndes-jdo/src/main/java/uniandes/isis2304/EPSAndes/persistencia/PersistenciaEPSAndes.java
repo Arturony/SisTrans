@@ -29,7 +29,6 @@ import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
 import uniandes.isis2304.EPSAndes.negocio.Organizador;
-import uniandes.isis2304.EPSAndes.negocio.Prestaciones;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
 import uniandes.isis2304.EPSAndes.negocio.Trabajan;
@@ -125,6 +124,12 @@ public class PersistenciaEPSAndes
 	private SQLRecepcionista sqlRecepcionista;
 	
 	private SQLOrganizador sqlOrganizador;
+	
+	private SQLParticipa sqlParticipa;
+	
+	private SQLReservas sqlReservas;
+	
+	private SQLCampana sqlCampana;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -240,68 +245,46 @@ public class PersistenciaEPSAndes
 		sqlTrabajan = new SQLTrabajan(this);
 		sqlServicios = new SQLServicios(this);
 		sqlOrganizador = new SQLOrganizador(this);
-		
+		sqlParticipa = new SQLParticipa(this);
+		sqlReservas = new SQLReservas(this);
+		sqlCampana = new SQLCampana(this);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos
-	 */
 	public String darSeqEPSAndes ()
 	{
 		return tablas.get (0);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
-	 */
 	public String darTablaAdmin ()
 	{
 		return tablas.get (1);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de parranderos
-	 */
 	public String darTablaAfiliado()
 	{
 		return tablas.get (2);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
-	 */
 	public String darTablaCitas()
 	{
 		return tablas.get (3);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
-	 */
 	public String darTablaEps()
 	{
 		return tablas.get (4);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
-	 */
 	public String darTablaGerente ()
 	{
 		return tablas.get (5);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
-	 */
 	public String darTablaIPS ()
 	{
 		return tablas.get (6);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
-	 */
 	public String darTablaMedico()
 	{
 		return tablas.get (7);
@@ -310,6 +293,11 @@ public class PersistenciaEPSAndes
 	public String darTablaOrdenes()
 	{
 		return tablas.get (8);
+	}
+	
+	public String darTablaOrganizador()
+	{
+		return tablas.get (9);
 	}
 	
 	public String darTablaRecepcionista()
@@ -327,10 +315,7 @@ public class PersistenciaEPSAndes
 		return tablas.get (12);
 	}
 	
-	public String darTablaOrganizador()
-	{
-		return tablas.get (9);
-	}
+	
 	
 	/**
 	 * Transacción para el generador de secuencia de Parranderos
@@ -612,7 +597,7 @@ public class PersistenciaEPSAndes
             
             log.trace ("Inserción de Servicio: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Servicios(idServicio, medicosDisponibles, horario, nombre, idIps);
+            return new Servicios(idServicio, medicosDisponibles, horario, nombre, idIps, 0);
         }
         catch (Exception e)
         {
@@ -974,6 +959,19 @@ public class PersistenciaEPSAndes
 	public SQLOrganizador getSqlOrganizador()
 	{
 		return sqlOrganizador;
+	}
+	
+	public SQLParticipa getSqlParticipa()
+	{
+		return sqlParticipa;
+	}
+
+	public SQLReservas getSqlReservas() {
+		return sqlReservas;
+	}
+
+	public SQLCampana getSqlCampana() {
+		return sqlCampana;
 	}
 	
 	public long [] limpiarEPS ()
