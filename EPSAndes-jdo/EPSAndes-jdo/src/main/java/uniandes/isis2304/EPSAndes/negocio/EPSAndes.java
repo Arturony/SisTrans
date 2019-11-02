@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
+
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
@@ -303,6 +306,78 @@ public class EPSAndes
         return cita;
 	}
 	
+	public Campana agregarCampana(long id, String nombre, String fecha, int cap, int epsId)
+	{
+		log.info ("Agregando Campaña: " + id);
+       	Campana campana = pp.agregarCampana(id, nombre, fecha, cap, epsId);		
+        log.info ("Agregando Campaña: " + campana);
+        return campana;
+	}
+
+	public Participa adicionarParticipan(long idAfiliado, long idCampana) 
+	{
+		log.info ("Agregando Participan: ");
+       	Participa participa = pp.adicionarParticipan(idAfiliado, idCampana);		
+        log.info ("Agregando Participan: " + participa);
+        return participa;
+	}
+	
+	public Participa eliminarParticipan(long idAfiliado, long idCampana) 
+	{
+		log.info ("Agregando Participan: ");
+       	Participa participa = pp.eliminarParticipan(idAfiliado, idCampana);		
+        log.info ("Agregando Participan: " + participa);
+        return participa;
+	}
+	
+	public Reservas adicionarReservan(long idServicio, long idCampana) 
+	{
+		log.info ("Agregando Participan: ");
+       	Reservas participa = pp.adicionarReservas(idServicio, idCampana);		
+        log.info ("Agregando Participan: " + participa);
+        return participa;
+	}
+	
+	public Reservas eliminarReservan(long idServicio, long idCampana) 
+	{
+		log.info ("Agregando Participan: ");
+       	Reservas participa = pp.eliminarReservas(idServicio, idCampana);		
+        log.info ("Agregando Participan: " + participa);
+        return participa;
+	}
+	
+	public long reservarServicio(long idServicio)
+	{
+		log.info ("Modificando Servicio: " + idServicio);
+       	long participa = pp.reservarServicio(idServicio);		
+        log.info ("Modificando Servicio: " + idServicio);
+        return participa;
+	}
+	
+	public long desreservarServicio(long idServicio)
+	{
+		log.info ("Modificando Servicio: " + idServicio);
+       	long participa = pp.desreservarServicio(idServicio);		
+        log.info ("Modificando Servicio: " + idServicio);
+        return participa;
+	}
+
+	public Campana eliminarCampana(long id, String nombre, int epsId)
+	{
+		log.info ("Eliminando Campaña: " + id);
+       	Campana campana = pp.eliminarCampana(id, nombre, epsId);		
+        log.info ("Eliminando Campaña: " + campana);
+        return campana;
+	}
+	
+	public long reducirCapacidadNumero(long idServicio, int redusion)
+	{
+		log.info ("Modificando Servicio: " + idServicio);
+       	long serv = pp.reducirCapacidadNumero(idServicio, redusion);		
+        log.info ("Modificando Servicio: " + serv);
+        return serv;
+	}
+	
 	public List<Servicios> darServicios()
 	{
 		log.info ("Retornando Servicios: ");
@@ -331,6 +406,14 @@ public class EPSAndes
 	{
 		log.info ("Retornando Servicios: ");
        	List<Servicios> servicios = pp.consultarServicios(horario);		
+        log.info ("Retornando Servicios: ");
+        return servicios;
+	}
+	
+	public List<Servicios> consultarServiciosNombre(String nombre)
+	{
+		log.info ("Retornando Servicios: ");
+       	List<Servicios> servicios = pp.consultarServiciosNombre(nombre);		
         log.info ("Retornando Servicios: ");
         return servicios;
 	}

@@ -76,5 +76,25 @@ class SQLServicios
 		q.setParameters(idServicio);
 		return (long) q.executeUnique();
 	}
-		 	
+	
+	public long reducirCapacidadNumero (PersistenceManager pm, long idServicio, int redusion)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE" + pp.darTablaServicio() + "SET \"medicosDisponibles\" = \"medicosDisponibles\" - ? WHERE \"servicioSaludID\" = ?");
+		q.setParameters(redusion, idServicio);
+		return (long) q.executeUnique();
+	}
+	
+	public long deshabilitarServicio(PersistenceManager pm, long idServicio)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE" + pp.darTablaServicio() + "SET \"reservado\" = 1 WHERE \"servicioSaludID\" = ?");
+		q.setParameters(idServicio);
+		return (long) q.executeUnique();
+	}
+		 
+	public long habilitarServicio(PersistenceManager pm, long idServicio)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE" + pp.darTablaServicio() + "SET \"reservado\" = 0 WHERE \"servicioSaludID\" = ?");
+		q.setParameters(idServicio);
+		return (long) q.executeUnique();
+	}
 }

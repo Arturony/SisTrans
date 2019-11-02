@@ -60,4 +60,6 @@ class SQLCampana
 		return 0;
 	}
 	
+	
+	
 }

@@ -30,10 +30,10 @@ public class Reservas implements VOReservas
 		this.campanaID = 0;
 	}
 
-	public Reservas(long idM, long idI) 
+	public Reservas(long idServicio, long idCampana) 
 	{
-		this.servicioSaludID = idM;
-		this.campanaID = idI;	
+		this.servicioSaludID = idServicio;
+		this.campanaID = idCampana;	
 	}
 
 	public long getServicioSaludID() {

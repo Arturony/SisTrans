@@ -184,4 +184,12 @@ class SQLEPS
 		q.setResultClass(Servicios.class);	
 		return (List<Servicios>) q.executeList();
 	}
+	
+	public List<Servicios> consultarServiciosNombre(PersistenceManager pm, String nombre)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"nombre\" = ?");
+		q.setParameters(nombre);
+		q.setResultClass(Servicios.class);	
+		return (List<Servicios>) q.executeList();
+	}
 }

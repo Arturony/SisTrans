@@ -36,6 +36,7 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAdmin;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearCampana;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearCita;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearEPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearGerente;
@@ -59,6 +60,7 @@ import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
 import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.VOAfiliado;
+import uniandes.isis2304.EPSAndes.negocio.VOCampana;
 import uniandes.isis2304.EPSAndes.negocio.VOCitaMedica;
 import uniandes.isis2304.EPSAndes.negocio.VOEPS;
 import uniandes.isis2304.EPSAndes.negocio.VOGerente;
@@ -66,7 +68,9 @@ import uniandes.isis2304.EPSAndes.negocio.VOIPS;
 import uniandes.isis2304.EPSAndes.negocio.VOMedico;
 import uniandes.isis2304.EPSAndes.negocio.VOOrden;
 import uniandes.isis2304.EPSAndes.negocio.VOOrganizador;
+import uniandes.isis2304.EPSAndes.negocio.VOParticipa;
 import uniandes.isis2304.EPSAndes.negocio.VORecepcionista;
+import uniandes.isis2304.EPSAndes.negocio.VOReservas;
 import uniandes.isis2304.EPSAndes.negocio.VOServicios;
 
 /**
@@ -863,6 +867,88 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	 }
 	
+	public void mostrarDialogoRegistrarCampania()
+	{
+		DialogoCrearCampana dialogo = new DialogoCrearCampana( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean adicionarCampana(String nombre, int id, String fecha, int cap ,int idEps)
+	{
+		
+		try 
+		{	    		
+			VOCampana tb = epsAndes.agregarCampana(idEps, nombre, fecha, cap, idEps);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una Campaña	 con  id: " + id);
+			}
+			String resultado = "En adicionarCampana\n\n";
+			resultado += "Campaña adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	}
+	 
+	public boolean adicionarReservas(long idServicio, int idCampana)
+	{
+		
+		try 
+		{	    		
+			VOReservas tb = epsAndes.adicionarReservan(idServicio, idCampana);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear un Reserva: ");
+			}
+			String resultado = "En adicionarParticipan\n\n";
+			resultado += "Reserva adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	}
+	
+	public boolean adicionarParticipan(int idAfiliado, int idCampana)
+	{
+		
+		try 
+		{	    		
+			VOParticipa tb = epsAndes.adicionarParticipan(idAfiliado, idCampana);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo crear una Participan: ");
+			}
+			String resultado = "En adicionarParticipan\n\n";
+			resultado += "Participan adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	}
+	
 	public void mostrarDialogoLlegada()
 	{
 		DialogoRegistrarLlegada dialogo = new DialogoRegistrarLlegada(this );
@@ -882,6 +968,31 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			}
 			String resultado = "En prestarServicio\n\n";
 			resultado += "Cita Modificada exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	 }
+	
+	public boolean reducirCapacidad(long idServicio, int reducion)
+	{
+		
+		try 
+		{	    		
+			long tb = epsAndes.reducirCapacidadNumero(idServicio, reducion);
+			if (tb == 0)
+			{
+				throw new Exception ("No se pudo actualizar la cita con id: " + idServicio);
+			}
+			String resultado = "En reducirCapacidad\n\n";
+			resultado += "Servicio Modificado exitosamente: " + tb;
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
 			return true;
@@ -1030,6 +1141,11 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public List<Servicios> consultarServiciosFecha(String horario)
     {
     	return epsAndes.consultarServiciosFecha(horario);
+    }
+    
+    public List<Servicios> consultarServiciosNombre(String nombre)
+    {
+    	return epsAndes.consultarServiciosNombre(nombre);
     }
     
 	public String getLogin() {

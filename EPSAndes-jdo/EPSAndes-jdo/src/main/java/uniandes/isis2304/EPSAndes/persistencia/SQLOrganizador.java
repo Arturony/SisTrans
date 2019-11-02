@@ -44,5 +44,10 @@ class SQLOrganizador
 	{
 		return pp.getSqlCampana().adicionarCampana(pm, campanaId, nombre, fecha, capacidad, epsID);
 	}
+	
+	public long cancelarCampana(PersistenceManager pm, long campanaId, String nombre, long epsID)
+	{
+		return pp.getSqlCampana().cancelarCampana(pm, campanaId, nombre, epsID);
+	}
 
 }

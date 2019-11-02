@@ -30,10 +30,10 @@ public class Participa implements VOParticipa
 		this.campanaID = 0;
 	}
 
-	public Participa(long idM, long idI) 
+	public Participa(long idAfiliado, long idCampana) 
 	{
-		this.afiliadoID = idM;
-		this.campanaID = idI;	
+		this.afiliadoID = idAfiliado;
+		this.campanaID = idCampana;	
 	}
 
 	public long getAfiliadoID() {

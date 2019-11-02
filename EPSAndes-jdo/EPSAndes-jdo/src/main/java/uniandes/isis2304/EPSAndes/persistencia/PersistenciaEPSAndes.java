@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
+import uniandes.isis2304.EPSAndes.negocio.Campana;
 import uniandes.isis2304.EPSAndes.negocio.CitaMedica;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
@@ -29,7 +30,9 @@ import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
 import uniandes.isis2304.EPSAndes.negocio.Organizador;
+import uniandes.isis2304.EPSAndes.negocio.Participa;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Reservas;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
 import uniandes.isis2304.EPSAndes.negocio.Trabajan;
 /**
@@ -687,6 +690,10 @@ public class PersistenciaEPSAndes
             {
             	throw new Exception("El afiliado no tiene orden para este servicio");
             }
+            else if(servicioReservado(idServicio) == true)
+            {
+            	throw new Exception("Este Servicio no está disponible en este momento");
+            }
             long tuplasInsertadas = sqlAfiliado.adicionarCitaMedica(pm, idAfiliado, idCitaMedica, sesiones, horario, llego, idServicio);
             tx.commit();
 
@@ -734,7 +741,20 @@ public class PersistenciaEPSAndes
 		return false;
 	}
 	
-	private void reducirCapacidad(long idServicio)
+	private boolean servicioReservado(long idServicio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Servicios serv = sqlServicios.darServicioEspecifico(pm, idServicio);
+		
+		if(serv.getReservado() == 1)
+			return true;
+		else 
+			return false;
+
+	}
+	
+	public void reducirCapacidad(long idServicio)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		
@@ -752,6 +772,37 @@ public class PersistenciaEPSAndes
         {
         	//e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public long reducirCapacidadNumero(long idServicio, int redusion)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+   
+            long serv = sqlServicios.reducirCapacidadNumero(pm, idServicio, redusion);
+            tx.commit();
+            log.trace ("Actualización de servicio " + serv);
+            return serv;
+
+        }
+        catch (Exception e)
+        {
+        	//e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
         }
         finally
         {
@@ -814,7 +865,247 @@ public class PersistenciaEPSAndes
 			return true;
 		
 	}
+	
+	public Campana agregarCampana(long id, String nombre, String fecha, int cap, int epsId)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlOrganizador.adicionarCampana(pm, id, nombre, fecha, cap, epsId);
+            tx.commit();
 
+            log.trace ("Inserción de Campaña: [" + id + ", " + nombre + "," + fecha +"," + cap +","+ epsId +"]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Campana(id, nombre, fecha, cap, epsId);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public Reservas adicionarReservas(long idAfiliado, long idCampana) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlReservas.adicionarReserva(pm, idAfiliado, idCampana);
+            tx.commit();
+
+            log.trace ("Inserción de Reserva: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Reservas(idAfiliado, idCampana);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public Reservas eliminarReservas(long idAfiliado, long idCampana) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlReservas.eliminarReserva(pm, idAfiliado, idCampana);
+            tx.commit();
+
+            log.trace ("Eliminación de Reserva: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Reservas(idAfiliado, idCampana);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public Participa adicionarParticipan(long idAfiliado, long idCampana) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlParticipa.adicionarParticipa(pm, idAfiliado, idCampana);
+            tx.commit();
+
+            log.trace ("Inserción de Participa: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Participa(idAfiliado, idCampana);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public Participa eliminarParticipan(long idAfiliado, long idCampana) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlParticipa.eliminarParticipan(pm, idAfiliado, idCampana);
+            tx.commit();
+
+            log.trace ("Eliminación de Participa: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Participa(idAfiliado, idCampana);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public long reservarServicio(long idServicio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlServicios.deshabilitarServicio(pm, idServicio);
+            tx.commit();
+
+            log.trace ("Actualización de Servicio: [id:" + idServicio + ", reservado = " + 1 + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return tuplasInsertadas;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public long desreservarServicio(long idServicio)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlServicios.habilitarServicio(pm, idServicio);
+            tx.commit();
+
+            log.trace ("Actualización de Servicio: [id:" + idServicio + ", reservado = " + 0 + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return tuplasInsertadas;
+        }
+        catch (Exception e)
+        {
+        	//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	public Campana eliminarCampana(long id, String nombre, int epsId)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasEliminadas = sqlOrganizador.cancelarCampana(pm, id, nombre,  epsId);
+            tx.commit();
+
+            log.trace ("Eliminación de Campaña: [" + id + ", " + nombre + "," + epsId +"]. " + tuplasEliminadas + " tuplas insertadas");
+
+            return new Campana(id, nombre, "", 0, epsId);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
 	public EPS darEPSporID (long epsID)
 	{
 		return sqlEPS.darEPSID(pmf.getPersistenceManager(), epsID);
@@ -916,6 +1207,11 @@ public class PersistenciaEPSAndes
 	{
 		String horario1 = horario.split(",")[0];
 		return sqlEPS.consultarServicios(pmf.getPersistenceManager(), horario1);
+	}
+	
+	public List<Servicios> consultarServiciosNombre(String nombre)
+	{
+		return sqlEPS.consultarServiciosNombre(pmf.getPersistenceManager(), nombre);
 	}
 	
 	

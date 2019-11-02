@@ -45,14 +45,14 @@ public class Campana implements VOCampana
 	 * Constructor con valores
 	 * @param id - El id del bebedor
 	 * @param nombre - El nombre del bebedor
-	 * @param ciudad - La ciudad del bebedor
+	 * @param fecha - La ciudad del bebedor
 	 * @param presupuesto - El presupuesto del bebedor (ALTO, MEDIO, BAJO)
 	 */
-	public Campana(long id, String nombre, String ciudad, int cap, int epsId) 
+	public Campana(long id, String nombre, String fecha, int cap, int epsId) 
 	{
 		this.campanaID = id;
 		this.nombre = nombre;
-		this.fecha = ciudad;
+		this.fecha = fecha;
 		this.capacidad = cap;
 		this.epsID = epsId;
 	}
