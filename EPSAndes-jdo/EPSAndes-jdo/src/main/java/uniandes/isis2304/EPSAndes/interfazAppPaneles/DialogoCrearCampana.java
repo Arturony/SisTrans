@@ -86,48 +86,59 @@ public class DialogoCrearCampana extends JDialog
 			}
 			if( parametersOk )
 			{
-				ArrayList<Servicios> s = panelDatos.getServiciosTrue();
-				ArrayList<Integer> c = panelDatos.getCapacidades();
-				ArrayList<String> s1 = panelDatos.getServicios();
-				
-				for(int i = 0; i < c.size(); i++)
+				try
 				{
-					int k = c.get(i);
-					if(planB(s1.get(i), s, c.get(i)))
+					ArrayList<Servicios> s = panelDatos.getServiciosTrue();
+					ArrayList<Integer> c = panelDatos.getCapacidades();
+					ArrayList<String> s1 = panelDatos.getServicios();
+					
+					principal.adicionarCampana(nombre, idCampana, horario, capa, 1);
+					
+					for(int i = 0; i < c.size(); i++)
 					{
-						for(int j = 0; j < s.size(); j++)
+						int k = c.get(i);
+						if(planB(s1.get(i), s, c.get(i)))
 						{
-							if(s1.get(i).equals(s.get(j).getNombre()) && k > 0)
-							{							
-								if(k > s.get(j).getMedicosDisponibles()-1)
-								{
-									k = c.get(i) - s.get(j).getMedicosDisponibles()-1;
-									principal.reducirCapacidad(s.get(j).getServicioSaludID(), (s.get(j).getMedicosDisponibles()-1));
-								}
-								else
-								{
-									principal.reducirCapacidad(s.get(j).getServicioSaludID(), (k));
-									k = 0;
+							for(int j = 0; j < s.size(); j++)
+							{
+								if(s1.get(i).equals(s.get(j).getNombre()) && k > 0)
+								{							
+									if(k > s.get(j).getMedicosDisponibles()-1)
+									{
+										k = c.get(i) - s.get(j).getMedicosDisponibles()-1;
+										principal.reducirCapacidad(s.get(j).getServicioSaludID(), (s.get(j).getMedicosDisponibles()-1));
+										principal.adicionarReservas(s.get(j).getServicioSaludID(), idCampana, (s.get(j).getMedicosDisponibles()-1));
+									}
+									else
+									{
+										principal.reducirCapacidad(s.get(j).getServicioSaludID(), (k));
+										principal.adicionarReservas(s.get(j).getServicioSaludID(), idCampana, k);
+										k = 0;
+									}
+									
+									
 								}
 								
 							}
-							
 						}
+						else 
+						{
+							throw new Exception("No hay cupo en algun servicio seleccionado");
+						}
+							
+							
 					}
-					else 
-						JOptionPane.showMessageDialog( this, "No se puede agregar campaña" );
+				}
+				catch(Exception e)
+				{
+					JOptionPane.showMessageDialog( this, "No se puede agregar campaña debido a: \n" + e.getMessage() );
 					
 				}
-				
-				boolean ok = principal.adicionarCampana(nombre, idCampana, horario, capa, 1);
-				for(Servicios e: s)
-				{
-					principal.adicionarReservas(e.getServicioSaludID(), idCampana);
-				}
-				if( ok )
-				dispose( );
-				else
+				finally {
 					dispose();
+				}
+
+				
 			}
 		} 
         catch (Exception e) 

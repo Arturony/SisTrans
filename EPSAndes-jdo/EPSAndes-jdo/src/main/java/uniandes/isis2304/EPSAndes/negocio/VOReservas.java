@@ -12,9 +12,11 @@ import java.util.List;
  */
 public interface VOReservas 
 {
-	public long getServicioSaludID();
+	public long getServicioID();
 	
 	public long getCampanaID();
+	
+	public int getCapacidadReserva();
 	
 	/* ****************************************************************
 	 * 			Métodos

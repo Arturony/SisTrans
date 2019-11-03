@@ -48,7 +48,7 @@ public class Campana implements VOCampana
 	 * @param fecha - La ciudad del bebedor
 	 * @param presupuesto - El presupuesto del bebedor (ALTO, MEDIO, BAJO)
 	 */
-	public Campana(long id, String nombre, String fecha, int cap, int epsId) 
+	public Campana(long id, String nombre, String fecha, int cap, long epsId) 
 	{
 		this.campanaID = id;
 		this.nombre = nombre;

@@ -10,6 +10,8 @@ import javax.jdo.Query;
 import oracle.net.aso.n;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
+import uniandes.isis2304.EPSAndes.negocio.Campana;
+import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Orden;
@@ -59,9 +61,16 @@ class SQLCampana
 
 	public long cancelarCampana(PersistenceManager pm, long campanaId, String nombre, long epsID)
 	{
-		return 0;
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCampana() + "WHERE \"campanaID\" = ? AND \"nombre\" = ? AND \"epsID\" = ?");
+        q.setParameters(campanaId,  nombre, epsID);
+        return (long) q.executeUnique();
 	}
 	
-	
+	public List<Campana> getCampanas(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCampana());
+		q.setResultClass(Campana.class);	
+		return (List<Campana>) q.executeList();
+	}
 	
 }

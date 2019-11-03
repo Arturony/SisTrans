@@ -11,6 +11,10 @@
 				{
 					"label": "Registrar Campania",
 					"event": "mostrarDialogoRegistrarCampania"
+				},
+				{
+					"label": "Modificar Campania",
+					"event": "mostrarDialogoEliminarCampania"
 				}
 			]
 		},		

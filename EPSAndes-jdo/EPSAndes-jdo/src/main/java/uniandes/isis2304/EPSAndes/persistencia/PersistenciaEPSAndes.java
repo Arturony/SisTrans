@@ -4,6 +4,7 @@ package uniandes.isis2304.EPSAndes.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -830,6 +831,37 @@ public class PersistenciaEPSAndes
         }
 	}
 	
+	public long cambiarCapacidad(long idServicio, int redusion)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+   
+            long serv = sqlServicios.reducirCapacidadNumero(pm, idServicio, redusion);
+            tx.commit();
+            log.trace ("Actualización de servicio " + serv);
+            return serv;
+
+        }
+        catch (Exception e)
+        {
+        	//e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
 	public CitaMedica registrarPrestacion(long idAfiliado,int idCitaMedica) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -912,19 +944,19 @@ public class PersistenciaEPSAndes
         }
 	}
 	
-	public Reservas adicionarReservas(long idAfiliado, long idCampana) 
+	public Reservas adicionarReservas(long idAfiliado, long idCampana, int capacidad) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlReservas.adicionarReserva(pm, idAfiliado, idCampana);
+            long tuplasInsertadas = sqlReservas.adicionarReserva(pm, idAfiliado, idCampana, capacidad);
             tx.commit();
 
             log.trace ("Inserción de Reserva: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
 
-            return new Reservas(idAfiliado, idCampana);
+            return new Reservas(idAfiliado, idCampana, capacidad);
         }
         catch (Exception e)
         {
@@ -949,18 +981,48 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlReservas.eliminarReserva(pm, idAfiliado, idCampana);
+            long tuplasInsertadas = sqlReservas.eliminarReserva(pm, idAfiliado, idCampana) + cambiarCapacidad(idAfiliado, darReservaEsp(idCampana, idAfiliado).getCapacidadReserva());
             tx.commit();
 
             log.trace ("Eliminación de Reserva: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
 
-            return new Reservas(idAfiliado, idCampana);
+            return new Reservas(idAfiliado, idCampana, 0);
         }
         catch (Exception e)
         {
 //        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
         	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public long eliminarReservasCampana(long idCampana) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlReservas.eliminarReservaCampana(pm, idCampana);
+            tx.commit();
+
+            log.trace ("Eliminación de Reserva: ["  + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return tuplasInsertadas;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
         }
         finally
         {
@@ -1092,7 +1154,7 @@ public class PersistenciaEPSAndes
         }
 	}
 
-	public Campana eliminarCampana(long id, String nombre, int epsId)
+	public Campana eliminarCampana(long id, String nombre, long epsId)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -1219,6 +1281,21 @@ public class PersistenciaEPSAndes
 		return sqlEPS.darEPS(pmf.getPersistenceManager());
 	}
 	
+	public List<Campana> darCampanas()
+	{
+		return sqlCampana.getCampanas(pmf.getPersistenceManager());
+	}
+	
+	public Reservas darReservaEsp(long idCampana, long idServicio)
+	{
+		return sqlReservas.consultarReserva(pmf.getPersistenceManager(), idCampana, idServicio);
+	}
+	
+	public List<Reservas> darReservasCampana(long idCampana)
+	{
+		return sqlReservas.consultarReservasCampana(pmf.getPersistenceManager(), idCampana);
+	}
+	
 	public List<Servicios> consultarServicios(String horario)
 	{
 		String horario1 = horario.split(",")[0];
@@ -1238,6 +1315,17 @@ public class PersistenciaEPSAndes
 	public List<Servicios> consultarServiciosNoreservados()
 	{
 		return sqlEPS.consultarServiciosNoreservados(pmf.getPersistenceManager());
+	}
+	
+	public List<Servicios> consultarServiciosEnCampania(long idCampana)
+	{
+		List<Servicios> rta = new ArrayList<Servicios>();
+		for(Reservas r: darReservasCampana(idCampana))
+		{
+			rta.add(sqlServicios.darServicioEspecifico(pmf.getPersistenceManager(), r.getServicioID()));
+		}
+		
+		return rta;
 	}
 	
 	public SQLMedico getSqlMedico() {

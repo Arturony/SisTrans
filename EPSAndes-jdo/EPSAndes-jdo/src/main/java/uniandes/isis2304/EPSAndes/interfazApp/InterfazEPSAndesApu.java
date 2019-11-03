@@ -48,10 +48,12 @@ import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrganizador;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearRecepcionista;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearReserva;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearServicio;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoEliminarCampana;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoRegistrarLlegada;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
+import uniandes.isis2304.EPSAndes.negocio.Campana;
 import uniandes.isis2304.EPSAndes.negocio.EPS;
 import uniandes.isis2304.EPSAndes.negocio.EPSAndes;
 import uniandes.isis2304.EPSAndes.negocio.Gerente;
@@ -59,6 +61,7 @@ import uniandes.isis2304.EPSAndes.negocio.IPS;
 import uniandes.isis2304.EPSAndes.negocio.Medico;
 import uniandes.isis2304.EPSAndes.negocio.Organizador;
 import uniandes.isis2304.EPSAndes.negocio.Recepcionista;
+import uniandes.isis2304.EPSAndes.negocio.Reservas;
 import uniandes.isis2304.EPSAndes.negocio.Servicios;
 import uniandes.isis2304.EPSAndes.negocio.VOAdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.VOAfiliado;
@@ -900,19 +903,81 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			return false;
 		}
 	}
-	 
-	public boolean adicionarReservas(long idServicio, int idCampana)
+	
+	public void mostrarDialogoEliminarCampania()
+	{
+		if(darCampanas().size()==0)
+		{
+			JOptionPane.showMessageDialog( this, "No hay campanas a modificar" );
+			return;
+		}
+		DialogoEliminarCampana dialogo = new DialogoEliminarCampana( this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public boolean eliminarCampana(String nombre, long id ,long idEps)
 	{
 		
 		try 
 		{	    		
-			VOReservas tb = epsAndes.adicionarReservan(idServicio, idCampana);
+			VOCampana tb = epsAndes.eliminarCampana(id, nombre, idEps);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo eliminar una Campaña con  id: " + id);
+			}
+			String resultado = "En eliminarCampana\n\n";
+			resultado += "Campaña eliminada exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	}
+	 
+	public boolean adicionarReservas(long idServicio, int idCampana, int reserva)
+	{
+		
+		try 
+		{	    		
+			VOReservas tb = epsAndes.adicionarReservan(idServicio, idCampana, reserva);
 			if (tb == null)
 			{
 				throw new Exception ("No se pudo crear un Reserva: ");
 			}
 			String resultado = "En adicionarParticipan\n\n";
 			resultado += "Reserva adicionado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return true;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return false;
+		}
+	}
+	
+	public boolean eliminarReservas(long idServicio, long idCampana)
+	{
+		
+		try 
+		{	    		
+			VOReservas tb = epsAndes.eliminarReservan(idServicio, idCampana);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo eliminar la Reserva: ");
+			}
+			String resultado = "En eliminarParticipan\n\n";
+			resultado += "Reserva eliminada exitosamente: " + tb;
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
 			return true;
@@ -1164,6 +1229,11 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     	return epsAndes.darEPS();
     }
     
+    public List<Campana> darCampanas()
+    {
+    	return epsAndes.darCampanas();
+    }
+    
     public List<Servicios> consultarServiciosFecha(String horario)
     {
     	return epsAndes.consultarServiciosFecha(horario);
@@ -1182,6 +1252,16 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public List<Servicios> consultarServiciosNoreservados()
     {
     	return epsAndes.consultarServiciosNoreservados();
+    }
+    
+    public List<Servicios> consultarServiciosEnCampania(long idCampania)
+    {
+    	return epsAndes.consultarServiciosEnCampania(idCampania);
+    }
+    
+    public List<Reservas> consultarReservasCampana(long idCampana)
+    {
+    	return epsAndes.darReservasCampana(idCampana);
     }
     
 	public String getLogin() {

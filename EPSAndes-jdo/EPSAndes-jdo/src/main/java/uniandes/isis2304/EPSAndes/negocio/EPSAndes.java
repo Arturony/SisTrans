@@ -330,10 +330,10 @@ public class EPSAndes
         return participa;
 	}
 	
-	public Reservas adicionarReservan(long idServicio, long idCampana) 
+	public Reservas adicionarReservan(long idServicio, long idCampana, int reserva) 
 	{
 		log.info ("Agregando Participan: ");
-       	Reservas participa = pp.adicionarReservas(idServicio, idCampana);		
+       	Reservas participa = pp.adicionarReservas(idServicio, idCampana, reserva);		
         log.info ("Agregando Participan: " + participa);
         return participa;
 	}
@@ -362,7 +362,7 @@ public class EPSAndes
         return participa;
 	}
 
-	public Campana eliminarCampana(long id, String nombre, int epsId)
+	public Campana eliminarCampana(long id, String nombre, long epsId)
 	{
 		log.info ("Eliminando Campaña: " + id);
        	Campana campana = pp.eliminarCampana(id, nombre, epsId);		
@@ -402,6 +402,22 @@ public class EPSAndes
         return EPS;
 	}
 	
+	public List<Campana> darCampanas()
+	{
+		log.info ("Retornando EPS: ");
+       	List<Campana> campanas = pp.darCampanas();		
+        log.info ("Retornando EPS: ");
+        return campanas;
+	}
+	
+	public List<Reservas> darReservasCampana(long idCampana)
+	{
+		log.info ("Retornando Reservas: ");
+       	List<Reservas> reservas = pp.darReservasCampana(idCampana);		
+        log.info ("Retornando Reservas: ");
+        return reservas;
+	}
+	
 	public List<Servicios> consultarServiciosFecha(String horario)
 	{
 		log.info ("Retornando Servicios: ");
@@ -430,6 +446,14 @@ public class EPSAndes
 	{
 		log.info ("Retornando Servicios: ");
        	List<Servicios> servicios = pp.consultarServiciosNoreservados();		
+        log.info ("Retornando Servicios: ");
+        return servicios;
+	}
+	
+	public List<Servicios> consultarServiciosEnCampania(long idCampania)
+	{
+		log.info ("Retornando Servicios: ");
+       	List<Servicios> servicios = pp.consultarServiciosEnCampania(idCampania);		
         log.info ("Retornando Servicios: ");
         return servicios;
 	}
