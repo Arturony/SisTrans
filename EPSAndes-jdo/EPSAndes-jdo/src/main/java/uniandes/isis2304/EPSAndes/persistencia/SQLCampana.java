@@ -52,7 +52,9 @@ class SQLCampana
 	
 	public long adicionarCampana(PersistenceManager pm, long campanaId, String nombre, String fecha, int capacidad, long epsID) 
 	{
-		return pp.getSqlCampana().adicionarCampana(pm, campanaId, nombre, fecha, capacidad, epsID);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCampana() + "(\"campanaID\", \"capacidad\", \"fecha\", \"nombre\", \"epsID\") values (?, ?, ?, ?, ?)");
+        q.setParameters(campanaId, capacidad, fecha, nombre, epsID);
+        return (long) q.executeUnique();
 	}
 
 	public long cancelarCampana(PersistenceManager pm, long campanaId, String nombre, long epsID)

@@ -43,6 +43,14 @@
 				{
 					"label": "Registrar Organizador",
 					"event": "mostrarDialogoOrganizador"
+				},
+				{
+					"label": "Deshabilitar Servicio",
+					"event": "mostrarDialogoReserva"
+				},
+				{
+					"label": "Habilitar Servicio",
+					"event": "mostrarDialogoDesreserva"
 				}
 			]
 		},

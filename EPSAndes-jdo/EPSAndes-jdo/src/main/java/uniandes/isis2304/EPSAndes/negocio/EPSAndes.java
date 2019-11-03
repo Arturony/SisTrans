@@ -194,10 +194,10 @@ public class EPSAndes
         return eps;
 	}
 	
-	public Servicios adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles, int idIps)
+	public Servicios adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles, int idIps, int reserva)
 	{
 		log.info ("Adicionando servicio: " + nombre);
-        Servicios servicio = pp.adicionarServicio(nombre, horario, idServ, medicosDisponibles, idIps);		
+        Servicios servicio = pp.adicionarServicio(nombre, horario, idServ, medicosDisponibles, idIps, reserva);		
         log.info ("Adicionando servicio: " + servicio);
         return servicio;
 	}
@@ -414,6 +414,22 @@ public class EPSAndes
 	{
 		log.info ("Retornando Servicios: ");
        	List<Servicios> servicios = pp.consultarServiciosNombre(nombre);		
+        log.info ("Retornando Servicios: ");
+        return servicios;
+	}
+	
+	public List<Servicios> consultarServiciosReservados()
+	{
+		log.info ("Retornando Servicios: ");
+       	List<Servicios> servicios = pp.consultarServiciosReservados();		
+        log.info ("Retornando Servicios: ");
+        return servicios;
+	}
+	
+	public List<Servicios> consultarServiciosNoreservados()
+	{
+		log.info ("Retornando Servicios: ");
+       	List<Servicios> servicios = pp.consultarServiciosNoreservados();		
         log.info ("Retornando Servicios: ");
         return servicios;
 	}

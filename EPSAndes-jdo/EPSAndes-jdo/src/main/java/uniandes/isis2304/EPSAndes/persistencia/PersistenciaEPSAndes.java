@@ -161,6 +161,9 @@ public class PersistenciaEPSAndes
 		tablas.add ("\"ISIS2304C191920\".\"Recepcionista\"");
 		tablas.add ("\"ISIS2304C191920\".\"ServicioSalud\"");
 		tablas.add ("\"ISIS2304C191920\".\"Trabajan\"");
+		tablas.add ("\"ISIS2304C191920\".\"Participa\"");
+		tablas.add ("\"ISIS2304C191920\".\"Reservas\"");
+		tablas.add ("\"ISIS2304C191920\".\"Campana\"");
 }
 
 	/**
@@ -318,7 +321,20 @@ public class PersistenciaEPSAndes
 		return tablas.get (12);
 	}
 	
+	public String darTablaParticipan()
+	{
+		return tablas.get (13);
+	}
 	
+	public String darTablaReservas()
+	{
+		return tablas.get (14);
+	}
+	
+	public String darTablaCampana()
+	{
+		return tablas.get (15);
+	}
 	
 	/**
 	 * Transacción para el generador de secuencia de Parranderos
@@ -588,19 +604,19 @@ public class PersistenciaEPSAndes
         }
 	}
 	
-	public Servicios adicionarServicio(String nombre, String horario, long idServicio, int medicosDisponibles, int idIps)
+	public Servicios adicionarServicio(String nombre, String horario, long idServicio, int medicosDisponibles, int idIps, int reserva)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlAdministradorD.adicionarServicio(pm, idServicio, horario, nombre, medicosDisponibles, idIps);
+            long tuplasInsertadas = sqlAdministradorD.adicionarServicio(pm, idServicio, horario, nombre, medicosDisponibles, idIps, reserva);
             tx.commit();
             
             log.trace ("Inserción de Servicio: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Servicios(idServicio, medicosDisponibles, horario, nombre, idIps, 0);
+            return new Servicios(idServicio, medicosDisponibles, horario, nombre, idIps, reserva);
         }
         catch (Exception e)
         {
@@ -1214,6 +1230,15 @@ public class PersistenciaEPSAndes
 		return sqlEPS.consultarServiciosNombre(pmf.getPersistenceManager(), nombre);
 	}
 	
+	public List<Servicios> consultarServiciosReservados()
+	{
+		return sqlEPS.consultarServiciosReservados(pmf.getPersistenceManager());
+	}
+	
+	public List<Servicios> consultarServiciosNoreservados()
+	{
+		return sqlEPS.consultarServiciosNoreservados(pmf.getPersistenceManager());
+	}
 	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;

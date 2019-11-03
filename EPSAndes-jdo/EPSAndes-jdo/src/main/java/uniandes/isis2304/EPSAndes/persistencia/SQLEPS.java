@@ -192,4 +192,18 @@ class SQLEPS
 		q.setResultClass(Servicios.class);	
 		return (List<Servicios>) q.executeList();
 	}
+	
+	public List<Servicios> consultarServiciosReservados(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"reservado\" = 1");
+		q.setResultClass(Servicios.class);	
+		return (List<Servicios>) q.executeList();
+	}
+	
+	public List<Servicios> consultarServiciosNoreservados(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"reservado\" = 0");
+		q.setResultClass(Servicios.class);	
+		return (List<Servicios>) q.executeList();
+	}
 }

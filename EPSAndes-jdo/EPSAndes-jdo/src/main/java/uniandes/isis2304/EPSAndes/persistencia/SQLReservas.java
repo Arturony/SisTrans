@@ -46,15 +46,15 @@ class SQLReservas
 
 	public long adicionarReserva(PersistenceManager pm, long idAfiliado, long idCampana) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaTrabajan() + "(\"medicosID\", \"iPSID\") values (?, ?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReservas() + "(\"servicioID\", \"campanaID\") values (?, ?)");
         q.setParameters(idAfiliado, idCampana);
         return (long) q.executeUnique();
 	}
 
-	public long eliminarReserva(PersistenceManager pm, long idMedico, long idIps)
+	public long eliminarReserva(PersistenceManager pm, long idAfiliado, long idCampana)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTrabajan () + " WHERE \"medicosID\" = ? AND \"iPSID\" = ?");
-        q.setParameters(idMedico, idIps);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReservas() + " WHERE \"servicioID\" = ? AND \"campanaID\" = ?");
+        q.setParameters(idAfiliado, idCampana);
         return (long) q.executeUnique();
 	}
 

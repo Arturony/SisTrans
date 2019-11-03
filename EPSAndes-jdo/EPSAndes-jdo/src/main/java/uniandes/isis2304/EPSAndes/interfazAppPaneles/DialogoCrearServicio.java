@@ -87,7 +87,7 @@ public class DialogoCrearServicio extends JDialog
 
 			if( parametersOk )
 			{
-				boolean ok = principal.adicionarServicio(nombre, idServ, horario, cap, idIps);
+				boolean ok = principal.adicionarServicio(nombre, idServ, horario, cap, idIps, 0);
 				if( ok )
 				dispose( );
 				else

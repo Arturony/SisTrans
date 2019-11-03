@@ -44,17 +44,17 @@ class SQLParticipa
 		this.pp = pp;
 	}
 
-	public long adicionarParticipa(PersistenceManager pm, long idMedico, long idIps) 
+	public long adicionarParticipa(PersistenceManager pm, long afiliadoID, long campanaID) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaTrabajan() + "(\"medicosID\", \"iPSID\") values (?, ?)");
-        q.setParameters(idMedico, idIps);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaParticipan() + "(\"afiliadoID\", \"campanaID\") values (?, ?)");
+        q.setParameters(afiliadoID, campanaID);
         return (long) q.executeUnique();
 	}
 
-	public long eliminarParticipan(PersistenceManager pm, long idMedico, long idIps)
+	public long eliminarParticipan(PersistenceManager pm, long afiliadoID, long campanaID)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTrabajan () + " WHERE \"medicosID\" = ? AND \"iPSID\" = ?");
-        q.setParameters(idMedico, idIps);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaParticipan() + " WHERE \"afiliadoID\" = ? AND \"campanaID\" = ?");
+        q.setParameters(afiliadoID, campanaID);
         return (long) q.executeUnique();
 	}
 

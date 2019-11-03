@@ -76,9 +76,9 @@ class SQLAdministradorD
 		return pp.getSqlIPS().adicionarRecepcionista(pm, idRecepcionista, correo, nombre, tipoDocumento, idIPS);
 	}
 	
-	public long adicionarServicio (PersistenceManager pm, long idServicio, String horario, String nombre, long medicosDisponibles, int idIps)
+	public long adicionarServicio (PersistenceManager pm, long idServicio, String horario, String nombre, long medicosDisponibles, int idIps, int reserva)
 	{
-		return pp.getSqlIPS().adicionarServicio(pm, idServicio, horario, nombre, medicosDisponibles, idIps);
+		return pp.getSqlIPS().adicionarServicio(pm, idServicio, horario, nombre, medicosDisponibles, idIps, reserva);
 	}
 	
 	

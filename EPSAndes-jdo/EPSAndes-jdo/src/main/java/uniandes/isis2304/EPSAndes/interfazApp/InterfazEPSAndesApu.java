@@ -38,6 +38,7 @@ import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAdmin;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearAfiliado;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearCampana;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearCita;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearDesreserva;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearEPS;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearGerente;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearIPS;
@@ -45,6 +46,7 @@ import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearMedico;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrden;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrganizador;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearRecepcionista;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearReserva;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearServicio;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoRegistrarLlegada;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
@@ -746,12 +748,12 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
         dialogo.setVisible( true );
 	}
 	
-	public boolean adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles, int idIps)
+	public boolean adicionarServicio(String nombre, int idServ, String horario, int medicosDisponibles, int idIps, int reserva)
 	{
 		
 		try 
 		{	    		
-			VOServicios tb = epsAndes.adicionarServicio(nombre, idServ, horario, medicosDisponibles, idIps);
+			VOServicios tb = epsAndes.adicionarServicio(nombre, idServ, horario, medicosDisponibles, idIps, reserva);
 			if (tb == null)
 			{
 				throw new Exception ("No se pudo crear un Servico con nombre y id: " + nombre + ", " + idServ);
@@ -981,6 +983,20 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	 }
 	
+	public void mostrarDialogoReserva()
+	{
+		DialogoCrearReserva dialogo = new DialogoCrearReserva(this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public void mostrarDialogoDesreserva()
+	{
+		DialogoCrearDesreserva dialogo = new DialogoCrearDesreserva(this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
 	public boolean reducirCapacidad(long idServicio, int reducion)
 	{
 		
@@ -1123,6 +1139,16 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     	return epsAndes.consultarRecepcionista(nombre, documento, tipo, correo);
     }
     
+    public long reservarServicio(long idServicio)
+    {
+    	return epsAndes.reservarServicio(idServicio);
+    }
+    
+    public long desreservarServicio(long idServicio)
+    {
+    	return epsAndes.desreservarServicio(idServicio);
+    }
+    
     public List<Servicios> darServicios()
     {
     	return epsAndes.darServicios();
@@ -1146,6 +1172,16 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     public List<Servicios> consultarServiciosNombre(String nombre)
     {
     	return epsAndes.consultarServiciosNombre(nombre);
+    }
+    
+    public List<Servicios> consultarServiciosReservados()
+    {
+    	return epsAndes.consultarServiciosReservados();
+    }
+    
+    public List<Servicios> consultarServiciosNoreservados()
+    {
+    	return epsAndes.consultarServiciosNoreservados();
     }
     
 	public String getLogin() {

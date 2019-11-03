@@ -64,10 +64,10 @@ class SQLIPS
         return (long) q.executeUnique();
 	}
 	
-	public long adicionarServicio (PersistenceManager pm, long idServicio, String horario, String nombre, long medicosDisponibles, int idIps)
+	public long adicionarServicio (PersistenceManager pm, long idServicio, String horario, String nombre, long medicosDisponibles, int idIps, int reserva)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServicio() + "(\"servicioSaludID\", \"horario\", \"nombre\", \"medicosDisponibles\", \"iPSID\") values (?, ?, ?, ?, ?)");
-        q.setParameters(idServicio, horario, nombre, medicosDisponibles, idIps);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServicio() + "(\"servicioSaludID\", \"horario\", \"nombre\", \"medicosDisponibles\", \"iPSID\", \"reservado\") values (?, ?, ?, ?, ?, ?)");
+        q.setParameters(idServicio, horario, nombre, medicosDisponibles, idIps, reserva);
         return (long) q.executeUnique();
 	}
 	

@@ -213,9 +213,9 @@ public class PanelCrearCampana extends JPanel implements ActionListener, ListSel
     }
 
     
-    public String darCapacidad()
+    public int darCapacidad()
     {
-    	return txtCapacidad.getText();
+    	return Integer.parseInt(txtCapacidad.getText());
     }
     
     

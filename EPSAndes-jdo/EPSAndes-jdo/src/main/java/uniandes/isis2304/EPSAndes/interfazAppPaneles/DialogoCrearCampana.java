@@ -72,15 +72,14 @@ public class DialogoCrearCampana extends JDialog
         boolean parametersOk = true;
         String horario = panelDatos.darHorario();
         String nombre = panelDatos.darNombre();
-        String capa = panelDatos.darCapacidad();
+        int capa = panelDatos.darCapacidad();
         String id = panelDatos.darID();
         try 
         {
-			int capacidad = Integer.parseInt(capa);
 			int idCampana = Integer.parseInt(id);
-			if(capacidad < 0 && idCampana < 0 )
+			if(capa < 0 && idCampana < 0 )
 				JOptionPane.showMessageDialog( this, "Ingrese datos positivos" );
-			if( ( horario.equals( "" ) || nombre.equals( "" ) ) || ( capa.equals( "" ) || id.equals( "" ) ) )
+			if( ( horario.equals( "" ) || nombre.equals( "" ) ) ||  id.equals( "" ) ) 
 			{
 				parametersOk = false;
 				JOptionPane.showMessageDialog( this, "Todos los campos deben ser llenados para crear el disco" );
@@ -111,7 +110,6 @@ public class DialogoCrearCampana extends JDialog
 									k = 0;
 								}
 								
-								principal.adicionarReservas(s.get(j).getServicioSaludID(), idCampana);
 							}
 							
 						}
@@ -121,7 +119,11 @@ public class DialogoCrearCampana extends JDialog
 					
 				}
 				
-				boolean ok = principal.adicionarCampana(nombre, idCampana, horario, capacidad, 0);
+				boolean ok = principal.adicionarCampana(nombre, idCampana, horario, capa, 1);
+				for(Servicios e: s)
+				{
+					principal.adicionarReservas(e.getServicioSaludID(), idCampana);
+				}
 				if( ok )
 				dispose( );
 				else
@@ -160,7 +162,7 @@ public class DialogoCrearCampana extends JDialog
 			}
 		}
     	
-    	if(capa < (cap-num))
+    	if(capa > (cap-num))
     		return true;
     	else 
     		return false;
