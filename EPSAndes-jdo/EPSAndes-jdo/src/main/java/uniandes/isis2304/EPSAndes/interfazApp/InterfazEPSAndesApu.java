@@ -48,6 +48,7 @@ import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearOrganizador;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearRecepcionista;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearReserva;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoCrearServicio;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoEjecutarQuery;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoEliminarCampana;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoRegistrarLlegada;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
@@ -1109,6 +1110,38 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 			return false;
+		}
+	 }
+	
+	public void mostrarDialogoQuery()
+	{
+		DialogoEjecutarQuery dialogo = new DialogoEjecutarQuery(this );
+        dialogo.setLocationRelativeTo( this );
+        dialogo.setVisible( true );
+	}
+	
+	public String ejecutarQuery(String query)
+	{
+		
+		try 
+		{	    		
+			String tb = epsAndes.ejecutarQuery(query);
+			if (tb == null)
+			{
+				throw new Exception ("No se pudo ejecutar el query: " + query);
+			}
+			String resultado = "En ejecutarQuery\n\n";
+			resultado += "Query ejecutado exitosamente: " + tb;
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			return tb;
+		} 
+		catch (Exception e) 
+		{
+			//				e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+			return "";
 		}
 	 }
 	

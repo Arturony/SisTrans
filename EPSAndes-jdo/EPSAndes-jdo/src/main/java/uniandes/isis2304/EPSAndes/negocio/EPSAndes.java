@@ -457,4 +457,12 @@ public class EPSAndes
         log.info ("Retornando Servicios: ");
         return servicios;
 	}
+	
+	public String ejecutarQuery(String query)
+	{
+		log.info ("Ejecutando Query: " + query);
+       	String que = pp.ejecutarQuery(query);		
+        log.info ("Ejecutando Query: " + query);
+        return que;
+	}
 }

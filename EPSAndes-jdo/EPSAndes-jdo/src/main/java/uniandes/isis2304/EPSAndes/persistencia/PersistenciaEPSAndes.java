@@ -1184,6 +1184,36 @@ public class PersistenciaEPSAndes
         }
 	}
 	
+	public String ejecutarQuery(String query)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            String tuplasEliminadas = sqlEPS.ejecutarQuery(pm, query);
+            tx.commit();
+
+            log.trace ("Ejecucion de Query: ["+ query + "]");
+
+            return tuplasEliminadas;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
 	public EPS darEPSporID (long epsID)
 	{
 		return sqlEPS.darEPSID(pmf.getPersistenceManager(), epsID);
@@ -1327,6 +1357,8 @@ public class PersistenciaEPSAndes
 		
 		return rta;
 	}
+	
+	
 	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;

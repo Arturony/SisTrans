@@ -2,6 +2,8 @@
 
 package uniandes.isis2304.EPSAndes.persistencia;
 
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -205,5 +207,11 @@ class SQLEPS
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + "WHERE \"reservado\" = 0");
 		q.setResultClass(Servicios.class);	
 		return (List<Servicios>) q.executeList();
+	}
+	
+	public String ejecutarQuery(PersistenceManager pm, String query)
+	{
+		Query q = pm.newQuery(SQL, query);
+		return q.execute().toString();
 	}
 }
