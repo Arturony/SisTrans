@@ -1,4 +1,3 @@
-
 CREATE TABLE "Administrador"
 (
 	"contraseña" VARCHAR(50) NOT NULL,
@@ -86,7 +85,6 @@ CREATE TABLE "Ordenes"
     "servicioID" NUMBER(8,2) NOT NULL
 )
 ;
-
 CREATE TABLE "Recepcionista"
 (
 	"correo" VARCHAR(50) NOT NULL,
@@ -101,6 +99,7 @@ CREATE TABLE "ServicioSalud"
 (
 	"horario" VARCHAR(80) NOT NULL,
 	"medicosDisponibles" NUMBER(8,2) NOT NULL,
+  	"reservado" NUMBER(8,2) NOT NULL,
 	"nombre" VARCHAR(50) NOT NULL,
 	"servicioSaludID" NUMBER(8,2) NOT NULL,
     "iPSID" NUMBER(8,2) NOT NULL
@@ -111,6 +110,28 @@ CREATE TABLE "Trabajan"
 (
 	"iPSID" NUMBER(8,2),
 	"medicosID" NUMBER(8,2)
+)
+;
+CREATE TABLE "Reservas"
+(
+	"campanaID" NUMBER(8,2) NOT NULL,
+    "servicioID" NUMBER(8,2) NOT NULL,
+	"capacidadReserva" NUMBER(8,2) NOT NULL
+)
+;
+CREATE TABLE "Participa"
+(
+	"campanaID" NUMBER(8,2) NOT NULL,
+  "afiliadoID" NUMBER(8,2) NOT NULL
+)
+;
+CREATE TABLE "Campana"
+(
+	"campanaID" NUMBER(8,2) NOT NULL,
+   	"fecha" VARCHAR(80) NOT NULL,
+    "capacidad" NUMBER(8,2) NOT NULL,
+    "nombre" VARCHAR(50) NOT NULL,
+    "epsID" NUMBER(8,2) NOT NULL
 )
 ;
 
@@ -159,6 +180,7 @@ ALTER TABLE "Ordenes"
 	PRIMARY KEY ("ordenesID") USING INDEX
 ;
 
+
 ALTER TABLE "Recepcionista" 
  ADD CONSTRAINT "PK_Recepcionista"
 	PRIMARY KEY ("recepcionistaID") USING INDEX
@@ -167,6 +189,11 @@ ALTER TABLE "Recepcionista"
 ALTER TABLE "ServicioSalud" 
  ADD CONSTRAINT "PK_ServicioSalud"
 	PRIMARY KEY ("servicioSaludID") USING INDEX
+;
+
+ALTER TABLE "Campana" 
+ ADD CONSTRAINT "PK_Campana"
+	PRIMARY KEY ("campanaID") USING INDEX
 ;
 
 ALTER TABLE "Administrador" 
@@ -233,6 +260,30 @@ ALTER TABLE "Trabajan"
  ADD CONSTRAINT "FK_Trabajan_Medicos"
 	FOREIGN KEY ("medicosID") REFERENCES "Medicos" ("medicosID")
 ;
+ALTER TABLE "Campana" 
+ ADD CONSTRAINT "FK_Campana_Eps"
+	FOREIGN KEY ("epsID") REFERENCES "Eps" ("epsID")
+;
+ALTER TABLE "Reservas" 
+ ADD CONSTRAINT "FK_Reservas_Servicio"
+	FOREIGN KEY ("servicioID") REFERENCES "ServicioSalud" ("servicioSaludID")
+;
 
+ALTER TABLE "Reservas" 
+ ADD CONSTRAINT "FK_Reservas_Campana"
+	FOREIGN KEY ("campanaID") REFERENCES "Campana" ("campanaID")
+;
+ALTER TABLE "Participa" 
+ ADD CONSTRAINT "FK_Participa_Afiliado"
+	FOREIGN KEY ("afiliadoID") REFERENCES "Afiliado" ("afiliadoID")
+;
+
+ALTER TABLE "Participa" 
+ ADD CONSTRAINT "FK_Participa_Campana"
+	FOREIGN KEY ("campanaID") REFERENCES "Campana" ("campanaID")
+;
 ALTER TABLE "CitaMedica"
 ADD CONSTRAINT "CK_llego" CHECK ("llego" < 2) ENABLE;
+
+ALTER TABLE "ServicioSalud"
+ADD CONSTRAINT "CK_Reserva" CHECK ("reservado" < 2) ENABLE;
