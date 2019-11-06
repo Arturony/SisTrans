@@ -103,7 +103,7 @@ public class DialogoCrearCita extends JDialog
     
     public void buscarServicios()
     {
-    	String horario = panelDatos.darHorario();
+    	String horario = panelDatos.darDia();
     	panelDatos.setList(principal.consultarServiciosFecha(horario));
     }
 }

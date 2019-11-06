@@ -254,7 +254,7 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     
     public String darFecha()
     {
-    	DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+    	DateFormat f = new SimpleDateFormat("YYYY-MM-dd");
     	return f.format(chooser.getDate());
     }
     
@@ -291,7 +291,7 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     
     public String darHorario()
     {
-    	return darDia() + "," + darFecha() + ", a las " + darHora() + ":" + darMinutos(); 
+    	return  darFecha() + " " + darHora() + ":" + darMinutos() + ":00"; 
     }
     
     public void setList(List<Servicios> services)

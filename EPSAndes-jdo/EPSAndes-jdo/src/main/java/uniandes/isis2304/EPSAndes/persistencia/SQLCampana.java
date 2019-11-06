@@ -54,7 +54,7 @@ class SQLCampana
 	
 	public long adicionarCampana(PersistenceManager pm, long campanaId, String nombre, String fecha, int capacidad, long epsID) 
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCampana() + "(\"campanaID\", \"capacidad\", \"fecha\", \"nombre\", \"epsID\") values (?, ?, ?, ?, ?)");
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCampana() + "(\"campanaID\", \"capacidad\", \"fecha\", \"nombre\", \"epsID\") values (?, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?)");
         q.setParameters(campanaId, capacidad, fecha, nombre, epsID);
         return (long) q.executeUnique();
 	}

@@ -33,7 +33,7 @@ CREATE TABLE "Afiliado"
 
 CREATE TABLE "CitaMedica"
 (
-	"horario" VARCHAR(50) NOT NULL,
+	"horario" DATE NOT NULL,
 	"llego" NUMBER(8,2) NOT NULL,
 	"sesiones" NUMBER(8,2) NOT NULL,
 	"citaMedicaID" NUMBER(8,2) NOT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE "Participa"
 CREATE TABLE "Campana"
 (
 	"campanaID" NUMBER(8,2) NOT NULL,
-   	"fecha" VARCHAR(80) NOT NULL,
+   	"fecha" DATE NOT NULL,
     "capacidad" NUMBER(8,2) NOT NULL,
     "nombre" VARCHAR(50) NOT NULL,
     "epsID" NUMBER(8,2) NOT NULL

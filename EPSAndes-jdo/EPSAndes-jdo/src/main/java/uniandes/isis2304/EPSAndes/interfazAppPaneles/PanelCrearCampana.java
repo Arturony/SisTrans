@@ -226,7 +226,7 @@ public class PanelCrearCampana extends JPanel implements ActionListener, ListSel
     
     public String darFecha()
     {
-    	DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+    	DateFormat f = new SimpleDateFormat("YYYY-MM-dd");
     	return f.format(chooser.getDate());
     }
     
@@ -254,7 +254,7 @@ public class PanelCrearCampana extends JPanel implements ActionListener, ListSel
     
     public String darHorario()
     {
-    	return darDia() + "," + darFecha(); 
+    	return darFecha(); 
     }
     
     public void setList(List<Servicios> services)

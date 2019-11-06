@@ -1328,8 +1328,7 @@ public class PersistenciaEPSAndes
 	
 	public List<Servicios> consultarServicios(String horario)
 	{
-		String horario1 = horario.split(",")[0];
-		return sqlEPS.consultarServicios(pmf.getPersistenceManager(), horario1);
+		return sqlEPS.consultarServicios(pmf.getPersistenceManager(), horario);
 	}
 	
 	public List<Servicios> consultarServiciosNombre(String nombre)

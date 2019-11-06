@@ -53,8 +53,9 @@ class SQLAfiliado
 	}
 	public long adicionarCitaMedica(PersistenceManager pm, long idAfiliado, long idCitaMedica, int sesiones, String horario, int llego, long serviciosSaludId)
 	{
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCitas() + "(\"horario\", \"llego\", \"sesiones\",\"citaMedicaID\",\"afiliadoID\",\"servicioSaludID\") values (?, ?, ?, ?, ?,?)");
-        q.setParameters(horario,llego,sesiones,idCitaMedica,  idAfiliado, serviciosSaludId );
+		String h = "TO_DATE('"+ horario +"', 'YYYY-MM-DD HH24:MI:SS')";
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCitas() + "(\"horario\", \"llego\", \"sesiones\",\"citaMedicaID\",\"afiliadoID\",\"servicioSaludID\") values ("+h+",?, ?, ?, ?, ?)");
+        q.setParameters(llego,sesiones,idCitaMedica,  idAfiliado, serviciosSaludId );
         return (long) q.executeUnique();
 	}
 	
