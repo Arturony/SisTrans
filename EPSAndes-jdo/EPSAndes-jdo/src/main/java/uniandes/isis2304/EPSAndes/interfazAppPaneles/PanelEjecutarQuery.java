@@ -1,6 +1,7 @@
 package uniandes.isis2304.EPSAndes.interfazAppPaneles;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -87,6 +88,7 @@ public class PanelEjecutarQuery extends JPanel implements ActionListener
         buttonAccept = new JButton( "Aceptar" );
         buttonAccept.setActionCommand( ACCEPT );
         buttonAccept.addActionListener( this );
+        buttonAccept.setPreferredSize(new Dimension(20,100));
         add(buttonAccept);
 
         areaResult = new JTextArea("Aqui aparece el resultado del query");
