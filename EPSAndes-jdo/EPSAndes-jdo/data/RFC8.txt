@@ -1,0 +1,4 @@
+SELECT "servicioSaludID" FROM(SELECT COUNT ("servicioSaludID") AS "F", "servicioSaludID" FROM (SELECT "servicioSaludID", TO_CHAR("horario",'WW') 
+FROM (SELECT * FROM "CitaMedica" WHERE EXTRACT(YEAR FROM "horario") = 2019))
+GROUP BY "servicioSaludID")
+WHERE "F" < 3;
