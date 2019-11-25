@@ -84,6 +84,13 @@ class SQLServicios
 		return (long) q.executeUnique();
 	}
 	
+	public long aumentarCapacidadNumero (PersistenceManager pm, long idServicio, int redusion)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE" + pp.darTablaServicio() + "SET \"medicosDisponibles\" = \"medicosDisponibles\" + ? WHERE \"servicioSaludID\" = ?");
+		q.setParameters(redusion, idServicio);
+		return (long) q.executeUnique();
+	}
+	
 	public long cambiarCapacidadNumero (PersistenceManager pm, long idServicio, int redusion)
 	{
 		Query q = pm.newQuery(SQL, "UPDATE" + pp.darTablaServicio() + "SET \"medicosDisponibles\" =  ? WHERE \"servicioSaludID\" = ?");

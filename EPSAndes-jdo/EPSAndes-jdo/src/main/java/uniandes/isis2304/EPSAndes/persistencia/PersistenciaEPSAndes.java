@@ -831,7 +831,7 @@ public class PersistenciaEPSAndes
         }
 	}
 	
-	public long cambiarCapacidad(long idServicio, int redusion)
+	public long reducirCapacidad(long idServicio, int redusion)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		
@@ -841,6 +841,37 @@ public class PersistenciaEPSAndes
             tx.begin();
    
             long serv = sqlServicios.reducirCapacidadNumero(pm, idServicio, redusion);
+            tx.commit();
+            log.trace ("Actualización de servicio " + serv);
+            return serv;
+
+        }
+        catch (Exception e)
+        {
+        	//e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public long aumentarCapacidad(long idServicio, int redusion)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+   
+            long serv = sqlServicios.aumentarCapacidadNumero(pm, idServicio, redusion);
             tx.commit();
             log.trace ("Actualización de servicio " + serv);
             return serv;
@@ -981,7 +1012,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            long tuplasInsertadas = sqlReservas.eliminarReserva(pm, idAfiliado, idCampana) + cambiarCapacidad(idAfiliado, darReservaEsp(idCampana, idAfiliado).getCapacidadReserva());
+            long tuplasInsertadas = sqlReservas.eliminarReserva(pm, idAfiliado, idCampana) + aumentarCapacidad(idAfiliado, darReservaEsp(idCampana, idAfiliado).getCapacidadReserva());
             tx.commit();
 
             log.trace ("Eliminación de Reserva: [" + idAfiliado + ", " + idCampana + "]. " + tuplasInsertadas + " tuplas insertadas");

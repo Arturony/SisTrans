@@ -12,7 +12,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.util.List;
+import java.util.Random;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -52,6 +58,7 @@ import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoEjecutarQuery;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoEliminarCampana;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoRegistrarLlegada;
 import uniandes.isis2304.EPSAndes.interfazAppPaneles.DialogoUsuario;
+import uniandes.isis2304.EPSAndes.interfazAppPaneles.PanelCrearServicio;
 import uniandes.isis2304.EPSAndes.negocio.AdministradorD;
 import uniandes.isis2304.EPSAndes.negocio.Afiliado;
 import uniandes.isis2304.EPSAndes.negocio.Campana;
@@ -139,6 +146,8 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
     private String login;
     
     private String nombreU;
+    
+    private long userID;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -1145,6 +1154,40 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 		}
 	 }
 	
+	public void llenarTablas()
+	{	
+		//Crear Servicios
+		int cont = 0;
+		for(int i = 0; i < 2000; i++)
+		{
+			
+			if(i%20==0)
+			{
+				cont++;     
+			}
+			
+			String[] serv = PanelCrearServicio.servicios;
+			String[] semana = new String[]{"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
+			
+			LocalDateTime now = LocalDateTime.now();
+			Random r = new Random(now.getLong(ChronoField.NANO_OF_DAY));
+			
+			int dias = r.nextInt((semana.length));
+			int dias2 = r.nextInt((semana.length));
+			String horario = semana[dias];
+			for(int j = dias; j < dias2; j++)
+			{
+				horario += "," + semana[j+1];
+			}
+			
+			final int millisInDay = 24*60*60*1000;
+			Time time1 = new Time((long)r.nextInt(millisInDay));
+			Time time2 = new Time((long)r.nextInt(millisInDay));
+			horario += " de " + time1 + " a " + time2;
+			this.adicionarServicio(serv[(r.nextInt((serv.length)))], i+1, horario, (r.nextInt((200-10)+1)+10), cont, 0);
+		}
+	}
+	
 	
 
 	/* ****************************************************************
@@ -1316,6 +1359,14 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 
 	public void setNombreU(String nombreU) {
 		this.nombreU = nombreU;
+	}
+
+	public long getUserID() {
+		return userID;
+	}
+
+	public void setUserID(long l) {
+		this.userID = l;
 	}
 
 	/* ****************************************************************

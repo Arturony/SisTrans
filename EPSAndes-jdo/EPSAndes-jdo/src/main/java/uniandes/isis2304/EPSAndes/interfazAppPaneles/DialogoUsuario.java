@@ -108,7 +108,7 @@ public class DialogoUsuario extends JDialog
 				{
 					principal.setLogin("Afiliado");
 					principal.setNombreU("Hola! " + nombreU + " Tipo de Usuario: " + principal.getLogin());
-
+					principal.setUserID(principal.consultarAfiliado(document, nombreU, tipo, correo).getAfiliadoID());
 					dispose();
 				}
 				else if(tipoU.equals("Gerente") && principal.consultarGerente(document, nombreU, correo, tipo) != null)

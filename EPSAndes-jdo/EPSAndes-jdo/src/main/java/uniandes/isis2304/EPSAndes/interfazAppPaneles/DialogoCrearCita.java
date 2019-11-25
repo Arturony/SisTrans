@@ -50,6 +50,7 @@ public class DialogoCrearCita extends JDialog
         panelBotones = new PanelBotonesCita( this );
 
         getContentPane( ).add( panelDatos, BorderLayout.CENTER );
+        panelDatos.setAfiliado(principal.getUserID()+"");
         getContentPane( ).add( panelBotones, BorderLayout.SOUTH );
 
         setTitle( "Crear Disco" );

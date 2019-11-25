@@ -135,7 +135,7 @@ public class PanelCrearCampana extends JPanel implements ActionListener, ListSel
         chooser = new JDateChooser();
         prinp.add(chooser);
 
-        etiquetaId = new JLabel( "ID: " );
+        etiquetaId = new JLabel( "ID Campaña: " );
         etiquetaId.setFont( etiquetaId.getFont( ).deriveFont( Font.PLAIN ) );
         prinp.add( etiquetaId );
         
@@ -325,14 +325,7 @@ public class PanelCrearCampana extends JPanel implements ActionListener, ListSel
          }
     }
     public void valueChanged( ListSelectionEvent e )
-    {
-        Servicios serv = ( Servicios )servicios.getSelectedValue( );
-
-        if( serv != null )
-        {
-        	txtCapacidad.setText(serv.getServicioSaludID()+"");
-        }
-            
-
+    {  
+    	
     }
 }

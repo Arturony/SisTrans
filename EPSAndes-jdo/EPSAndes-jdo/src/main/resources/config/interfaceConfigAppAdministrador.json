@@ -56,6 +56,11 @@
 					"label": "Ejecutar Query",
 					"event": "mostrarDialogoQuery"
 				}
+				,
+				{
+					"label": "Poblar Tablas",
+					"event": "llenarTablas"
+				}
 			]
 		},
 		{ "menuTitle": "Mantenimiento",

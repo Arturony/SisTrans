@@ -22,6 +22,9 @@ import uniandes.isis2304.EPSAndes.negocio.IPS;
 public class PanelCrearServicio extends JPanel implements ActionListener
 {
 
+	public static String[] servicios = {"Consulta medico general", "Consulta medico especialista", "Urgencias", "Examen Diagnostico", "Terapia", "Hospitalizacion", "Procedimientos médico especializado",
+    		"Examen de Sangre", "Radiografia", "Consulta Odontologica", "Jornada de Vacunacion"};
+	
     // -----------------------------------------------------------------
     // Atributos de la Interfaz
     // -----------------------------------------------------------------

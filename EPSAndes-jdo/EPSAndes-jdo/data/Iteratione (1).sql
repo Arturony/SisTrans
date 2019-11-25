@@ -23,7 +23,7 @@ CREATE TABLE "Organizador"
 CREATE TABLE "Afiliado"
 (
 	"correo" VARCHAR(50) NOT NULL,
-	"fechaNacimiento" VARCHAR(50) NOT NULL,
+	"fechaNacimiento" DATE NOT NULL,
 	"nombre" VARCHAR(50) NOT NULL,
 	"tipoDocumento" VARCHAR(50) NOT NULL,
 	"afiliadoID" NUMBER(8,2) NOT NULL,
@@ -287,3 +287,6 @@ ADD CONSTRAINT "CK_llego" CHECK ("llego" < 2) ENABLE;
 
 ALTER TABLE "ServicioSalud"
 ADD CONSTRAINT "CK_Reserva" CHECK ("reservado" < 2) ENABLE;
+
+ALTER TABLE "ServicioSalud"
+ADD CONSTRAINT "CK_Capacidad" CHECK ("medicosDisponibles" >= 0) ENABLE;

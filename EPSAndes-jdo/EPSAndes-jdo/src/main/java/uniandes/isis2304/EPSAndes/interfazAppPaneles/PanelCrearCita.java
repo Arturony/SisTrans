@@ -28,6 +28,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.omg.CORBA.Principal;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JDayChooser;
 
@@ -154,6 +156,7 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
         prinp.add( etiquetaAfiliado );
         
         txtAfiliado = new JTextField( 2 );
+        txtAfiliado.setEditable(false);
         prinp.add( txtAfiliado );
 
         etiquetaServicio = new JLabel( "ID del Servicio: " );
@@ -245,6 +248,11 @@ public class PanelCrearCita extends JPanel implements ActionListener, ListSelect
     public String darID()
     {
     	return txtID.getText();
+    }
+    
+    public void setAfiliado(String af)
+    {
+    	txtAfiliado.setText(af);
     }
     
     public String darAfiliado() 
