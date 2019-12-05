@@ -16,6 +16,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Random;
@@ -1157,7 +1158,7 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 	public void llenarTablas()
 	{	
 		//Crear Servicios
-		int cont = 0;
+		/*int cont = 0;
 		for(int i = 0; i < 2000; i++)
 		{
 			
@@ -1185,6 +1186,36 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			Time time2 = new Time((long)r.nextInt(millisInDay));
 			horario += " de " + time1 + " a " + time2;
 			this.adicionarServicio(serv[(r.nextInt((serv.length)))], i+1, horario, (r.nextInt((200-10)+1)+10), cont, 0);
+		}*/
+		
+		for(int i = 0; i < 80000; i++)
+		{
+			LocalDateTime now = LocalDateTime.now();
+			Random r = new Random(now.getLong(ChronoField.NANO_OF_DAY));
+			long idAfiliado = epsAndes.darAfiliadoAleatorio().getAfiliadoID();
+			int idServ = r.nextInt((2000-1)+1)+1;
+			this.adicionarOrden((int) idAfiliado, idServ, (i+1));
+		}
+		
+		for(int i = 0; i < 400000; i++)
+		{
+			LocalDateTime now = LocalDateTime.now();
+			Random r = new Random(now.getLong(ChronoField.NANO_OF_DAY));
+			
+			int minDay = (int) LocalDate.of(2018, 1, 1).toEpochDay();
+			int maxDay = (int) LocalDate.of(2019, 12, 1).toEpochDay();
+			long randomDay = minDay + r.nextInt(maxDay - minDay);
+
+			LocalDate randomBirthDate = LocalDate.ofEpochDay(randomDay);
+			
+			long idAfiliado = epsAndes.darAfiliadoAleatorio().getAfiliadoID();
+			int idServ = r.nextInt((2000-1)+1)+1;
+			int sesiones = r.nextInt((20-1)+1)+1;
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YY");
+			String horario = formatter.format(randomBirthDate);
+			this.adicionarCita((int)idAfiliado, idServ, (i+1), horario, sesiones);
+			
 		}
 	}
 	

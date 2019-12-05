@@ -1389,6 +1389,11 @@ public class PersistenciaEPSAndes
 	}
 	
 	
+	public Afiliado darAfiliadoAleatorio()
+	{
+		return sqlAfiliado.darAfiliadoAleatorio(pmf.getPersistenceManager());
+	}
+	
 	
 	public SQLMedico getSqlMedico() {
 		return sqlMedico;

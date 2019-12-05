@@ -458,6 +458,14 @@ public class EPSAndes
         return servicios;
 	}
 	
+	public Afiliado darAfiliadoAleatorio()
+	{
+		log.info ("Buscando Afiliado: ");
+        Afiliado medico = pp.darAfiliadoAleatorio();		
+        log.info ("Buscando Afiliado: " + medico);
+        return medico;
+	}
+	
 	public String ejecutarQuery(String query)
 	{
 		log.info ("Ejecutando Query: " + query);

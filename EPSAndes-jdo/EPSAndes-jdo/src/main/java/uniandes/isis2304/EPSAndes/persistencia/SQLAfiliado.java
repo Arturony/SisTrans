@@ -45,6 +45,15 @@ class SQLAfiliado
 	{
 		this.pp = pp;
 	}
+	
+	public Afiliado darAfiliadoAleatorio(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * " + pp.darTablaAfiliado() + "");
+		q.setResultClass(Afiliado.class);
+		Afiliado resp = (Afiliado) q.executeUnique();
+        return resp;
+	}
+	
 	public long adicionarOrden(PersistenceManager pm, long idAfiliado, long idServicioSalud, long idOrden)
 	{
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaOrdenes() + "(\"ordenesID\", \"afiliadoID\", \"servicioID\") values (?, ?, ?)");
