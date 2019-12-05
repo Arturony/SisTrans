@@ -28,8 +28,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.omg.CORBA.Principal;
-
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JDayChooser;
 

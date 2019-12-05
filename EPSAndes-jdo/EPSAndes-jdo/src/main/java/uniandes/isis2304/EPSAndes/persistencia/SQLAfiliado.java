@@ -48,7 +48,7 @@ class SQLAfiliado
 	
 	public Afiliado darAfiliadoAleatorio(PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * " + pp.darTablaAfiliado() + "");
+		Query q = pm.newQuery(SQL, "SELECT * FROM (SELECT * FROM " + pp.darTablaAfiliado() + " ORDER BY dbms_random.value) WHERE rownum = 1 ");
 		q.setResultClass(Afiliado.class);
 		Afiliado resp = (Afiliado) q.executeUnique();
         return resp;

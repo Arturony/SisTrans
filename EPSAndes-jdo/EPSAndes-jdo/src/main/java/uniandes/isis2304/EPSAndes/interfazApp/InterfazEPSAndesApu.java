@@ -1188,14 +1188,14 @@ public class InterfazEPSAndesApu extends JFrame implements ActionListener
 			this.adicionarServicio(serv[(r.nextInt((serv.length)))], i+1, horario, (r.nextInt((200-10)+1)+10), cont, 0);
 		}*/
 		
-		for(int i = 0; i < 80000; i++)
+		/*for(int i = 0; i < 80000; i++)
 		{
 			LocalDateTime now = LocalDateTime.now();
 			Random r = new Random(now.getLong(ChronoField.NANO_OF_DAY));
 			long idAfiliado = epsAndes.darAfiliadoAleatorio().getAfiliadoID();
 			int idServ = r.nextInt((2000-1)+1)+1;
 			this.adicionarOrden((int) idAfiliado, idServ, (i+1));
-		}
+		}*/
 		
 		for(int i = 0; i < 400000; i++)
 		{

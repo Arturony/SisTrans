@@ -703,11 +703,7 @@ public class PersistenciaEPSAndes
         try
         {
             tx.begin();
-            if(puedePedirCita(idAfiliado, idServicio) != true)
-            {
-            	throw new Exception("El afiliado no tiene orden para este servicio");
-            }
-            else if(servicioReservado(idServicio) == true)
+            if(servicioReservado(idServicio) == true)
             {
             	throw new Exception("Este Servicio no está disponible en este momento");
             }
